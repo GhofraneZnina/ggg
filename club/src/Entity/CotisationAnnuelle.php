@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CotisationAnnuelleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CotisationAnnuelleRepository::class)]
@@ -21,6 +23,14 @@ class CotisationAnnuelle
 
     #[ORM\Column(length: 255)]
     private ?string $remarque = null;
+
+    #[ORM\ManyToMany(targetEntity: Nageur::class, mappedBy: 'cotisationAnnuelle')]
+    private Collection $nageurs;
+
+    public function __construct()
+    {
+        $this->nageurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +69,33 @@ class CotisationAnnuelle
     public function setRemarque(string $remarque): self
     {
         $this->remarque = $remarque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Nageur>
+     */
+    public function getNageurs(): Collection
+    {
+        return $this->nageurs;
+    }
+
+    public function addNageur(Nageur $nageur): self
+    {
+        if (!$this->nageurs->contains($nageur)) {
+            $this->nageurs->add($nageur);
+            $nageur->addCotisationAnnuelle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNageur(Nageur $nageur): self
+    {
+        if ($this->nageurs->removeElement($nageur)) {
+            $nageur->removeCotisationAnnuelle($this);
+        }
 
         return $this;
     }

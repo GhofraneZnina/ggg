@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NageurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -57,6 +59,30 @@ class Nageur
     #[Assert\NotBlank]
     #[Assert\Choice([self::SYSTEME_TN, self::SYSTEME_CN, self::SYSTEME_FR,self::SYSTEME_AUTRE ])]
     private ?string $typeEtablissement;
+
+    #[ORM\ManyToOne(inversedBy: 'nageurs')]
+    private ?groupe $groupe = null;
+
+    #[ORM\ManyToMany(targetEntity: categorie::class, inversedBy: 'nageurs')]
+    private Collection $categorie;
+
+    #[ORM\ManyToMany(targetEntity: cotisationAnnuelle::class, inversedBy: 'nageurs')]
+    private Collection $cotisationAnnuelle;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?physionomie $physionomie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'nageurs')]
+    private ?parents $parents = null;
+
+    #[ORM\ManyToOne(inversedBy: 'nageurs')]
+    private ?presence $presence = null;
+
+    public function __construct()
+    {
+        $this->categorie = new ArrayCollection();
+        $this->cotisationAnnuelle = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -179,6 +205,102 @@ class Nageur
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getGroupe(): ?groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?groupe $groupe): self
+    {
+        $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, categorie>
+     */
+    public function getCategorie(): Collection
+    {
+        return $this->categorie;
+    }
+
+    public function addCategorie(categorie $categorie): self
+    {
+        if (!$this->categorie->contains($categorie)) {
+            $this->categorie->add($categorie);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorie(categorie $categorie): self
+    {
+        $this->categorie->removeElement($categorie);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, cotisationAnnuelle>
+     */
+    public function getCotisationAnnuelle(): Collection
+    {
+        return $this->cotisationAnnuelle;
+    }
+
+    public function addCotisationAnnuelle(cotisationAnnuelle $cotisationAnnuelle): self
+    {
+        if (!$this->cotisationAnnuelle->contains($cotisationAnnuelle)) {
+            $this->cotisationAnnuelle->add($cotisationAnnuelle);
+        }
+
+        return $this;
+    }
+
+    public function removeCotisationAnnuelle(cotisationAnnuelle $cotisationAnnuelle): self
+    {
+        $this->cotisationAnnuelle->removeElement($cotisationAnnuelle);
+
+        return $this;
+    }
+
+    public function getPhysionomie(): ?physionomie
+    {
+        return $this->physionomie;
+    }
+
+    public function setPhysionomie(?physionomie $physionomie): self
+    {
+        $this->physionomie = $physionomie;
+
+        return $this;
+    }
+
+    public function getParents(): ?parents
+    {
+        return $this->parents;
+    }
+
+    public function setParents(?parents $parents): self
+    {
+        $this->parents = $parents;
+
+        return $this;
+    }
+
+    public function getPresence(): ?presence
+    {
+        return $this->presence;
+    }
+
+    public function setPresence(?presence $presence): self
+    {
+        $this->presence = $presence;
 
         return $this;
     }
