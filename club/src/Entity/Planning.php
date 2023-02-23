@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlanningRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class Planning
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $horaireFin = null;
+
+    #[ORM\OneToMany(mappedBy: 'planning', targetEntity: Saison::class)]
+    private Collection $saisons;
+
+    public function __construct()
+    {
+        $this->saisons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class Planning
     public function setHoraireFin(\DateTimeInterface $horaireFin): self
     {
         $this->horaireFin = $horaireFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Saison>
+     */
+    public function getSaisons(): Collection
+    {
+        return $this->saisons;
+    }
+
+    public function addSaison(Saison $saison): self
+    {
+        if (!$this->saisons->contains($saison)) {
+            $this->saisons->add($saison);
+            $saison->setPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaison(Saison $saison): self
+    {
+        if ($this->saisons->removeElement($saison)) {
+            // set the owning side to null (unless already changed)
+            if ($saison->getPlanning() === $this) {
+                $saison->setPlanning(null);
+            }
+        }
 
         return $this;
     }

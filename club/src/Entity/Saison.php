@@ -26,6 +26,18 @@ class Saison
     #[ORM\Column(length: 255)]
     private ?string $genre = null;
 
+    #[ORM\ManyToOne(inversedBy: 'saisons')]
+    private ?cotisationAnnuelle $cotisationAnnuelle = null;
+
+    #[ORM\ManyToOne(inversedBy: 'saisons')]
+    private ?planning $planning = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $OneToOne = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?tableauMinimas $TableauMinimas = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +87,54 @@ class Saison
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getCotisationAnnuelle(): ?cotisationAnnuelle
+    {
+        return $this->cotisationAnnuelle;
+    }
+
+    public function setCotisationAnnuelle(?cotisationAnnuelle $cotisationAnnuelle): self
+    {
+        $this->cotisationAnnuelle = $cotisationAnnuelle;
+
+        return $this;
+    }
+
+    public function getPlanning(): ?planning
+    {
+        return $this->planning;
+    }
+
+    public function setPlanning(?planning $planning): self
+    {
+        $this->planning = $planning;
+
+        return $this;
+    }
+
+    public function getOneToOne(): ?string
+    {
+        return $this->OneToOne;
+    }
+
+    public function setOneToOne(string $OneToOne): self
+    {
+        $this->OneToOne = $OneToOne;
+
+        return $this;
+    }
+
+    public function getTableauMinimas(): ?tableauMinimas
+    {
+        return $this->TableauMinimas;
+    }
+
+    public function setTableauMinimas(?tableauMinimas $TableauMinimas): self
+    {
+        $this->TableauMinimas = $TableauMinimas;
 
         return $this;
     }

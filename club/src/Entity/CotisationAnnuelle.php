@@ -27,9 +27,13 @@ class CotisationAnnuelle
     #[ORM\ManyToMany(targetEntity: Nageur::class, mappedBy: 'cotisationAnnuelle')]
     private Collection $nageurs;
 
+    #[ORM\OneToMany(mappedBy: 'cotisationAnnuelle', targetEntity: Saison::class)]
+    private Collection $saisons;
+
     public function __construct()
     {
         $this->nageurs = new ArrayCollection();
+        $this->saisons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,6 +99,36 @@ class CotisationAnnuelle
     {
         if ($this->nageurs->removeElement($nageur)) {
             $nageur->removeCotisationAnnuelle($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Saison>
+     */
+    public function getSaisons(): Collection
+    {
+        return $this->saisons;
+    }
+
+    public function addSaison(Saison $saison): self
+    {
+        if (!$this->saisons->contains($saison)) {
+            $this->saisons->add($saison);
+            $saison->setCotisationAnnuelle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaison(Saison $saison): self
+    {
+        if ($this->saisons->removeElement($saison)) {
+            // set the owning side to null (unless already changed)
+            if ($saison->getCotisationAnnuelle() === $this) {
+                $saison->setCotisationAnnuelle(null);
+            }
         }
 
         return $this;
