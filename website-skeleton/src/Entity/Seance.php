@@ -22,6 +22,10 @@ class Seance
     #[ORM\Column(length: 255)]
     private ?string $jour = null;
 
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?presence $presence = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +63,18 @@ class Seance
     public function setJour(string $jour): self
     {
         $this->jour = $jour;
+
+        return $this;
+    }
+
+    public function getPresence(): ?presence
+    {
+        return $this->presence;
+    }
+
+    public function setPresence(?presence $presence): self
+    {
+        $this->presence = $presence;
 
         return $this;
     }
