@@ -34,6 +34,10 @@ class Saison
     #[ORM\OneToMany(mappedBy: 'saison', targetEntity: CotisationAnnuelle::class)]
     private Collection $cotisationAnnuelles;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?tableauMinimas $tableauMinimas = null;
+
     public function __construct()
     {
         $this->plannings = new ArrayCollection();
@@ -149,6 +153,18 @@ class Saison
                 $cotisationAnnuelle->setSaison(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTableauMinimas(): ?tableauMinimas
+    {
+        return $this->tableauMinimas;
+    }
+
+    public function setTableauMinimas(tableauMinimas $tableauMinimas): self
+    {
+        $this->tableauMinimas = $tableauMinimas;
 
         return $this;
     }
