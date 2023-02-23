@@ -29,6 +29,10 @@ class Resultat
     #[Assert\Choice([self::COMPETITION, self::CHAMPIONAT])]
     private ?string $type;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?nageur $nageur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +58,18 @@ class Resultat
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getNageur(): ?nageur
+    {
+        return $this->nageur;
+    }
+
+    public function setNageur(?nageur $nageur): self
+    {
+        $this->nageur = $nageur;
 
         return $this;
     }
