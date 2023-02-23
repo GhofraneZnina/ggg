@@ -34,9 +34,13 @@ class Competition
     #[ORM\OneToMany(mappedBy: 'competition', targetEntity: LieuEntrainement::class)]
     private Collection $lieuEntrainements;
 
+    #[ORM\OneToMany(mappedBy: 'competition', targetEntity: ProgrammeCompetition::class)]
+    private Collection $programmeCompetitions;
+
     public function __construct()
     {
         $this->lieuEntrainements = new ArrayCollection();
+        $this->programmeCompetitions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +132,36 @@ class Competition
             // set the owning side to null (unless already changed)
             if ($lieuEntrainement->getCompetition() === $this) {
                 $lieuEntrainement->setCompetition(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProgrammeCompetition>
+     */
+    public function getProgrammeCompetitions(): Collection
+    {
+        return $this->programmeCompetitions;
+    }
+
+    public function addProgrammeCompetition(ProgrammeCompetition $programmeCompetition): self
+    {
+        if (!$this->programmeCompetitions->contains($programmeCompetition)) {
+            $this->programmeCompetitions->add($programmeCompetition);
+            $programmeCompetition->setCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgrammeCompetition(ProgrammeCompetition $programmeCompetition): self
+    {
+        if ($this->programmeCompetitions->removeElement($programmeCompetition)) {
+            // set the owning side to null (unless already changed)
+            if ($programmeCompetition->getCompetition() === $this) {
+                $programmeCompetition->setCompetition(null);
             }
         }
 

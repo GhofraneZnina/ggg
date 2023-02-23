@@ -19,6 +19,10 @@ class ProgrammeCompetition
     #[ORM\Column(length: 255)]
     private ?string $horaire = null;
 
+    #[ORM\ManyToOne(inversedBy: 'programmeCompetitions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?competition $competition = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class ProgrammeCompetition
     public function setHoraire(string $horaire): self
     {
         $this->horaire = $horaire;
+
+        return $this;
+    }
+
+    public function getCompetition(): ?competition
+    {
+        return $this->competition;
+    }
+
+    public function setCompetition(?competition $competition): self
+    {
+        $this->competition = $competition;
 
         return $this;
     }
