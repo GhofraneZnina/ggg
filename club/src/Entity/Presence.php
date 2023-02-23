@@ -25,9 +25,13 @@ class Presence
     #[ORM\OneToMany(mappedBy: 'presence', targetEntity: Nageur::class)]
     private Collection $nageurs;
 
+    #[ORM\ManyToMany(targetEntity: Entraineur::class, mappedBy: 'presence')]
+    private Collection $entraineurs;
+
     public function __construct()
     {
         $this->nageurs = new ArrayCollection();
+        $this->entraineurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +88,33 @@ class Presence
             if ($nageur->getPresence() === $this) {
                 $nageur->setPresence(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Entraineur>
+     */
+    public function getEntraineurs(): Collection
+    {
+        return $this->entraineurs;
+    }
+
+    public function addEntraineur(Entraineur $entraineur): self
+    {
+        if (!$this->entraineurs->contains($entraineur)) {
+            $this->entraineurs->add($entraineur);
+            $entraineur->addPresence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntraineur(Entraineur $entraineur): self
+    {
+        if ($this->entraineurs->removeElement($entraineur)) {
+            $entraineur->removePresence($this);
         }
 
         return $this;

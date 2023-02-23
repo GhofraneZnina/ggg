@@ -21,9 +21,13 @@ class Groupe
     #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: Nageur::class)]
     private Collection $nageurs;
 
+    #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: Entraineur::class)]
+    private Collection $entraineurs;
+
     public function __construct()
     {
         $this->nageurs = new ArrayCollection();
+        $this->entraineurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +71,36 @@ class Groupe
             // set the owning side to null (unless already changed)
             if ($nageur->getGroupe() === $this) {
                 $nageur->setGroupe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Entraineur>
+     */
+    public function getEntraineurs(): Collection
+    {
+        return $this->entraineurs;
+    }
+
+    public function addEntraineur(Entraineur $entraineur): self
+    {
+        if (!$this->entraineurs->contains($entraineur)) {
+            $this->entraineurs->add($entraineur);
+            $entraineur->setGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntraineur(Entraineur $entraineur): self
+    {
+        if ($this->entraineurs->removeElement($entraineur)) {
+            // set the owning side to null (unless already changed)
+            if ($entraineur->getGroupe() === $this) {
+                $entraineur->setGroupe(null);
             }
         }
 

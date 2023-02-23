@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EntraineurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,17 @@ class Entraineur
 
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
+
+    #[ORM\ManyToMany(targetEntity: presence::class, inversedBy: 'entraineurs')]
+    private Collection $presence;
+
+    #[ORM\ManyToOne(inversedBy: 'entraineurs')]
+    private ?groupe $groupe = null;
+
+    public function __construct()
+    {
+        $this->presence = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +118,42 @@ class Entraineur
     public function setStatut(string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, presence>
+     */
+    public function getPresence(): Collection
+    {
+        return $this->presence;
+    }
+
+    public function addPresence(presence $presence): self
+    {
+        if (!$this->presence->contains($presence)) {
+            $this->presence->add($presence);
+        }
+
+        return $this;
+    }
+
+    public function removePresence(presence $presence): self
+    {
+        $this->presence->removeElement($presence);
+
+        return $this;
+    }
+
+    public function getGroupe(): ?groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?groupe $groupe): self
+    {
+        $this->groupe = $groupe;
 
         return $this;
     }
