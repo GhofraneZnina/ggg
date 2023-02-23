@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 use App\Repository\ParentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ParentsRepository::class)]
@@ -34,6 +36,14 @@ class Parents
 
     #[ORM\OneToOne(mappedBy: 'parents', cascade: ['persist', 'remove'])]
     private ?Utilisateur $email = null;
+
+    #[ORM\OneToMany(mappedBy: 'parents', targetEntity: Nageur::class)]
+    private Collection $nageurs;
+
+    public function __construct()
+    {
+        $this->nageurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -115,6 +125,36 @@ class Parents
         }
 
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Nageur>
+     */
+    public function getNageurs(): Collection
+    {
+        return $this->nageurs;
+    }
+
+    public function addNageur(Nageur $nageur): self
+    {
+        if (!$this->nageurs->contains($nageur)) {
+            $this->nageurs->add($nageur);
+            $nageur->setParents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNageur(Nageur $nageur): self
+    {
+        if ($this->nageurs->removeElement($nageur)) {
+            // set the owning side to null (unless already changed)
+            if ($nageur->getParents() === $this) {
+                $nageur->setParents(null);
+            }
+        }
 
         return $this;
     }

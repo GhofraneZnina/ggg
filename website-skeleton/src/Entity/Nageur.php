@@ -69,10 +69,17 @@ class Nageur
     #[ORM\JoinColumn(nullable: false)]
     private ?physionomie $physionomie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'nageurs')]
+    private ?parents $parents = null;
+
+    #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: Presence::class)]
+    private Collection $presences;
+
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
         $this->cotisation = new ArrayCollection();
+        $this->presences = new ArrayCollection();
     }
 
    
@@ -237,6 +244,48 @@ class Nageur
     public function setPhysionomie(physionomie $physionomie): self
     {
         $this->physionomie = $physionomie;
+
+        return $this;
+    }
+
+    public function getParents(): ?parents
+    {
+        return $this->parents;
+    }
+
+    public function setParents(?parents $parents): self
+    {
+        $this->parents = $parents;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Presence>
+     */
+    public function getPresences(): Collection
+    {
+        return $this->presences;
+    }
+
+    public function addPresence(Presence $presence): self
+    {
+        if (!$this->presences->contains($presence)) {
+            $this->presences->add($presence);
+            $presence->setNageur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresence(Presence $presence): self
+    {
+        if ($this->presences->removeElement($presence)) {
+            // set the owning side to null (unless already changed)
+            if ($presence->getNageur() === $this) {
+                $presence->setNageur(null);
+            }
+        }
 
         return $this;
     }
