@@ -33,6 +33,9 @@ class Resultat
     #[ORM\JoinColumn(nullable: false)]
     private ?nageur $nageur = null;
 
+    #[ORM\ManyToOne(inversedBy: 'resultat')]
+    private ?ProgrammeCompetition $programmeCompetition = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +73,18 @@ class Resultat
     public function setNageur(?nageur $nageur): self
     {
         $this->nageur = $nageur;
+
+        return $this;
+    }
+
+    public function getProgrammeCompetition(): ?ProgrammeCompetition
+    {
+        return $this->programmeCompetition;
+    }
+
+    public function setProgrammeCompetition(?ProgrammeCompetition $programmeCompetition): self
+    {
+        $this->programmeCompetition = $programmeCompetition;
 
         return $this;
     }

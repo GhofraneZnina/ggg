@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProgrammeCompetitionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgrammeCompetitionRepository::class)]
@@ -22,6 +24,14 @@ class ProgrammeCompetition
     #[ORM\ManyToOne(inversedBy: 'programmeCompetitions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?competition $competition = null;
+
+    #[ORM\OneToMany(mappedBy: 'programmeCompetition', targetEntity: resultat::class)]
+    private Collection $resultat;
+
+    public function __construct()
+    {
+        $this->resultat = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class ProgrammeCompetition
     public function setCompetition(?competition $competition): self
     {
         $this->competition = $competition;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, resultat>
+     */
+    public function getResultat(): Collection
+    {
+        return $this->resultat;
+    }
+
+    public function addResultat(resultat $resultat): self
+    {
+        if (!$this->resultat->contains($resultat)) {
+            $this->resultat->add($resultat);
+            $resultat->setProgrammeCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(resultat $resultat): self
+    {
+        if ($this->resultat->removeElement($resultat)) {
+            // set the owning side to null (unless already changed)
+            if ($resultat->getProgrammeCompetition() === $this) {
+                $resultat->setProgrammeCompetition(null);
+            }
+        }
 
         return $this;
     }
