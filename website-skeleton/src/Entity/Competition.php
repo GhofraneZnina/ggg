@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompetitionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,14 @@ class Competition
 
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
+
+    #[ORM\OneToMany(mappedBy: 'competition', targetEntity: LieuEntrainement::class)]
+    private Collection $lieuEntrainements;
+
+    public function __construct()
+    {
+        $this->lieuEntrainements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +100,36 @@ class Competition
     public function setStatut(string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LieuEntrainement>
+     */
+    public function getLieuEntrainements(): Collection
+    {
+        return $this->lieuEntrainements;
+    }
+
+    public function addLieuEntrainement(LieuEntrainement $lieuEntrainement): self
+    {
+        if (!$this->lieuEntrainements->contains($lieuEntrainement)) {
+            $this->lieuEntrainements->add($lieuEntrainement);
+            $lieuEntrainement->setCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLieuEntrainement(LieuEntrainement $lieuEntrainement): self
+    {
+        if ($this->lieuEntrainements->removeElement($lieuEntrainement)) {
+            // set the owning side to null (unless already changed)
+            if ($lieuEntrainement->getCompetition() === $this) {
+                $lieuEntrainement->setCompetition(null);
+            }
+        }
 
         return $this;
     }

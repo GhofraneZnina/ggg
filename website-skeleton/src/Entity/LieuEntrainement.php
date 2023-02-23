@@ -33,6 +33,9 @@ class LieuEntrainement
     #[ORM\JoinColumn(nullable: false)]
     private ?seance $seance = null;
 
+    #[ORM\ManyToOne(inversedBy: 'lieuEntrainements')]
+    private ?competition $competition = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +73,18 @@ class LieuEntrainement
     public function setSeance(?seance $seance): self
     {
         $this->seance = $seance;
+
+        return $this;
+    }
+
+    public function getCompetition(): ?competition
+    {
+        return $this->competition;
+    }
+
+    public function setCompetition(?competition $competition): self
+    {
+        $this->competition = $competition;
 
         return $this;
     }
