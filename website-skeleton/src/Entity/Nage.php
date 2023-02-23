@@ -54,6 +54,10 @@ class Nage
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
+    #[ORM\ManyToOne(inversedBy: 'nage')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TableauMinimas $tableauMinimas = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,6 +71,18 @@ class Nage
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function getTableauMinimas(): ?TableauMinimas
+    {
+        return $this->tableauMinimas;
+    }
+
+    public function setTableauMinimas(?TableauMinimas $tableauMinimas): self
+    {
+        $this->tableauMinimas = $tableauMinimas;
 
         return $this;
     }
