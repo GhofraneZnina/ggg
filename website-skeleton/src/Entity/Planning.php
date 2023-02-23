@@ -23,6 +23,10 @@ class Planning
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
+    #[ORM\ManyToOne(inversedBy: 'plannings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?saison $saison = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Planning
     public function setStatut(string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getSaison(): ?saison
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(?saison $saison): self
+    {
+        $this->saison = $saison;
 
         return $this;
     }

@@ -29,6 +29,10 @@ class LieuEntrainement
     #[Assert\Choice([self::PISCINE25, self::PISCINE50, self::PISCINE_AUT ])]
     private ?string $piscine;
 
+    #[ORM\ManyToOne(inversedBy: 'lieuEntrainements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?seance $seance = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +58,18 @@ class LieuEntrainement
     public function setDesription(string $desription): self
     {
         $this->desription = $desription;
+
+        return $this;
+    }
+
+    public function getSeance(): ?seance
+    {
+        return $this->seance;
+    }
+
+    public function setSeance(?seance $seance): self
+    {
+        $this->seance = $seance;
 
         return $this;
     }

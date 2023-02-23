@@ -22,6 +22,10 @@ class CotisationAnnuelle
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $remarque = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cotisationAnnuelles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?saison $saison = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +63,18 @@ class CotisationAnnuelle
     public function setRemarque(?string $remarque): self
     {
         $this->remarque = $remarque;
+
+        return $this;
+    }
+
+    public function getSaison(): ?saison
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(?saison $saison): self
+    {
+        $this->saison = $saison;
 
         return $this;
     }

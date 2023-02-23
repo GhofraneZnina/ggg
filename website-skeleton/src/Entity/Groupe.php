@@ -16,6 +16,10 @@ class Groupe
     #[ORM\Column(length: 255)]
     private ?string $intitulé = null;
 
+    #[ORM\ManyToOne(inversedBy: 'groupes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?seance $seance = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +33,18 @@ class Groupe
     public function setIntitulé(string $intitulé): self
     {
         $this->intitulé = $intitulé;
+
+        return $this;
+    }
+
+    public function getSeance(): ?seance
+    {
+        return $this->seance;
+    }
+
+    public function setSeance(?seance $seance): self
+    {
+        $this->seance = $seance;
 
         return $this;
     }
