@@ -26,6 +26,10 @@ class Entraineur
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\OneToOne(inversedBy: 'entraineur', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +79,18 @@ class Entraineur
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ParentsRepository::class)]
@@ -27,6 +29,18 @@ class Parents
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
+
+    #[ORM\OneToOne(inversedBy: 'parents', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'parents', targetEntity: Nageur::class)]
+    private Collection $nageurs;
+
+    public function __construct()
+    {
+        $this->nageurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +103,48 @@ class Parents
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(user $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Nageur>
+     */
+    public function getNageurs(): Collection
+    {
+        return $this->nageurs;
+    }
+
+    public function addNageur(Nageur $nageur): self
+    {
+        if (!$this->nageurs->contains($nageur)) {
+            $this->nageurs->add($nageur);
+            $nageur->setParents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNageur(Nageur $nageur): self
+    {
+        if ($this->nageurs->removeElement($nageur)) {
+            // set the owning side to null (unless already changed)
+            if ($nageur->getParents() === $this) {
+                $nageur->setParents(null);
+            }
+        }
 
         return $this;
     }

@@ -44,6 +44,14 @@ class Nageur
     #[ORM\Column(length: 255)]
     private ?string $genre = null;
 
+    #[ORM\OneToOne(inversedBy: 'nageur', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'nageurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?parents $parents = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +137,30 @@ class Nageur
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(user $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getParents(): ?parents
+    {
+        return $this->parents;
+    }
+
+    public function setParents(?parents $parents): self
+    {
+        $this->parents = $parents;
 
         return $this;
     }

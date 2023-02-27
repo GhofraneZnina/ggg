@@ -29,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\Column(length: 100)]
@@ -43,6 +43,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $profilFacebook = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Nageur $nageur = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Parents $parents = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Entraineur $entraineur = null;
 
 
     public function getId(): ?int
@@ -171,6 +180,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfilFacebook(string $profilFacebook): self
     {
         $this->profilFacebook = $profilFacebook;
+
+        return $this;
+    }
+
+    public function getNageur(): ?Nageur
+    {
+        return $this->nageur;
+    }
+
+    public function setNageur(Nageur $nageur): self
+    {
+        // set the owning side of the relation if necessary
+        if ($nageur->getUser() !== $this) {
+            $nageur->setUser($this);
+        }
+
+        $this->nageur = $nageur;
+
+        return $this;
+    }
+
+    public function getParents(): ?Parents
+    {
+        return $this->parents;
+    }
+
+    public function setParents(Parents $parents): self
+    {
+        // set the owning side of the relation if necessary
+        if ($parents->getUser() !== $this) {
+            $parents->setUser($this);
+        }
+
+        $this->parents = $parents;
+
+        return $this;
+    }
+
+    public function getEntraineur(): ?Entraineur
+    {
+        return $this->entraineur;
+    }
+
+    public function setEntraineur(Entraineur $entraineur): self
+    {
+        // set the owning side of the relation if necessary
+        if ($entraineur->getUser() !== $this) {
+            $entraineur->setUser($this);
+        }
+
+        $this->entraineur = $entraineur;
 
         return $this;
     }
