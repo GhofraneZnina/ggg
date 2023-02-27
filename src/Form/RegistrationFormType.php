@@ -33,14 +33,7 @@ class RegistrationFormType extends AbstractType
             'label' => 'Login'
         ])
         
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'En m\'inscrivant à ce site j\'accepte',
-                    ]),
-                ],
-            ])
+            
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -67,4 +60,5 @@ class RegistrationFormType extends AbstractType
             'data_class' => User::class,
         ]);
     }
+    
 }
