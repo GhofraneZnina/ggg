@@ -31,11 +31,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setRoles(["ROLE_ADMIN"]);
+            $user->setRole(["ROLE_ADMIN"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('main');
+            $this->redirectToRoute('login');
             // do anything else you need here, like send an email
            // return redirectToRoute()
 

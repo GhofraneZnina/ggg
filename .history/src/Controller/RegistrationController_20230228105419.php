@@ -35,7 +35,7 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('main');
+            $this->redirectToRoute('main');
             // do anything else you need here, like send an email
            // return redirectToRoute()
 
