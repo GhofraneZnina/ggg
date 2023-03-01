@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Entraineur $entraineur = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?entraineur $entraineurs = null;
+
 
     public function getId(): ?int
     {
@@ -231,6 +234,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->entraineur = $entraineur;
+
+        return $this;
+    }
+
+    public function getEntraineurs(): ?entraineur
+    {
+        return $this->entraineurs;
+    }
+
+    public function setEntraineurs(?entraineur $entraineurs): self
+    {
+        $this->entraineurs = $entraineurs;
 
         return $this;
     }
