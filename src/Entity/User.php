@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['login'], message: 'There is already an account with this login')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+   
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,8 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $login = null;
 
-    #[ORM\Column]
-    private array $roles = [];
+
 
     /**
      * @var string The hashed password
@@ -29,7 +29,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-     #[ORM\Column(length: 255)]
+    
+    #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\Column(length: 100)]
@@ -44,13 +45,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $profilFacebook = null;
 
+    #[ORM\Column]
+    private array $roles = [];
+
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\Column(nullable: true)]
     private ?Nageur $nageur = null;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\Column(nullable: true)]
     private ?Parents $parents = null;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\Column(nullable: true)]
     private ?Entraineur $entraineur = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -192,7 +199,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->nageur;
     }
 
-    public function setNageur(Nageur $nageur): self
+    public function setNageur(?Nageur $nageur): self
     {
         // set the owning side of the relation if necessary
         if ($nageur->getUser() !== $this) {
@@ -209,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->parents;
     }
 
-    public function setParents(Parents $parents): self
+    public function setParents(?Parents $parents): self
     {
         // set the owning side of the relation if necessary
         if ($parents->getUser() !== $this) {
@@ -226,7 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->entraineur;
     }
 
-    public function setEntraineur(Entraineur $entraineur): self
+    public function setEntraineur(?Entraineur $entraineur): self
     {
         // set the owning side of the relation if necessary
         if ($entraineur->getUser() !== $this) {
