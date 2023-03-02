@@ -26,5 +26,14 @@ class MainController extends AbstractController
         return $this->render('main/add.html.twig',[
             'form' => $form->createView(),
         ]);  
+    }
+        #[Route('update', name: 'update_entraineur')]
+        public function update(): Response
+        {
+            $entraineur=new Entraineur();
+            $form = $this->createForm(EntraineurFormType::class, $entraineur);
+            return $this->render('main/update.html.twig',[
+                'form' => $form->createView(),
+            ]);  
     } 
 }
