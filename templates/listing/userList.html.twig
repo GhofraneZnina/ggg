@@ -63,17 +63,18 @@
 								</tr>
 							</thead>
 
+
 							<tbody>
-								@foreach($donnes as $donee)
+								@foreach($user as $donees)
 
 								<tr>
-									<td>{{$donee['login']}}</td>
-									<td>{{$donee['password']}}</td>
-									<td>{{$donee['nom']}}</td>
-									<td>{{$donee['prenom']}}</td>
-									<td>{{$donee['telephone']}}</td>
-									<td>{{$donee['profile_facebook']}}</td>
-                  <td>{{$donee['email']}}</td>
+									<td>{{$donees['login']}}</td>
+									<td>{{$donees['password']}}</td>
+									<td>{{$donees['nom']}}</td>
+									<td>{{$donees['prenom']}}</td>
+									<td>{{$donees['telephone']}}</td>
+									<td>{{$donees['profile_facebook']}}</td>
+									<td>{{$donees['email']}}</td>
 
 									<td>
 
