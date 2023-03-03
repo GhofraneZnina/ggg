@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Entraineur $entraineur = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?entraineur $entraineurs = null;
+    private ?Entraineur $entraineurs = null;
 
 
     public function getId(): ?int

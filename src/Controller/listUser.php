@@ -11,6 +11,9 @@ class listUser extends AbstractController
     #[Route('/list', name: 'list')]
     public function index(): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('login') ;
+        }
         return $this->render('preparation/userlist.html.twig', [
             'controller_name' => 'ListUser',
         ]);

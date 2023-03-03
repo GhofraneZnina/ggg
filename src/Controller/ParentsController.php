@@ -10,7 +10,11 @@ class ParentsController extends AbstractController
 {
     #[Route('/parents', name: 'app_parents')]
     public function index(): Response
+
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('login') ;
+        }
         return $this->render('parents/index.html.twig', [
             'controller_name' => 'ParentsController',
         ]);
