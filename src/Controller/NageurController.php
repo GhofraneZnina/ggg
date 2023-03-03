@@ -14,5 +14,23 @@ class NageurController extends AbstractController
         return $this->render('nageur/index.html.twig', [
             'controller_name' => 'NageurController',
         ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
 }
