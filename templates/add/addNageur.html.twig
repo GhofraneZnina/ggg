@@ -38,27 +38,25 @@
 							<div class="card-content">
 
 
-								{{ form_start(nageurFormType) }}
-								{{ form_row(nageurFormType.login) }}
+								{{ form_start(NageurFormType) }}
+								{{ form_row(NageurFormType.login) }}
 
 
-								{{ form_row(nageurFormType.plainPassword, {
+								{{ form_row(NageurFormType.plainPassword, {
             label: 'Mot de passe'
         }) }}
-								{{ form_row(nageurFormType.numLicence) }}
-								{{ form_row(nageurFormType.dateLicence) }}
-								{{ form_row(nageurFormType.photo) }}
-								{{ form_row(nageurFormType.dateDebutActiviteSprtive) }}
-								{{ form_row(nageurFormType.remarque) }}
-                                {{ form_row(nageurFormType.typeEtablissement) }}
-                                 {{ form_row(nageurFormType.genre) }}
-                                  {{ form_row(nageurFormType.date_naissance) }}
-                               
-                    
+								{{ form_row(NageurFormType.numLicence) }}
+								{{ form_row(NageurFormType.dateLicence) }}
+								{{ form_row(NageurFormType.photo) }}
+								{{ form_row(NageurFormType.dateDebutActiviteSprtive) }}
+								{{ form_row(NageurFormType.remarque) }}
+								{{ form_row(NageurFormType.typeEtablissement) }}
+								{{ form_row(NageurFormType.genre) }}
+								{{ form_row(NageurFormType.date_naissance) }}
 
-							
-									<button type="submit" class="btn">Ajouter</button>
-							
+
+								<button type="submit" class="btn">Ajouter</button>
+
 
 								{{ form_end(registrationForm) }}
 							</div>
@@ -220,7 +218,7 @@
 												<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false">
 													<ul class="select2-selection__rendered">
 														<li class="select2-selection__choice" title="The Dark Knight
-															                    " data-select2-id="15">
+																														                    " data-select2-id="15">
 															<span class="select2-selection__choice__remove" role="presentation">×</span>The Dark Knight
 														</li>
 														<li class="select2-selection__choice" title="Harry Potter" data-select2-id="16">

@@ -64,8 +64,4 @@ class ParentsRepository extends ServiceEntityRepository
 //        ;
 //    }
 }
-<<<<<<< HEAD
 ?>
-=======
-?>
->>>>>>> task-7004
