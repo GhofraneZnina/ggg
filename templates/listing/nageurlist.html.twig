@@ -1,0 +1,101 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<section class="users-list-wrapper section ">
+		<div class="users-list-filter">
+			<div class="card-panel">
+				<div class="row">
+					<form>
+						<div class="col s12 m6 l3">
+							<label for="users-list-verified">Verified</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-verified">
+									<option value="">Any</option>
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3">
+							<label for="users-list-role">Role</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-role">
+									<option value="">Any</option>
+									<option value="User">User</option>
+									<option value="Staff">Staff</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3">
+							<label for="users-list-status">Status</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-status">
+									<option value="">Any</option>
+									<option value="Active">Active</option>
+									<option value="Close">Close</option>
+									<option value="Banned">Banned</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3 display-flex align-items-center show-btn">
+							<button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="users-list-table">
+			<div class="card">
+				<div
+					class="card-content">
+					<!-- datatable start -->
+					<div class="responsive-table">
+						<table id="users-list-datatable" class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>num_licence</th>
+									<th>date_licence</th>
+									<th>photo</th>
+									<th>prenom</th>
+									<th>date_debut_activite_sportive</th>
+									<th>remarque</th>
+									<th>genre</th>
+                                    <th>type etablissement</th>
+								</tr>
+							</thead>
+
+
+							{# <tbody>
+								@foreach($user as $donees)
+
+								<tr>
+									<td>{{$donees['login']}}</td>
+									<td>{{$donees['password']}}</td>
+									<td>{{$donees['nom']}}</td>
+									<td>{{$donees['prenom']}}</td>
+									<td>{{$donees['telephone']}}</td>
+									<td>{{$donees['profile_facebook']}}</td>
+									<td>{{$donees['email']}}</td>
+
+									<td>
+
+										<a href="modifclient/{{$donee['id']}}" class="btn btn-warning">Modifier</a>
+
+									</td>
+									<td>
+										<a href="deleteclient/{{$donee['id']}}" class="btn btn-danger">supprimer</a>
+
+									</td>
+								</tr>
+								@endforeach
+
+							</tbody> #}
+						</table>
+					</div>
+					<!-- datatable ends -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
