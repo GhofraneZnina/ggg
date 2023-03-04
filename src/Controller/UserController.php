@@ -32,7 +32,7 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setRoles(["ROLE_ADMIN"]);
+            $user->setRoles(["ROLE_user"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -50,6 +50,73 @@ class UserController extends AbstractController
 
         return $this->render('add/addUser.html.twig', [
             'registrationForm' => $form->createView(),
-        ]);
+        ]);   
     }
+    
+public function getuser(){
+    $user=user::all();
+    return view('listing/userlist.html.twig',['donnees'=>$user]);
 }
+    public function getuserId($id){
+        $user=user::find($id);
+        return view('modifier/modifieruser',['donnees'=>$user]);
+    }
+    
+    public function adduser(Request $req){
+        $user=new user();
+        $user->login=$req->login;
+        $user->password=$req->password;
+        $user->nom=$req->nom;
+        $user->prenom=$req->prenom;
+        $user->telephone=$req->telephone;
+        $user->profil_facebook=$req->profil_facebook;
+        $user->email=$req->email;
+       
+        
+            $user->save();
+            return redirect('listing/userlist.html.twig')->with('message', 'utilisateur bien ajouté');
+       
+        }
+
+    public function deleteuser($id)
+{
+        $user=user::find($id);
+        $user->delete();
+        return redirect('/listing/userlist.html.twig')->with('messagee', 'administrateur supprimé');
+}
+    public function updateuser(Request $req){
+        $user=user::find($req->id);
+        $user->login=$req->login;
+        $user->password=$req->password;
+        $user->nom=$req->nom;
+        $user->prenom=$req->prenom;
+        $user->telephone=$req->telephone;
+        $user->profil_facebook=$req->profil_facebook;
+        $user->email=$req->email;
+    
+        $user->save();
+        return redirect('listing/userlist.html.twig')->with('messageee', 'administrateur modifié');
+   
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+?>

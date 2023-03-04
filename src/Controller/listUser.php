@@ -19,3 +19,4 @@ class listUser extends AbstractController
         ]);
     }
 }
+?>

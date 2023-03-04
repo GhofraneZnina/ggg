@@ -95,3 +95,4 @@ class Entraineur
         return $this;
     }
 }
+?>
