@@ -22,6 +22,7 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+<<<<<<< HEAD
     #[Route('add', name: 'add_entraineur')]
     public function add(): Response
     {
@@ -78,4 +79,8 @@ class MainController extends AbstractController
                 }
       } 
       ?>
+=======
+}
+>>>>>>> task-7004
 
+?>

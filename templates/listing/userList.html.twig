@@ -63,6 +63,7 @@
 								</tr>
 							</thead>
 
+<<<<<<< HEAD
 
 							<tbody>
 								@foreach($user as $donees)
@@ -75,6 +76,19 @@
 									<td>{{$donees['telephone']}}</td>
 									<td>{{$donees['profile_facebook']}}</td>
 									<td>{{$donees['email']}}</td>
+=======
+							<tbody>
+								@foreach($donnes as $donee)
+
+								<tr>
+									<td>{{$donee['login']}}</td>
+									<td>{{$donee['password']}}</td>
+									<td>{{$donee['nom']}}</td>
+									<td>{{$donee['prenom']}}</td>
+									<td>{{$donee['telephone']}}</td>
+									<td>{{$donee['profile_facebook']}}</td>
+                  <td>{{$donee['email']}}</td>
+>>>>>>> task-7004
 
 									<td>
 
@@ -97,4 +111,8 @@
 		</div>
 	</section>
 
+<<<<<<< HEAD
 {% endblock %}
+=======
+{% endblock %}
+>>>>>>> task-7004

@@ -32,3 +32,4 @@ class NageurType extends AbstractType
         ]);
     }
 }
+?>
