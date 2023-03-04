@@ -20,3 +20,4 @@ class ParentsController extends AbstractController
         ]);
     }
 }
+?>

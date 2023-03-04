@@ -16,3 +16,4 @@ class EntraineurController extends AbstractController
         ]);
     }
 }
+?>
