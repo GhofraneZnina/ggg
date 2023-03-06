@@ -4,19 +4,17 @@ namespace App\Entity;
 
 use App\Repository\NageurRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NageurRepository::class)]
-class Nageur
+class Nageur extends User
 {
     const SYSTEME_TN = 'Systeme tunisien' ;
     const SYSTEME_CN ='systeme canadien' ;
     const SYSTEME_FR ='systeme francais' ;
     const SYSTEME_AUTRE='autre';
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $numLicence = null;
@@ -44,18 +42,12 @@ class Nageur
     #[ORM\Column(length: 255)]
     private ?string $genre = null;
 
-    #[ORM\OneToOne(inversedBy: 'nageur', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?user $user = null;
-
     #[ORM\ManyToOne(inversedBy: 'nageurs')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?parents $parents = null;
+    private ?Parents $parent = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
+
 
     public function getNumLicence(): ?string
     {
@@ -141,28 +133,17 @@ class Nageur
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getParent(): ?Parents
     {
-        return $this->user;
+        return $this->parent;
     }
 
-    public function setUser(user $user): self
+    public function setParent(?Parents $parent): self
     {
-        $this->user = $user;
+        $this->parent = $parent;
 
         return $this;
     }
 
-    public function getParents(): ?parents
-    {
-        return $this->parents;
-    }
-
-    public function setParents(?parents $parents): self
-    {
-        $this->parents = $parents;
-
-        return $this;
-    }
 }
 ?>

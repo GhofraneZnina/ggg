@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -10,15 +11,24 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['login'], message: 'There is already an account with this login')]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr_type', type: 'string')]
+#[ORM\DiscriminatorMap(['user' => User::class, 'parent' => Parents::class, 'nageur' => Nageur::class, 'entraineur' => Entraineur::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-   
+    const STATUT_ACTIF = 1;
+    const STATUT_BLOQUE = 0;
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_NAGEUR = 'ROLE_NAGEUR';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+
+
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $login = null;
 
 
@@ -36,32 +46,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $profilFacebook = null;
 
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\Column(nullable: true)]
-    private ?Nageur $nageur = null;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\Column(nullable: true)]
-    private ?Parents $parents = null;
+    #[ORM\Column(type: 'smallint')]
+    #[Assert\NotBlank]
+    #[Assert\Choice([self::STATUT_ACTIF, self::STATUT_BLOQUE])]
+    private $status;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\Column(nullable: true)]
-    private ?Entraineur $entraineur = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Entraineur $entraineurs = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profileFacebook = null;
+    
+    #[Assert\Length(
+        max: 255,
+        minMessage: 'Minimum 2 character',
+        maxMessage: 'Maximum 255 character',
+    )]
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
 
 
     public function getId(): ?int
@@ -158,18 +165,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
     public function getTelephone(): ?string
     {
         return $this->telephone;
@@ -182,80 +177,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProfilFacebook(): ?string
+
+    public function getStatus(): ?int
     {
-        return $this->profilFacebook;
+        return $this->status;
     }
 
-    public function setProfilFacebook(string $profilFacebook): self
+    public function setStatus(int $status): self
     {
-        $this->profilFacebook = $profilFacebook;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getNageur(): ?Nageur
+    public function getProfileFacebook(): ?string
     {
-        return $this->nageur;
+        return $this->profileFacebook;
     }
 
-    public function setNageur(?Nageur $nageur): self
+    public function setProfileFacebook(?string $profileFacebook): self
     {
-        // set the owning side of the relation if necessary
-        if ($nageur->getUser() !== $this) {
-            $nageur->setUser($this);
-        }
-
-        $this->nageur = $nageur;
+        $this->profileFacebook = $profileFacebook;
 
         return $this;
     }
 
-    public function getParents(): ?Parents
+    public function getPrenom(): ?string
     {
-        return $this->parents;
+        return $this->prenom;
     }
 
-    public function setParents(?Parents $parents): self
+    public function setPrenom(string $prenom): self
     {
-        // set the owning side of the relation if necessary
-        if ($parents->getUser() !== $this) {
-            $parents->setUser($this);
-        }
-
-        $this->parents = $parents;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
-    public function getEntraineur(): ?Entraineur
-    {
-        return $this->entraineur;
-    }
-
-    public function setEntraineur(?Entraineur $entraineur): self
-    {
-        // set the owning side of the relation if necessary
-        if ($entraineur->getUser() !== $this) {
-            $entraineur->setUser($this);
-        }
-
-        $this->entraineur = $entraineur;
-
-        return $this;
-    }
-
-    public function getEntraineurs(): ?entraineur
-    {
-        return $this->entraineurs;
-    }
-
-    public function setEntraineurs(?entraineur $entraineurs): self
-    {
-        $this->entraineurs = $entraineurs;
-
-        return $this;
-    }
 
     
 

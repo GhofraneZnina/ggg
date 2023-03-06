@@ -4,15 +4,13 @@ namespace App\Entity;
 
 use App\Repository\EntraineurRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EntraineurRepository::class)]
-class Entraineur
+class Entraineur extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateNaissance = null;
@@ -23,17 +21,7 @@ class Entraineur
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
 
-    #[ORM\OneToOne(inversedBy: 'entraineur', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?user $user = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDateNaissance(): ?\DateTimeInterface
     {
@@ -71,28 +59,5 @@ class Entraineur
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getUser(): ?user
-    {
-        return $this->user;
-    }
-
-    public function setUser(user $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }
 ?>

@@ -1,0 +1,98 @@
+{% extends "base.html.twig" %}
+{% block title %}Create user{% endblock %}
+{% block pageTitle %}Create user{% endblock %}
+{% block levelOne %}<li class="breadcrumb-item"><a href="{{ path('app_admin_user_list') }}">Users</a></li>{% endblock %}
+{% block levelTwo %}<li class="breadcrumb-item active">Create user</li>{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+{% endblock %}
+{% block body %}
+    {#  Show alert : START #}
+    {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {#  Show alert : END  #}
+    <div class="section users-edit">
+        <div class="card">
+            <div class="card-content">
+                <div class="divider mb-3"></div>
+                <div class="row">
+                    <div class="col s12" id="account">
+                        <!-- users edit media object ends -->
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col s12 ">
+                                    <div class="row">
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
+                                            <label class="active">Prenom</label>
+                                            <small class="errorTxt1"></small>
+                                        </div>
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+                                            <label class="active">Nom</label>
+                                            <small class="errorTxt2"></small>
+                                        </div>
+                                        <div class="col s12 input-field">
+                                            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+                                            <label class="active">Email</label>
+                                            <small class="errorTxt3"></small>
+                                        </div>
+                                        <div class="col s12 input-field">
+                                            {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt4'}}) }}
+                                            <label class="active">Telephone</label>
+                                            <small class="errorTxt4"></small>
+                                        </div>
+                                        <div class="col s12 input-field">
+                                            {{ form_widget(form.profileFacebook, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt5'}}) }}
+                                            <label class="active">Facebook</label>
+                                            <small class="errorTxt5"></small>
+                                        </div>
+                                        <div class="col s12 input-field">
+                                            {{ form_widget(form.login, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
+                                            <label class="active">Login</label>
+                                            <small class="errorTxt6"></small>
+                                        </div>
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(form.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+                                            <label class="active">Password</label>
+                                            <small class="errorTxt7"></small>
+                                        </div>
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+                                            <label class="active">Confirm password</label>
+                                            <small class="errorTxt8"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 display-flex justify-content-end mt-3">
+                                    {{ form_widget(form.submit) }}
+                                    <button type="button" class="btn btn-light">Cancel</button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        <!-- users edit account form ends -->
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
