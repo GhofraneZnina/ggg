@@ -23,7 +23,7 @@ class UserController extends AbstractController
     public function index(): Response
     {
         if (!$this->getUser()) {
-          //  return $this->redirectToRoute('login') ;
+          return $this->redirectToRoute('login') ;
         }
 
         $users = $this->em->getRepository(User::class)->findAll() ;
@@ -37,7 +37,7 @@ class UserController extends AbstractController
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if (!$this->getUser()) {
-        //  return $this->redirectToRoute('login') ;
+          return $this->redirectToRoute('login') ;
         }
         $user = new User() ;
         $user->setRoles([User::ROLE_ADMIN])  ;
@@ -75,7 +75,7 @@ class UserController extends AbstractController
     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, $id): Response
     {
         if (!$this->getUser()) {
-          //  return $this->redirectToRoute('login') ;
+            return $this->redirectToRoute('login') ;
         }
         $user = $this->em->getRepository(User::class)->findOneBy(['id'=>$id]);
 
