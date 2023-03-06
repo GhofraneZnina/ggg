@@ -18,5 +18,11 @@ class listUser extends AbstractController
             'controller_name' => 'ListUser',
         ]);
     }
+
+    public function showuser(){
+        $UserRepository = $this->getDoctrine()->getRepository(user::class);
+             $donnees = $UserRepository->findAll();
+            return view('listing/userlist.html.twig',['donnees'=>$user]);
+         }
 }
 ?>

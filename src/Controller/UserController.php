@@ -52,6 +52,13 @@ class UserController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);   
     }
+
+    
+    
+    
+
+
+
     
 // public function getuser(){
 //     $user=user::all();
