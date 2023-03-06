@@ -63,31 +63,38 @@
 							</thead>
 
 
-							{# <tbody>
-								@foreach($user as $donees)
+							<tbody>
+								{# @foreach($user as $donnees) #}
+								{# <?php $__currentLoopData = $donnees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doneees): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> #}
+                                <?php  @foreach($user as $donnees) ?>
+                                    <td><?php echo e($donee['login']); ?></td>
+									<td><?php echo e($donee['nom']); ?></td>
+									<td><?php echo e($donee[prenom'']); ?></td>
+									<td><?php echo e($donee['telephone']); ?></td>
+									<td><?php echo e($donee['profile_facebook']); ?></td>
+									<td><?php echo e($donee['email']); ?></td> 
 
-								<tr>
-									<td>{{$donees['login']}}</td>
-									<td>{{$donees['password']}}</td>
-									<td>{{$donees['nom']}}</td>
-									<td>{{$donees['prenom']}}</td>
-									<td>{{$donees['telephone']}}</td>
-									<td>{{$donees['profile_facebook']}}</td>
-									<td>{{$donees['email']}}</td>
+								{# <tr>
+									<td>{{$donnees['login']}}</td>
+									<td>{{$donnees['nom']}}</td>
+									<td>{{$donnees['prenom']}}</td>
+									<td>{{$donnees['telephone']}}</td>
+									<td>{{$donnees['profile_facebook']}}</td>
+									<td>{{$donnees['email']}}</td> #}
 
-									<td>
+									{# <td>
 
-										<a href="modifclient/{{$donee['id']}}" class="btn btn-warning">Modifier</a>
+										<a href="modifclient/{{$donnees['id']}}" class="btn btn-warning">Modifier</a>
 
 									</td>
 									<td>
-										<a href="deleteclient/{{$donee['id']}}" class="btn btn-danger">supprimer</a>
+										<a href="deleteclient/{{$donnees['id']}}" class="btn btn-danger">supprimer</a>
 
-									</td>
+									</td> #}
 								</tr>
-								@endforeach
+								<?php @endforeach ?>
 
-							</tbody> #}
+							</tbody>
 						</table>
 					</div>
 					<!-- datatable ends -->
