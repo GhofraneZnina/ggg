@@ -71,7 +71,7 @@
                                             <small class="errorTxt6"></small>
                                         </div>
                                         <div class="col s12 m6 input-field">
-                                            {{ form_widget(form.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+                                            {{ form_widget(form.password, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
                                             <label class="active">Password</label>
                                             <small class="errorTxt7"></small>
                                         </div>
@@ -91,14 +91,10 @@
                                             <label class="active">photo</label>
                                             <small class="errorTxt3"></small>
                                         </div>
+                                        
                                         <div class="col s12 input-field">
-                                            {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt4'}}) }}
-                                            <label class="active">Telephone</label>
-                                            <small class="errorTxt4"></small>
-                                        </div>
-                                        <div class="col s12 input-field">
-                                            {{ form_widget(form.typeEtablissementt, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt5'}}) }}
-                                            <label class="active">type_etablissement</label>
+                                            {{ form_widget(form.typeEtablissement, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt5'}}) }}
+                                            <label class="active">typeEtablissement</label>
                                             <small class="errorTxt5"></small>
                                         </div>
                                         <div class="col s12 input-field">

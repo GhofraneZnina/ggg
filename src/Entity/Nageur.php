@@ -85,14 +85,14 @@ class Nageur extends User
         return $this;
     }
 
-    public function getDate_Debut_Activite_Sprtive(): ?\DateTimeInterface
+    public function getdateDebutActiviteSportive(): ?\DateTimeInterface
     {
-        return $this->date_Debut_Activite_Sprtive;
+        return $this->dateDebutActiviteSportive;
     }
 
-    public function setDate_Debut_Activite_Sprtive(\DateTimeInterface $dateDebutActiviteSprtive): self
+    public function setdateDebutActiviteSportive(\DateTimeInterface $dateDebutActiviteSportive): self
     {
-        $this->dateDebutActiviteSprtive = $dateDebutActiviteSprtive;
+        $this->dateDebutActiviteSportive = $dateDebutActiviteSportive;
 
         return $this;
     }
@@ -132,12 +132,12 @@ class Nageur extends User
 
         return $this;
     }
-    public function gettypeEtablissement(): ?string
+    public function getTypeEtablissement(): ?string
     {
         return $this->typeEtablissement;
 
     }
-    public function settypeEtablissement(string $typeEtablissement): self
+    public function setTypeEtablissement(string $typeEtablissement): self
     {
         $this->typeEtablissement = $typeEtablissement;
 

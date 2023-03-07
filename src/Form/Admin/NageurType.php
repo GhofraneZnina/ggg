@@ -27,7 +27,7 @@ class NageurType extends AbstractType
             ->add('num_licence')
             ->add('date_licence')
             ->add('photo')
-            ->add('type_etablissement', ChoiceType::class, [
+            ->add('typeEtablissement', ChoiceType::class, [
                 'choices'  => ['SYSTEME_TN' => 'systeme tunisien' ,
                     'SYSTEME_CN' => 'systeme canadien' ,
                     'SYSTEME_FR' => 'systeme francais' ,
