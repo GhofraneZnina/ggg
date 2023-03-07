@@ -19,19 +19,19 @@ class NageurController extends AbstractController
     }
 
 
-    // #[Route('/admin/nageur', name: 'app_admin_nageur_list')]
-    // public function index(): Response
-    // {
-    //     if (!$this->getUser()) {
-    //       return $this->redirectToRoute('login') ;
-    //     }
+    #[Route('/admin/nageur', name: 'app_admin_nageur_list')]
+    public function index(): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('login') ;
+     }
 
-    //     $nageurs = $this->em->getRepository(Nageur::class)->findAll() ;
+    $nageurs = $this->em->getRepository(Nageur::class)->findAll() ;
 
-    //     return $this->render('admin/nageur/index.html.twig', [
-    //         'nageurs' => $nageurs,
-    //     ]);
-    // }
+         return $this->render('admin/nageur/index.html.twig', [
+             'nageurs' => $nageurs,
+         ]);
+     } 
 
     #[Route('/admin/nageur/create', name: 'app_admin_nageur_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
@@ -39,9 +39,9 @@ class NageurController extends AbstractController
         if (!$this->getUser()) {
           return $this->redirectToRoute('login') ;
         }
-        $user = new User() ;
-        $user->setRoles([User::ROLE_NAGEUR])  ;
-        $user->setStatus(User::STATUT_ACTIF);
+        $nageur = new Nageur() ;
+        $nageur->setRoles([Nageur::ROLE_NAGEUR])  ;
+        $nageur->setStatus(Nageur::STATUT_ACTIF);
 
         $form = $this->createForm(NageurType::class, $nageur);
         $form->handleRequest($request);
@@ -53,17 +53,17 @@ class NageurController extends AbstractController
                 return $this->redirectToRoute('app_admin_nageur_list');
             }
             $password = $form->get('password')->getData();
-            $password = $userPasswordHasher->hashPassword($user, $password);
-            $user->setPassword($password);
+            $password = $userPasswordHasher->hashPassword($nageur, $password);
+            $nageur->setPassword($password);
 
             $this->em->persist($nageur);
             $this->em->flush();
 
             $this->addFlash('success','nageur successfully created' );
 
-            return $this->redirectToRoute('app_admin_user_list') ;
+            return $this->redirectToRoute('app_admin_nageur_list') ;
         }else if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+            $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
         }
 
         return $this->render('admin/nageur/create.html.twig', [

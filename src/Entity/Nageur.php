@@ -31,7 +31,7 @@ class Nageur extends User
     private ?string $typeEtablissement;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateDebutActiviteSprtive = null;
+    private ?\DateTimeInterface $date_Debut_Activite_Sprtive = null;
 
     #[ORM\Column(length: 255)]
     private ?string $remarque = null;
@@ -85,14 +85,14 @@ class Nageur extends User
         return $this;
     }
 
-    public function getDateDebutActiviteSprtive(): ?\DateTimeInterface
+    public function getDate_Debut_Activite_Sprtive(): ?\DateTimeInterface
     {
-        return $this->dateDebutActiviteSprtive;
+        return $this->date_Debut_Activite_Sprtive;
     }
 
-    public function setDateDebutActiviteSprtive(\DateTimeInterface $dateDebutActiviteSprtive): self
+    public function setDate_Debut_Activite_Sprtive(\DateTimeInterface $date_Debut_Activite_Sprtive): self
     {
-        $this->dateDebutActiviteSprtive = $dateDebutActiviteSprtive;
+        $this->date_Debut_Activite_Sprtive = $date_Debut_Activite_Sprtive;
 
         return $this;
     }
@@ -132,6 +132,25 @@ class Nageur extends User
 
         return $this;
     }
+    public function gettypeEtablissement(): ?string
+    {
+        return $this->typeEtablissement;
+
+    }
+    public function settypeEtablissement(string $typeEtablissement): self
+    {
+        $this->typeEtablissement = $typeEtablissement;
+
+        return $this;
+    }
+   
+
+
+
+
+
+
+
 
     public function getParent(): ?Parents
     {
