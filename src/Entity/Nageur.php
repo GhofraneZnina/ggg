@@ -31,7 +31,7 @@ class Nageur extends User
     private ?string $typeEtablissement;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateDebutActiviteSprtive = null;
+    private ?\DateTimeInterface $dateDebutActiviteSportive = null;
 
     #[ORM\Column(length: 255)]
     private ?string $remarque = null;
