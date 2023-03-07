@@ -1,0 +1,136 @@
+{% extends "base.html.twig" %}
+{% block title %}List of users{% endblock %}
+{% block pageTitle %}List of users{% endblock %}
+{% block levelOne %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_user_list') }}">Users</a></li>{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+    <div class="col s2 m6 l6">
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_user_create') }}">
+            Create User</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {#  Show alert : START #}
+    {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {#  Show alert : END  #}
+    <section class="users-list-wrapper section">
+        <div class="users-list-filter">
+            <div class="card-panel">
+                <div class="row">
+                    <form>
+                        <div class="col s12 m6 l3">
+                            <label for="users-list-verified">Verified</label>
+                            <div class="input-field">
+                                <select class="form-control" id="users-list-verified">
+                                    <option value="">Any</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <label for="users-list-role">Role</label>
+                            <div class="input-field">
+                                <select class="form-control" id="users-list-role">
+                                    <option value="">Any</option>
+                                    <option value="User">User</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <label for="users-list-status">Status</label>
+                            <div class="input-field">
+                                <select class="form-control" id="users-list-status">
+                                    <option value="">Any</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Close">Close</option>
+                                    <option value="Banned">Banned</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3 display-flex align-items-center show-btn">
+                            <button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="users-list-table">
+            <div class="card">
+                <div class="card-content">
+                    <!-- datatable start -->
+                    <div class="responsive-table">
+                        <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Prenom</th>
+                                <th>Nom</th>
+                                <th>Telephone</th>
+                                <th>Email</th>
+                                <th>Login</th>
+                                <th>Facebook</th>
+                                <th>status</th>
+                                <th>Action</th>
+                                <th>remarque</th>
+                                <th>ville</th>
+                               
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ parents.id }}</td>
+                                    <td>{{ parents.prenom }}</td>
+                                    <td>{{ parents.nom }}</td>
+                                    <td>{{ parents.telephone }}</td>
+                                    <td>{{ parents.email }}</td>
+                                    <td>{{ parents.login }}</td>
+                                    <td>{{ parents.profileFacebook }}</td>
+                                     <td>{{ parents.remarque }}</td>
+                                    <td>{{ parents.ville}}</td>
+                                    {% if parents.status == 1 %}
+                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+                                    {% else %}
+                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
+                                        <a href="{{ path('app_admin_user_edit',{'id': parents.id}) }}"><i class="material-icons">edit</i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- datatable ends -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
