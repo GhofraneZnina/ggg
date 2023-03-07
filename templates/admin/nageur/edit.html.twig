@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
-{% block title %}Create Nageur{% endblock %}
-{% block pageTitle %}Create Nageur{% endblock %}
-{% block levelOne %}<li class="breadcrumb-item"><a href="{{ path('app_admin_nageur_list') }}">Nageurs</a></li>{% endblock %}
-{% block levelTwo %}<li class="breadcrumb-item active">Create user</li>{% endblock %}
+{% block title %}modifier nageur{% endblock %}
+{% block pageTitle %}Update nageur{% endblock %}
+{% block levelOne %}<li class="breadcrumb-item"><a href="{{ path('app_admin_nageur_list') }}">nageurs</a></li>{% endblock %}
+{% block levelTwo %}<li class="breadcrumb-item active">Modifier nageur</li>{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
 {% endblock %}
@@ -17,7 +17,7 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %}
+    {% endfor %} 
     {% for message in app.flashes('error') %}
         <div class="card-alert card red">
             <div class="card-content white-text">
@@ -29,7 +29,7 @@
         </div>
     {% endfor %}
     {#  Show alert : END  #}
-    <div class="section users-edit">
+    <div class="section nageurs-edit">
         <div class="card">
             <div class="card-content">
                 <div class="divider mb-3"></div>
@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="col s12 ">
                                     <div class="row">
-                                    <div class="col s12 m6 input-field">
+                                        <div class="col s12 m6 input-field">
                                             {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
                                             <label class="active">Prenom</label>
                                             <small class="errorTxt1"></small>
@@ -66,16 +66,16 @@
                                             <small class="errorTxt5"></small>
                                         </div>
                                         <div class="col s12 input-field">
-                                            {{ form_widget(form.login, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
+                                            {{ form_widget(form.login, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
                                             <label class="active">Login</label>
                                             <small class="errorTxt6"></small>
                                         </div>
                                         <div class="col s12 m6 input-field">
-                                            {{ form_widget(form.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+                                            {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
                                             <label class="active">Password</label>
                                             <small class="errorTxt7"></small>
                                         </div>
-                                       
+                                    
                                         <div class="col s12 m6 input-field">
                                             {{ form_widget(form.num_licence, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
                                             <label class="active">num_licence</label>
@@ -102,7 +102,7 @@
                                             <small class="errorTxt5"></small>
                                         </div>
                                         <div class="col s12 input-field">
-                                            {{ form_widget(form.dateDebutActiviteSportive, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
+                                            {{ form_widget(form.date_debut_activite_sportive, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
                                             <label class="active"></label>
                                             <small class="errorTxt6"></small>
                                         </div>
@@ -125,7 +125,7 @@
                                     </div>
                                 </div>
                                 <div class="col s12 display-flex justify-content-end mt-3">
-                                    {{ form_widget(form.submit) }}
+                                    {{ form_widget(form.submit, {'label': 'Modidier'}) }}
                                     <button type="button" class="btn btn-light">Cancel</button>
                                 </div>
                             </div>
@@ -138,4 +138,3 @@
         </div>
     </div>
 {% endblock %}
-

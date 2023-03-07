@@ -1,4 +1,4 @@
- <?php
+<?php
 namespace App\Form\Admin;
 
 use App\Entity\Nageur;
@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 
 class NageurType extends AbstractType
@@ -33,7 +34,8 @@ class NageurType extends AbstractType
                 'SYSTEME_AUTRE'=>'autre systeme']
                 
             ])
-            ->add('date_debut_activite_sportive')
+            
+            ->add('dateDebutActiviteSportive', DateTimeType::class)
             ->add('remarque')
             ->add('date_naissance')
             ->add('genre')

@@ -71,44 +71,44 @@ class NageurController extends AbstractController
         ]);
     }
 
-    // #[Route('/admin/user/{id}/edit', name: 'app_admin_user_edit')]
-    // public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, $id): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('login') ;
-    //     }
-    //     $user = $this->em->getRepository(User::class)->findOneBy(['id'=>$id]);
+     #[Route('/admin/nageur/{id}/edit', name: 'app_admin_nageur_edit')]
+     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, $id): Response
+     {
+         if (!$this->getUser()) {
+             return $this->redirectToRoute('login') ;
+         }
+         $user = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
 
 
-    //     $form = $this->createForm(UserType::class, $user);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $user = $form->getData();
-    //         $chekUser = $this->em->getRepository(User::class)->findOneByLogin($user->getLogin());
-    //         if( $chekUser and $chekUser->getId() !== $user->getId() ){
-    //             $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
-    //             return $this->redirectToRoute('app_admin_user_list');
-    //         }
-    //         $password = $form->get('password')->getData();
-    //         if (isset($password)){
-    //             $password = $userPasswordHasher->hashPassword($user, $password);
-    //             $user->setPassword($password);
-    //         }
+         $form = $this->createForm(NageurType::class, $nageur);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
+             $nageur = $form->getData();
+             $chekUser = $this->em->getRepository(Nageur::class)->findOneByLogin($nageur->getLogin());
+             if( $chekUser and $chekUser->getId() !== $nageur->getId() ){
+                 $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
+                 return $this->redirectToRoute('app_admin_nageur_list');
+             }
+             $password = $form->get('password')->getData();
+             if (isset($password)){
+                 $password = $userPasswordHasher->hashPassword($user, $password);
+                 $user->setPassword($password);
+             }
 
-    //         $this->em->persist($user);
-    //         $this->em->flush();
+             $this->em->persist($nageur);
+             $this->em->flush();
 
-    //         $this->addFlash('success','User successfully updated' );
+             $this->addFlash('success','User successfully updated' );
 
-    //         return $this->redirectToRoute('app_admin_user_list') ;
-    //     }else if ($form->isSubmitted() && !$form->isValid()) {
-    //         $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
-    //     }
+             return $this->redirectToRoute('app_admin_nageur_list') ;
+         }else if ($form->isSubmitted() && !$form->isValid()) {
+             $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+         }
 
-    //     return $this->render('admin/user/edit.html.twig', [
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
+         return $this->render('admin/nageur/edit.html.twig', [
+             'form' => $form->createView(),
+         ]);
+    }
 
 
 
