@@ -91,8 +91,8 @@ class EntraineurController extends AbstractController
              }
              $password = $form->get('password')->getData();
              if (isset($password)){
-                 $password = $userPasswordHasher->hashPassword($user, $password);
-                 $user->setPassword($password);
+                 $password = $userPasswordHasher->hashPassword($entraineur, $password);
+                 $entraineur->setPassword($password);
              }
 
              $this->em->persist($entraineur);

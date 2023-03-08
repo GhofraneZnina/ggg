@@ -19,7 +19,17 @@ class NageurType extends AbstractType
     {
         $builder
             ->add('login')
-            ->add('password')
+            ->add('password', RepeatedType::class,
+            [
+                'type' => PasswordType::class,
+                'invalid_message'=> 'please check password',
+                'label'=> 'Password',
+                'required'=> false,
+                'mapped'=> false,
+                'first_options'=>  ['label'=> false],
+                'second_options'=>  ['label'=> false]
+
+            ])
             ->add('email')
             ->add('nom')
             ->add('prenom')

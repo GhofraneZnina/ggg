@@ -76,15 +76,15 @@ class NageurController extends AbstractController
      }
 
      #[Route('/admin/nageur/{id}/edit', name: 'app_admin_nageur_edit')]
-     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, $id): Response
+     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
      {
          if (!$this->getUser()) {
              return $this->redirectToRoute('login') ;
          }
-         $user = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
+         $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
 
 
-         $form = $this->createForm(NageurType::class, '$nageur');
+         $form = $this->createForm(NageurType::class, $nageur);
          $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
              $nageur = $form->getData();
@@ -95,8 +95,8 @@ class NageurController extends AbstractController
              }
              $password = $form->get('password')->getData();
              if (isset($password)){
-                 $password = $userPasswordHasher->hashPassword($user, $password);
-                 $user->setPassword($password);
+                 $password = $userPasswordHasher->hashPassword($nageur, $password);
+                 $nageur->setPassword($password);
              }
 
              $this->em->persist($nageur);
@@ -106,10 +106,10 @@ class NageurController extends AbstractController
 
              return $this->redirectToRoute('app_admin_nageur_list') ;
          }else if ($form->isSubmitted() && !$form->isValid()) {
-             $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+             $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
          }
 
-         return $this->render('admin/nageur/edit.html.twig', [
+         return $this->render('admin/Nageur/edit.html.twig', [
              'form' => $form->createView(),
          ]);
     }
@@ -117,4 +117,8 @@ class NageurController extends AbstractController
 
 
 }
+
+
+
+
 ?>

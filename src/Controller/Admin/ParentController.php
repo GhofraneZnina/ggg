@@ -19,7 +19,7 @@ class ParentController extends AbstractController
     }
 
 
-    #[Route('/admin/parent', name: 'app_admin_parents_list')]
+    #[Route('/admin/parent', name: 'app_admin_parent_list')]
     public function index(): Response
     {
         if (!$this->getUser()) {

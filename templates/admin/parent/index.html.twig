@@ -2,7 +2,7 @@
 {% block title %}Liste des parentss{% endblock %}
 {% block pageTitle %}Liste des parentss{% endblock %}
 {% block levelOne %}
-    <li class="breadcrumb-item"><a href="{{ path('app_admin_parents_list') }}">parentss</a></li>{% endblock %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_parent_list') }}">parentss</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
@@ -94,9 +94,9 @@
                                 <th>Email</th>
                                 <th>Login</th>
                                 <th>Facebook</th>
-                                <th>status</th>
                                 <th>adresse</th>
                                 <th>ville</th>
+                                <th>status</th>
                                 
                                 
                             </tr>
@@ -105,28 +105,28 @@
                             {% for parent in parents %}
                                 <tr>
                                     <td></td>
-                                     <td>{{ parents.id }}</td>
-                                    <td>{{ parents.prenom }}</td>
-                                    <td>{{ parents.nom }}</td>
-                                    <td>{{ parents.telephone }}</td>
-                                    <td>{{ parents.email }}</td>
-                                    <td>{{ parents.login }}</td>
-                                    <td>{{ parents.profileFacebook }}</td>
-                                    {% if parents.status == 1 %}
+                                     <td>{{ parent.id }}</td>
+                                    <td>{{ parent.prenom }}</td>
+                                    <td>{{ parent.nom }}</td>
+                                    <td>{{ parent.telephone }}</td>
+                                    <td>{{ parent.email }}</td>
+                                    <td>{{ parent.login }}</td>
+                                    <td>{{ parent.profileFacebook }}</td>
+                                    {% if parent.status == 1 %}
                                     <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
-                                    <td>{{ parents.ville }}</td>
-                                    <td>{{ parents.adresse }}</td>
-                                    {% if parents.status == 1 %}
+                                    <td>{{ parent.ville }}</td>
+                                    <td>{{ parent.adresse }}</td>
+                                    {% if parent.status == 1 %}
                                     <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
                                     <td>
                                         <a href="page-parentss-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                        <a href="{{ path('app_admin_parents_edit',{'id': parents.id}) }}"><i class="material-icons">edit</i></a>
+                                        <a href="{{ path('app_admin_parent_edit',{'id': parent.id}) }}"><i class="material-icons">edit</i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
