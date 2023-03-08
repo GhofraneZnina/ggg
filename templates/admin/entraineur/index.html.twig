@@ -96,9 +96,7 @@
                                 <th>Facebook</th>
                                 <th>status</th>
                                 <th>date Naissance</th>
-                                <th>description</th>
-                                <th>photo</th>
-                               
+                                
                               
                             </tr>
                             </thead>
@@ -118,9 +116,8 @@
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
-                                     <td>{{ entraineur.dateNaissance }}</td>
-                                    <td>{{ entraineur.description }}</td>
-                                    <td>{{ entraineur.photo }}</td>
+                                     <td>{{ entraineur.dateNaissance|date('Y-m-d') }}</td>
+                                   
                                     
                                     <td>
                                         <a href="page-nageurs-view.html"><i class="material-icons">remove_red_eye</i></a>
