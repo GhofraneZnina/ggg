@@ -20,6 +20,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const STATUT_BLOQUE = 0;
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_NAGEUR = 'ROLE_NAGEUR';
+    const ROLE_ENTRAINEUR = 'ROLE_ENTRAINEUR';
+    const ROLE_PARENTS = 'ROLE_PARENTS';
+
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
