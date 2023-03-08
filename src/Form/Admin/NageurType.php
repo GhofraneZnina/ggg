@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class NageurType extends AbstractType
@@ -25,6 +26,7 @@ class NageurType extends AbstractType
             ->add('telephone')
             ->add('profileFacebook')
             ->add('num_licence')
+            ->add('dateNaissance',DateType::class)
             ->add('date_licence')
             ->add('photo')
             ->add('typeEtablissement', ChoiceType::class, [
@@ -35,9 +37,9 @@ class NageurType extends AbstractType
                 
             ])
             
-            ->add('dateDebutActiviteSportive', DateTimeType::class)
+            ->add('dateDebutActiviteSportive', DateType::class)
             ->add('remarque')
-            ->add('date_naissance', DateTimeType::class)
+            ->add('dateNaissance',DateType::class)
             ->add('genre')
             ->add('submit', SubmitType::class,
                 [

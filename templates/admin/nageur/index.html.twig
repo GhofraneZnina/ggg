@@ -95,14 +95,10 @@
                                 <th>Login</th>
                                 <th>Facebook</th>
                                 <th>status</th>
-                                <th>num_licence</th>
-                                <th>date_licence</th>
-                                <th>photo</th>
-                                <th>type_etablissement</th>
                                 <th>date_debut_activite_sportive</th>
                                 <th>remarque</th>
                                 <th>date_naissance</th>
-                                <th>genre</th>
+                            
                                 
                             </tr>
                             </thead>
@@ -121,10 +117,8 @@
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
-                            
-                                    <td>{{ nageur.photo}}</td>
                                     <td>{{ nageur.typeEtablissement }}</td>
-                                    <td>{{ nageur.dateNaissance}}</td>
+                                    <td>{{ nageur.dateNaissance|date('Y-m-d')}}</td>
                                     
                                     
                                     <td>

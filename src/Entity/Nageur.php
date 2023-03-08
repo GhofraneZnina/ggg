@@ -43,7 +43,7 @@ class Nageur extends User
     private ?string $genre = null;
 
     #[ORM\ManyToOne(inversedBy: 'nageurs')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Parents $parent = null;
 
 

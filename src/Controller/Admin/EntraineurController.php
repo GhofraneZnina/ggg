@@ -71,13 +71,13 @@ class EntraineurController extends AbstractController
         ]);
     }
 
-     #[Route('/admin/Entraineur/{id}/edit', name: 'app_admin_Entraineur_edit')]
-     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, $id): Response
+     #[Route('/admin/entraineur/{id}/edit', name: 'app_admin_entraineur_edit')]
+     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
      {
          if (!$this->getUser()) {
              return $this->redirectToRoute('login') ;
          }
-         $user = $this->em->getRepository(Entraineur::class)->findOneBy(['id'=>$id]);
+         $entraineur = $this->em->getRepository(Entraineur::class)->findOneBy(['id'=>$id]);
 
 
          $form = $this->createForm(EntraineurType::class, $entraineur);

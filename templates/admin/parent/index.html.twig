@@ -95,10 +95,8 @@
                                 <th>Login</th>
                                 <th>Facebook</th>
                                 <th>status</th>
-                                <th>remarque</th>
                                 <th>adresse</th>
                                 <th>ville</th>
-                                <th>type</th>
                                 
                                 
                             </tr>
@@ -119,9 +117,7 @@
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
-                                    <td>{{ parents.remarque }}</td>
                                     <td>{{ parents.ville }}</td>
-                                    <td>{{ parents.type}}</td>
                                     <td>{{ parents.adresse }}</td>
                                     {% if parents.status == 1 %}
                                     <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
