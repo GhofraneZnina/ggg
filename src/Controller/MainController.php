@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Entraineur;
 use App\Entity\Nageur;
+use APP\Entity\Parents;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,14 +15,13 @@ class MainController extends AbstractController
     
     #[Route('/', name: 'main')]
     public function index(): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('login') ;
-        }
+     {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('login') ;
+    //     }
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
         ]);
     }
+  
 }
-
-?>
