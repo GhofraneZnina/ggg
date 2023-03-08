@@ -80,7 +80,7 @@ class NageurController extends AbstractController
          $user = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
 
 
-         $form = $this->createForm(NageurType::class, $nageur);
+         $form = $this->createForm(NageurType::class, '$nageur');
          $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
              $nageur = $form->getData();
