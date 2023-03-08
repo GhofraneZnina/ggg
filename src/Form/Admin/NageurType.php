@@ -37,7 +37,7 @@ class NageurType extends AbstractType
             
             ->add('dateDebutActiviteSportive', DateTimeType::class)
             ->add('remarque')
-            ->add('date_naissance')
+            ->add('date_naissance', DateTimeType::class)
             ->add('genre')
             ->add('submit', SubmitType::class,
                 [
