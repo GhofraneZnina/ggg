@@ -22,9 +22,9 @@ class UserController extends AbstractController
     #[Route('/admin/users', name: 'app_admin_user_list')]
     public function index(): Response
     {
-        if (!$this->getUser()) {
-          return $this->redirectToRoute('login') ;
-        }
+         if (!$this->getUser()) {
+           return $this->redirectToRoute('login') ;
+         }
 
         $users = $this->em->getRepository(User::class)->findAll() ;
 
@@ -36,7 +36,7 @@ class UserController extends AbstractController
     #[Route('/admin/user/create', name: 'app_admin_user_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        if (!$this->getUser()) {
+         if (!$this->getUser()) {
           return $this->redirectToRoute('login') ;
         }
         $user = new User() ;
