@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des nageurs{% endblock %}
-{% block pageTitle %}Liste des nageurs{% endblock %}
+{% block title %}Liste des entraineurs{% endblock %}
+{% block pageTitle %}Liste des entraineurs{% endblock %}
 {% block levelOne %}
-    <li class="breadcrumb-item"><a href="{{ path('app_admin_nageur_list') }}">nageurs</a></li>{% endblock %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_entraineur_list') }}">entraineurs</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
     <div class="col s2 m6 l6">
-        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_create') }}">
-            Create nageur</a>
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_entraineur_create') }}">
+            Creer entraineur</a>
     </div>
 {% endblock %}
 
@@ -55,7 +55,7 @@
                             <div class="input-field">
                                 <select class="form-control" id="nageurs-list-role">
                                     <option value="">Any</option>
-                                    <option value="nageur">nageur</option>
+                                    <option value="entraineur">entraineur</option>
                                     <option value="Staff">Staff</option>
                                 </select>
                             </div>
@@ -95,45 +95,36 @@
                                 <th>Login</th>
                                 <th>Facebook</th>
                                 <th>status</th>
-                                <th>num_licence</th>
-                                <th>date_licence</th>
+                                <th>date Naissance</th>
+                                <th>description</th>
                                 <th>photo</th>
-                                <th>type_etablissement</th>
-                                <th>date_debut_activite_sportive</th>
-                                <th>remarque</th>
-                                <th>date_naissance</th>
-                                <th>genre</th>
-                                
+                               
+                              
                             </tr>
                             </thead>
                             <tbody>
-                            {% for nageur in nageurs %}
+                            {% for entraineur in entraineurs %}
                                 <tr>
                                     <td></td>
-                                     <td>{{ nageur.id }}</td>
-                                    <td>{{ nageur.prenom }}</td>
-                                    <td>{{ nageur.nom }}</td>
-                                    <td>{{ nageur.telephone }}</td>
-                                    <td>{{ nageur.email }}</td>
-                                    <td>{{ nageur.login }}</td>
-                                    <td>{{ nageur.profileFacebook }}</td>
-                                    {% if nageur.status == 1 %}
+                                     <td>{{ entraineur.id }}</td>
+                                    <td>{{ entraineur.prenom }}</td>
+                                    <td>{{ entraineur.nom }}</td>
+                                    <td>{{ entraineur.telephone }}</td>
+                                    <td>{{ entraineur.email }}</td>
+                                    <td>{{ entraineur.login }}</td>
+                                    <td>{{ entraineur.profileFacebook }}</td>
+                                    {% if entraineur.status == 1 %}
                                     <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
-                                    <td>{{ nageur.num_licence }}</td>
-                                    <td>{{ nageur.date_licence }}</td>
-                                    <td>{{ nageur.photo}}</td>
-                                    <td>{{ nageur.typeEtablissement }}</td>
-                                    <td>{{ nageur.dateDebutActiviteSportive }}</td>
-                                    <td>{{ nageur.remarque }}</td>
-                                    <td>{{ nageur.dateNaissance}}</td>
-                                    <td>{{ nageur.genre}}</td>
+                                     <td>{{ entraineur.dateNaissance }}</td>
+                                    <td>{{ entraineur.description }}</td>
+                                    <td>{{ entraineur.photo }}</td>
                                     
                                     <td>
                                         <a href="page-nageurs-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                        <a href="{{ path('app_admin_nageur_edit',{'id': nageur.id}) }}"><i class="material-icons">edit</i></a>
+                                        <a href="{{ path('app_admin_nageur_edit',{'id': entraineur.id}) }}"><i class="material-icons">edit</i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
