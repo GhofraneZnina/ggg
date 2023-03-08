@@ -50,7 +50,7 @@ class EntraineurController extends AbstractController
             $chekUser = $this->em->getRepository(Entraineur::class)->findOneByLogin($entraineur->getLogin());
             if($chekUser){
                 $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
-                return $this->redirectToRoute('app_admin_Entraineur_list');
+                return $this->redirectToRoute('app_admin_entraineur_list');
             }
             $password = $form->get('password')->getData();
             $password = $userPasswordHasher->hashPassword($entraineur, $password);
@@ -61,7 +61,7 @@ class EntraineurController extends AbstractController
 
             $this->addFlash('success','Entraineur successfully created' );
 
-            return $this->redirectToRoute('app_admin_Entraineur_list') ;
+            return $this->redirectToRoute('app_admin_entraineur_list') ;
         }else if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
         }
@@ -87,7 +87,7 @@ class EntraineurController extends AbstractController
              $chekUser = $this->em->getRepository(Entraineur::class)->findOneByLogin($entraineur->getLogin());
              if( $chekUser and $chekUser->getId() !== $entraineur->getId() ){
                  $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
-                 return $this->redirectToRoute('app_admin_Entraineur_list');
+                 return $this->redirectToRoute('app_admin_entraineur_list');
              }
              $password = $form->get('password')->getData();
              if (isset($password)){
@@ -100,7 +100,7 @@ class EntraineurController extends AbstractController
 
              $this->addFlash('success','User successfully updated' );
 
-             return $this->redirectToRoute('app_admin_Entraineur_list') ;
+             return $this->redirectToRoute('app_admin_entraineur_list') ;
          }else if ($form->isSubmitted() && !$form->isValid()) {
              $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
          }

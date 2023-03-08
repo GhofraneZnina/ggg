@@ -24,7 +24,7 @@ class EntraineurType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('profileFacebook')
-            ->add('dateNaissance')
+            ->add('dateNaissance', DateTimeType::class)
             ->add('description')
             ->add('photo')
             ->add('submit', SubmitType::class,
