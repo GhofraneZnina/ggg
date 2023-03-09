@@ -20,23 +20,23 @@ class NageurType extends AbstractType
         $builder
             ->add('login')
             ->add('password', RepeatedType::class,
-            [
-                'type' => PasswordType::class,
-                'invalid_message'=> 'please check password',
-                'label'=> 'Password',
-                'required'=> false,
-                'mapped'=> false,
-                'first_options'=>  ['label'=> false],
-                'second_options'=>  ['label'=> false]
+                [
+                    'type' => PasswordType::class,
+                    'invalid_message'=> 'please check password',
+                    'label'=> 'Password',
+                    'required'=> false,
+                    'mapped'=>true,
+                    'first_options'=>  ['label'=> false],
+                    'second_options'=>  ['label'=> false]
 
-            ])
+                ])
             ->add('email')
             ->add('nom')
             ->add('prenom')
             ->add('telephone')
             ->add('profileFacebook')
             ->add('numLicence')
-            ->add('dateNaissance',DateType::class)
+            ->add('dateNaissance')
             ->add('dateLicence')
             ->add('photo')
             ->add('typeEtablissement', ChoiceType::class, [
@@ -47,9 +47,9 @@ class NageurType extends AbstractType
                 
             ])
             
-            ->add('dateDebutActiviteSportive', DateType::class)
+            ->add('dateDebutActiviteSportive')
             ->add('remarque')
-            ->add('dateNaissance',DateType::class)
+            ->add('dateNaissance')
             ->add('genre')
             ->add('submit', SubmitType::class,
                 [
