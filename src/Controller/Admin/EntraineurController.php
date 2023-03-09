@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class EntraineurController extends AbstractController
 {
@@ -102,14 +103,23 @@ class EntraineurController extends AbstractController
 
              return $this->redirectToRoute('app_admin_entraineur_list') ;
          }else if ($form->isSubmitted() && !$form->isValid()) {
-             $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+             $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
          }
 
          return $this->render('admin/Entraineur/edit.html.twig', [
              'form' => $form->createView(),
          ]);
     }
-
+    
+    // function setActiveClass(RequestStack $requestStack, $routeName)
+    // {
+    //     $request = $requestStack->getCurrentRequest();
+    //     $route = $request->attributes->get('app_admin_entraineur_list');
+    //     if ($route === $routeName) {
+    //         return 'active';
+    //     }
+    //     return '';
+    // }
 
 
 }
