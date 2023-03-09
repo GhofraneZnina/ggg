@@ -46,6 +46,12 @@ class NageurController extends AbstractController
         $form = $this->createForm(NageurType::class, $nageur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->all() ;
+            $date = str_replace('/','-',$data['nageur']['dateDebutActiviteSportive']) ;
+            $dataTime = new \DateTime($date);
+            //dump($dataTime);
+            $nageur->setDateDebutActiviteSportive($dataTime);
+            //dd($form->getData());
             $nageur = $form->getData();
             $chekUser = $this->em->getRepository(Nageur::class)->findOneByLogin($nageur->getLogin());
             if($chekUser){

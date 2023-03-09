@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class NageurType extends AbstractType
@@ -47,7 +48,13 @@ class NageurType extends AbstractType
                 
             ])
             
-            ->add('dateDebutActiviteSportive')
+            ->add('dateDebutActiviteSportive', TextType::class,
+            [
+                'invalid_message'=> 'please check password',
+                'label'=>false,
+                'required'=> false,'mapped'=>false,
+
+            ])
             ->add('remarque')
             ->add('dateNaissance')
             ->add('genre')

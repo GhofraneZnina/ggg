@@ -107,11 +107,19 @@
                                             <label class="active">typeEtablissement</label>
                                             <small class="errorTxt5"></small>
                                         </div>
-                                        <div class="col s12 input-field">
+                                        {# <div class="col s12 input-field">
                                             {{ form_widget(form.dateDebutActiviteSportive, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
                                             <label class="active">date debut activite sportive</label>
                                             <small class="errorTxt6"></small>
-                                        </div>
+                                            <input id="dateDebutActiviteSportive">
+                                        </div> #}
+                                                <div id="view-date-picker">
+                                                    <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p>
+                                                    <label for="nageur_dateDebutActiviteSportive">Birthdate</label>
+                                                    {{ form_widget(form.dateDebutActiviteSportive,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+                                                    
+                                                    </div>
+                                        
                                         <div class="col s12 m6 input-field">
                                             {{ form_widget(form.remarque, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
                                             <label class="active">remarque</label>
