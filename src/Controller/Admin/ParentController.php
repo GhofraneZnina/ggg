@@ -101,7 +101,7 @@ class ParentController extends AbstractController
 
              return $this->redirectToRoute('app_admin_parent_list') ;
          }else if ($form->isSubmitted() && !$form->isValid()) {
-             $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+             $this->addFlash('error',$parent->getLogin().' : Login already exists ! ');
          }
 
          return $this->render('admin/parent/edit.html.twig', [

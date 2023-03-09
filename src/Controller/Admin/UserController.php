@@ -63,7 +63,7 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('app_admin_user_list') ;
         }else if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+            $this->addFlash('error','check your data');
         }
 
         return $this->render('admin/user/create.html.twig', [

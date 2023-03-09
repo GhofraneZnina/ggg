@@ -102,7 +102,7 @@ class EntraineurController extends AbstractController
 
              return $this->redirectToRoute('app_admin_entraineur_list') ;
          }else if ($form->isSubmitted() && !$form->isValid()) {
-             $this->addFlash('error',$user->getLogin().' : Login already exists ! ');
+             $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
          }
 
          return $this->render('admin/Entraineur/edit.html.twig', [
