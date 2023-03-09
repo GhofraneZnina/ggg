@@ -92,7 +92,7 @@ class ParentController extends AbstractController
              if (isset($password)){
                  $password = $userPasswordHasher->hashPassword($parent, $password);
                  $parent->setPassword($password);
-             }
+            
 
              $this->em->persist($parent);
              $this->em->flush();
@@ -109,15 +109,6 @@ class ParentController extends AbstractController
          ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-}
+     }
+    }
     ?>

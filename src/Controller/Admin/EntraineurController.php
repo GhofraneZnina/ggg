@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class EntraineurController extends AbstractController
 {
@@ -109,7 +110,16 @@ class EntraineurController extends AbstractController
              'form' => $form->createView(),
          ]);
     }
-
+    
+    // function setActiveClass(RequestStack $requestStack, $routeName)
+    // {
+    //     $request = $requestStack->getCurrentRequest();
+    //     $route = $request->attributes->get('app_admin_entraineur_list');
+    //     if ($route === $routeName) {
+    //         return 'active';
+    //     }
+    //     return '';
+    // }
 
 
 }
