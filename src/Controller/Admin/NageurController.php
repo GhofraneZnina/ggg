@@ -62,11 +62,11 @@ class NageurController extends AbstractController
             $this->addFlash('success','nageur successfully created' );
 
             return $this->redirectToRoute('app_admin_nageur_list') ;
-        }else if ($form->isSubmitted() && !$form->isValid()) {
+        } else if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
-        }
-
-        return $this->render('admin/nageur/create.html.twig', [
+         }
+ 
+        return $this->render('admin/Nageur/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }

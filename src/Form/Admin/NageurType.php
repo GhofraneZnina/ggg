@@ -35,9 +35,9 @@ class NageurType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('profileFacebook')
-            ->add('num_licence')
+            ->add('numLicence')
             ->add('dateNaissance',DateType::class)
-            ->add('date_licence')
+            ->add('dateLicence')
             ->add('photo')
             ->add('typeEtablissement', ChoiceType::class, [
                 'choices'  => ['SYSTEME_TN' => 'systeme tunisien' ,
