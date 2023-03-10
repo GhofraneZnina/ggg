@@ -11,6 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ParentsRepository::class)]
 class Parents extends User
 {
+    const père = 'père' ;
+    const mère ='mère' ;
+
+    #[ORM\Column(type:'string')]
+    #[Assert\NotBlank]
+    #[Assert\Choice([self::père, self::mère])]
+    private ?string $type;
 
 
     #[ORM\Column(length: 255)]
@@ -19,8 +26,7 @@ class Parents extends User
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    
 
     #[ORM\Column(length: 255)]
     private ?string $remarque = null;

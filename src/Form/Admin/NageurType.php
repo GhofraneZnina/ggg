@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 class NageurType extends AbstractType
@@ -35,6 +36,10 @@ class NageurType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('telephone')
+            // ->add('parent', EntityType::class, [
+            //     'class' => Parent::class,
+            //     //'choice_label' => 'nom', // Remplacez "nom" par le champ que vous souhaitez afficher dans la liste déroulante
+            // ])
             ->add('profileFacebook')
             ->add('numLicence')
             ->add('dateLicence', TextType::class,

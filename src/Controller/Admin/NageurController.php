@@ -58,6 +58,7 @@ class NageurController extends AbstractController
             $dataTimeDateNaissance = new \DateTime($dateNaissance);
 
             
+            
 
             //dump($dataTime);
             $nageur->setDateDebutActiviteSportive($dataTimeDebutActiviteSportive);

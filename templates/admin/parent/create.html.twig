@@ -71,15 +71,15 @@
                                             <small class="errorTxt6"></small>
                                         </div>
                                         <div class="col s12 m6 input-field">
-                                            {{ form_widget(form.password, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
-                                            <label class="active">Password</label>
-                                            <small class="errorTxt7"></small>
-                                        </div>
-                                        <div class="col s12 input-field">
-                                            {{ form_widget(form.remarque, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt5'}}) }}
-                                            <label class="active">remarque</label>
-                                            <small class="errorTxt5"></small>
-                                        </div>
+										{{ form_widget(form.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+										<label class="active">Password</label>
+										<small class="errorTxt7"></small>
+									</div>
+									<div class="col s12 m6 input-field">
+										{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+										<label class="active">Confirm password</label>
+										<small class="errorTxt8"></small>
+									</div>
                                         <div class="col s12 input-field">
                                             {{ form_widget(form.adresse, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
                                             <label class="active">adresse</label>
@@ -93,6 +93,11 @@
                                          <div class="col s12 m6 input-field">
                                             {{ form_widget(form.type, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
                                             <label class="active">type</label>
+                                            <small class="errorTxt7"></small>
+                                        </div>
+                                         <div class="col s12 m6 input-field">
+                                            {{ form_widget(form.remarque, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+                                            <label class="active">remarque</label>
                                             <small class="errorTxt7"></small>
                                         </div>
                                         
