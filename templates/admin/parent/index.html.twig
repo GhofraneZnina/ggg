@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des parentss{% endblock %}
-{% block pageTitle %}Liste des parentss{% endblock %}
+{% block title %}List des parents{% endblock %}
+{% block pageTitle %}List of users{% endblock %}
 {% block levelOne %}
-    <li class="breadcrumb-item"><a href="{{ path('app_admin_parent_list') }}">parentss</a></li>{% endblock %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_parent_list') }}">Parents</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
     <div class="col s2 m6 l6">
         <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_parent_create') }}">
-            Create parents</a>
+            Create Parent</a>
     </div>
 {% endblock %}
 
@@ -35,15 +35,15 @@
         </div>
     {% endfor %}
     {#  Show alert : END  #}
-    <section class="parentss-list-wrapper section">
-        <div class="parentss-list-filter">
+    <section class="users-list-wrapper section">
+        <div class="users-list-filter">
             <div class="card-panel">
                 <div class="row">
                     <form>
                         <div class="col s12 m6 l3">
-                            <label for="parentss-list-verified">Verified</label>
+                            <label for="users-list-verified">Verified</label>
                             <div class="input-field">
-                                <select class="form-control" id="parentss-list-verified">
+                                <select class="form-control" id="users-list-verified">
                                     <option value="">Any</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -51,19 +51,19 @@
                             </div>
                         </div>
                         <div class="col s12 m6 l3">
-                            <label for="parentss-list-role">Role</label>
+                            <label for="users-list-role">Role</label>
                             <div class="input-field">
-                                <select class="form-control" id="parentss-list-role">
+                                <select class="form-control" id="users-list-role">
                                     <option value="">Any</option>
-                                    <option value="parents">parents</option>
+                                    <option value="User">User</option>
                                     <option value="Staff">Staff</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col s12 m6 l3">
-                            <label for="parentss-list-status">Status</label>
+                            <label for="users-list-status">Status</label>
                             <div class="input-field">
-                                <select class="form-control" id="parentss-list-status">
+                                <select class="form-control" id="users-list-status">
                                     <option value="">Any</option>
                                     <option value="Active">Active</option>
                                     <option value="Close">Close</option>
@@ -78,12 +78,12 @@
                 </div>
             </div>
         </div>
-        <div class="nageues-list-table">
+        <div class="users-list-table">
             <div class="card">
                 <div class="card-content">
                     <!-- datatable start -->
                     <div class="responsive-table">
-                        <table id="parentss-list-datatable" class="table">
+                        <table id="users-list-datatable" class="table">
                             <thead>
                             <tr>
                                 <th></th>
@@ -94,18 +94,15 @@
                                 <th>Email</th>
                                 <th>Login</th>
                                 <th>Facebook</th>
-                                <th>adresse</th>
-                                <th>ville</th>
                                 <th>status</th>
-                                
-                                
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for parent in parents %}
                                 <tr>
                                     <td></td>
-                                     <td>{{ parent.id }}</td>
+                                    <td>{{ parent.id }}</td>
                                     <td>{{ parent.prenom }}</td>
                                     <td>{{ parent.nom }}</td>
                                     <td>{{ parent.telephone }}</td>
@@ -117,16 +114,9 @@
                                     {% else %}
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
-                                    <td>{{ parent.ville }}</td>
-                                    <td>{{ parent.adresse }}</td>
-                                    {% if parent.status == 1 %}
-                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
-                                    {% else %}
-                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
-                                    {% endif %}
                                     <td>
-                                        <a href="page-parentss-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                        <a href="{{ path('app_admin_parent_edit',{'id': parent.id}) }}"><i class="material-icons">edit</i></a>
+                                        <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
+                                        <a href="{{ path('app_admin_user_edit',{'id': parent.id}) }}"><i class="material-icons">edit</i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
