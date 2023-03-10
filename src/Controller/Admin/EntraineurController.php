@@ -47,6 +47,12 @@ class EntraineurController extends AbstractController
         $form = $this->createForm(EntraineurType::class, $entraineur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $request->request->all() ;
+            $dateNaissance = str_replace('/','-',$data['entraineur']['dateNaissance']) ;
+            $dataTimeDateNaissance = new \DateTime($dateNaissance);
+            $entraineur->setDateNaissance($dataTimeDateNaissance);
+
             $entraineur = $form->getData();
             $chekUser = $this->em->getRepository(Entraineur::class)->findOneByLogin($entraineur->getLogin());
             if($chekUser){

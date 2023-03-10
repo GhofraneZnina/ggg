@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class EntraineurType extends AbstractType
@@ -36,7 +37,13 @@ class EntraineurType extends AbstractType
             ->add('telephone')
             ->add('profileFacebook')
             //->add('dateNaissance', DateTimeType::class)
-            ->add('dateNaissance',DateType::class)
+            ->add('dateNaissance', TextType::class,
+            [
+                'invalid_message'=> 'please check your information',
+                'label'=>false,
+                'required'=> false,'mapped'=>false,
+
+            ])
             ->add('description')
             ->add('photo')
             ->add('submit', SubmitType::class,
