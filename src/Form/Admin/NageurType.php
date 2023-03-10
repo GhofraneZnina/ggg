@@ -44,7 +44,7 @@ class NageurType extends AbstractType
                 'required'=> false,'mapped'=>false,
 
             ])
-            ->add('dateLicence')
+            
             ->add('photo')
             ->add('typeEtablissement', ChoiceType::class, [
                 'choices'  => ['SYSTEME_TN' => 'systeme tunisien' ,

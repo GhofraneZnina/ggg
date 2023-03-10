@@ -22,8 +22,8 @@ class Nageur extends User
     #[ORM\Column(length: 255)]
     private ?string $numLicence = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $dateLicence = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dateLicence = null;
 
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
@@ -71,12 +71,12 @@ class Nageur extends User
         return $this;
     }
 
-    public function getDateLicence(): ?string
+    public function getDateLicence(): ?\DateTimeInterface
     {
         return $this->dateLicence;
     }
 
-    public function setDateLicence(string $dateLicence): self
+    public function setDateLicence(\DateTimeInterface $dateLicence): self
     {
         $this->dateLicence = $dateLicence;
 
