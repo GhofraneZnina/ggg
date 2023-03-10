@@ -15,6 +15,9 @@ class Nageur extends User
     const SYSTEME_FR ='systeme francais' ;
     const SYSTEME_AUTRE='autre';
 
+    const FEMME = 'femme' ;
+    const HOMME ='homme' ;
+
 
     #[ORM\Column(length: 255)]
     private ?string $numLicence = null;
@@ -30,6 +33,15 @@ class Nageur extends User
     #[Assert\Choice([self::SYSTEME_TN, self::SYSTEME_CN, self::SYSTEME_FR,self::SYSTEME_AUTRE ])]
     private ?string $typeEtablissement;
 
+    #[ORM\Column(type:'string')]
+    #[Assert\NotBlank]
+    #[Assert\Choice([self::FEMME, self::HOMME])]
+    private ?string $genre;
+
+
+
+
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDebutActiviteSportive = null;
 
@@ -39,9 +51,7 @@ class Nageur extends User
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateNaissance = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $genre = null;
-
+   
     #[ORM\ManyToOne(inversedBy: 'nageurs')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Parents $parent = null;

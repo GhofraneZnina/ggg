@@ -47,10 +47,22 @@ class NageurController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $request->request->all() ;
-            $date = str_replace('/','-',$data['nageur']['dateDebutActiviteSportive']) ;
-            $dataTime = new \DateTime($date);
+
+            $dateDebutActiviteSportive = str_replace('/','-',$data['nageur']['dateDebutActiviteSportive']) ;
+            $dataTimeDebutActiviteSportive = new \DateTime($dateDebutActiviteSportive);
+
+            $dateLicence = str_replace('/','-',$data['nageur']['dateLicence']) ;
+            $dataTimeLicence = new \DateTime($dateLicence);
+
+            $dateNaissance = str_replace('/','-',$data['nageur']['dateNaissance']) ;
+            $dataTimeDateNaissance = new \DateTime($dateNaissance);
+
+            
+
             //dump($dataTime);
-            $nageur->setDateDebutActiviteSportive($dataTime);
+            $nageur->setDateDebutActiviteSportive($dataTimeDebutActiviteSportive);
+            $nageur->setDateLicence($dataTimeLicence);
+            $nageur->setDateNaissance($dataTimeDateNaissance);
             //dd($form->getData());
             $nageur = $form->getData();
             $chekUser = $this->em->getRepository(Nageur::class)->findOneByLogin($nageur->getLogin());
@@ -70,7 +82,7 @@ class NageurController extends AbstractController
             return $this->redirectToRoute('app_admin_nageur_list') ;
         } else if ($form->isSubmitted() && !$form->isValid()) {
 
-            dd($form->getData());
+           // dd($form->getData());
             $this->addFlash('error','check your data');
          }
  

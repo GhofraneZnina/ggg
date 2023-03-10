@@ -37,7 +37,13 @@ class NageurType extends AbstractType
             ->add('telephone')
             ->add('profileFacebook')
             ->add('numLicence')
-            ->add('dateNaissance')
+            ->add('dateLicence', TextType::class,
+            [
+                'invalid_message'=> 'please check your information',
+                'label'=>false,
+                'required'=> false,'mapped'=>false,
+
+            ])
             ->add('dateLicence')
             ->add('photo')
             ->add('typeEtablissement', ChoiceType::class, [
@@ -50,14 +56,26 @@ class NageurType extends AbstractType
             
             ->add('dateDebutActiviteSportive', TextType::class,
             [
-                'invalid_message'=> 'please check password',
+                'invalid_message'=> 'please check your information',
                 'label'=>false,
                 'required'=> false,'mapped'=>false,
 
             ])
             ->add('remarque')
-            ->add('dateNaissance')
-            ->add('genre')
+            ->add('dateNaissance', TextType::class,
+            [
+                'invalid_message'=> 'please check your information',
+                'label'=>false,
+                'required'=> false,'mapped'=>false,
+
+            ])
+            ->add('genre', ChoiceType::class, [
+                'choices'  => ['FEMME' => 'femme' ,
+                    'HOMME' => 'homme' 
+                   
+               ]
+                
+            ])
             ->add('submit', SubmitType::class,
                 [
                     'label'=> 'Create',
