@@ -105,8 +105,9 @@ class ParentController extends AbstractController
 
             return $this->redirectToRoute('app_admin_parent_list') ;
         } else if ($form->isSubmitted() && !$form->isValid()) {
-
+            dump($form);
            dd($form->getData());
+
             $this->addFlash('error','check your data');
          }
  

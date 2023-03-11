@@ -88,13 +88,14 @@
                             <tr>
                                 <th></th>
                                 <th>id</th>
-                                <th>Prenom</th>
-                                <th>Nom</th>
+                                <th>Nom complet</th>
+                                <th>Parent</th>
+                    
                                 <th>Telephone</th>
                                 <th>Email</th>
                                 <th>Login</th>
                                 <th>Facebook</th>
-                                <th>status</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -103,8 +104,8 @@
                                 <tr>
                                     <td></td>
                                     <td>{{ nageur.id }}</td>
-                                    <td>{{ nageur.prenom }}</td>
-                                    <td>{{ nageur.nom }}</td>
+                                    <td>{{ nageur.prenom ~ ' ' ~ nageur.nom }}</td> 
+                                   <td>{{ nageur.parent.prenom ~ ' ' ~ nageur.parent.nom }}</td> 
                                     <td>{{ nageur.telephone }}</td>
                                     <td>{{ nageur.email }}</td>
                                     <td>{{ nageur.login }}</td>

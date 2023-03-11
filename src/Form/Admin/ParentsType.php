@@ -39,12 +39,11 @@ class ParentsType extends AbstractType
             ->add('ville')
             ->add('adresse')
             ->add('type', ChoiceType::class, [
-                'choices'  => ['père' => 'pére' ,
-                    'mère' => 'mére' 
-                   
-               ]
+                'choices'  => [
+                    Parents::TYPE_PERE => Parents::TYPE_PERE ,
+                Parents::TYPE_MERE => Parents::TYPE_MERE
                 
-            ])
+            ]])
 
 
 

@@ -83,7 +83,7 @@ class NageurController extends AbstractController
             return $this->redirectToRoute('app_admin_nageur_list') ;
         } else if ($form->isSubmitted() && !$form->isValid()) {
 
-           //dd($form->getData());
+           dd($form->getData());
             $this->addFlash('error','check your data');
          }
  
