@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NageurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,6 +57,14 @@ class Nageur extends User
     #[ORM\ManyToOne(inversedBy: 'nageurs')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Parents $parent = null;
+
+    #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: Physionomie::class, orphanRemoval: true)]
+    private Collection $physionomies;
+
+    public function __construct()
+    {
+        $this->physionomies = new ArrayCollection();
+    }
 
 
 
@@ -170,6 +180,36 @@ class Nageur extends User
     public function setParent(?Parents $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Physionomie>
+     */
+    public function getPhysionomies(): Collection
+    {
+        return $this->physionomies;
+    }
+
+    public function addPhysionomy(Physionomie $physionomy): self
+    {
+        if (!$this->physionomies->contains($physionomy)) {
+            $this->physionomies->add($physionomy);
+            $physionomy->setNageur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhysionomy(Physionomie $physionomy): self
+    {
+        if ($this->physionomies->removeElement($physionomy)) {
+            // set the owning side to null (unless already changed)
+            if ($physionomy->getNageur() === $this) {
+                $physionomy->setNageur(null);
+            }
+        }
 
         return $this;
     }
