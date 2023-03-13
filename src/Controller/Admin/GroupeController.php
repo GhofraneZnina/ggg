@@ -30,6 +30,7 @@ class GroupeController extends AbstractController
             return $this->redirectToRoute('login') ;
      }
 
+
     $groupes = $this->em->getRepository(groupe::class)->findAll() ;
 
          return $this->render('admin/groupe/index.html.twig', [
@@ -37,12 +38,12 @@ class GroupeController extends AbstractController
          ]);
      } 
 
-    [Route('/admin/groupe/create', name: 'app_admin_groupe_create')]
+    #[Route('/admin/groupe/create', name: 'app_admin_groupe_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('login') ;
-    
+        }
             $groupe = new groupe() ;
          $form = $this->createForm(groupeType::class, $groupe);
          $form->handleRequest($request);
@@ -104,12 +105,9 @@ class GroupeController extends AbstractController
 
 
 
+
+
+
 }
 
-
-
-
 ?>
-
-
-
