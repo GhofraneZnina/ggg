@@ -61,6 +61,9 @@ class Nageur extends User
     #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: Physionomie::class, orphanRemoval: true)]
     private Collection $physionomies;
 
+    #[ORM\ManyToOne(inversedBy: 'nageur')]
+    private ?Groupe $groupe = null;
+
     public function __construct()
     {
         $this->physionomies = new ArrayCollection();
@@ -210,6 +213,18 @@ class Nageur extends User
                 $physionomy->setNageur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGroupe(): ?Groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Groupe $groupe): self
+    {
+        $this->groupe = $groupe;
 
         return $this;
     }
