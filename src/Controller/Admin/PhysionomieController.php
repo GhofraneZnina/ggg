@@ -43,6 +43,7 @@ class PhysionomieController extends AbstractController
         $form = $this->createForm(PhysionomieType::class, $physionomie);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $data = $request->request->all() ;
 
             $date = str_replace('/','-',$data['physionomie']['date']) ;
@@ -50,22 +51,14 @@ class PhysionomieController extends AbstractController
 
             
             
-            //dump($dataTime);
-            $physionomie->setDateDebutActiviteSportive($dataTimeDate);
-           
+           //dump($dataTimeDate);
             //dd($form->getData());
-            $physionomie = $form->getData();
-            // $chekUser = $this->em->getRepository(Nageur::class)->findOneByLogin($nageur->getLogin());
-            // if($chekUser){
-            //     $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
-            //     return $this->redirectToRoute('app_admin_nageur_list');
-            // // }
-            // $password = $form->get('password')->getData();
-            // $password = $userPasswordHasher->hashPassword($nageur, $password);
-            // $nageur->setPassword($password);
+            $physionomie->setDate($dataTimeDate );
+           
+            
 
-            // $this->em->persist($nageur);
-            // $this->em->flush();
+             $this->em->persist($physionomie);
+             $this->em->flush();
 
             $this->addFlash('success','physionime successfully created' );
 
@@ -80,6 +73,32 @@ class PhysionomieController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+
+   /*  public function create(Request $request, EntityManagerInterface $em): Response
+    {
+        // Create new category here
+        $physionomie=new physionomie ();
+        // Add $category to createForm method as second argument
+        $form=$this->createForm(PhysionomieType::class, $physionomie);
+        $form->handleRequest($request);
+    
+        if($form->isSubmitted()){
+            // After form is submitted
+            // $category will be filled 
+            // with data from $form
+            $em->persist($physionomie);
+            $em->flush();
+            dump($request);
+        }
+        $formView = $form->createView();
+    
+        return $this->render('admin/physionomie/create.html.twig', [
+                     'form' => $form->createView(),
+                 ]);
+    }
+ */
     
 
 
