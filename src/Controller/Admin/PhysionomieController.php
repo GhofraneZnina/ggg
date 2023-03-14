@@ -75,25 +75,52 @@ class PhysionomieController extends AbstractController
     }
 
 
-    #[Route('/admin/physionomie/{id}/delete', name: 'app_admin_physionomie_delete')]
+    // #[Route('/admin/physionomie/{id}/delete', name: 'app_admin_physionomie_delete')]
 
-    public function deletePhysionomie($id)
+    // public function deletePhysionomie($id)
+    // {
+        
+    //     //$entityManager = $this->getDoctrine()->getManager();
+    //     $physionomie = $this->em->getRepository(Physionomie::class)->find(['id'=>$id]);
+    
+    //     if (!$physionomie) {
+    //         throw $this->createNotFoundException(
+    //             'Aucune physionomie trouvée pour l\'id '.$id
+    //         );
+    //     }
+    
+    //     $em->remove($physionomie);
+    //     $em->flush();
+    
+    //     return $this->redirectToRoute('admin/physionomie/index.html.twig');
+    // }
+    
+    // -----------------------------------------------------------------------------------------------------------
+
+    #[Route('/admin/physionomie/{id}/delete', name: 'app_admin_physionomie_delete')]
+    public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
     {
         
-        //$entityManager = $this->getDoctrine()->getManager();
-        $physionomie = $this->em->getRepository(Physionomie::class)->find(['id'=>$id]);
-    
+        $user = $this->getUser();
+
+        
+        $physionomieRepository = $this->em->getRepository(Physionomie::class);
+       
+        $physionomie =$physionomieRepository->find(['id'=>$id]);;
         if (!$physionomie) {
-            throw $this->createNotFoundException(
-                'Aucune physionomie trouvée pour l\'id '.$id
-            );
+            return $this->redirectToRoute('app_admin_physionomie_list');
         }
-    
-        $em->remove($physionomie);
-        $em->flush();
-    
-        return $this->redirectToRoute('admin/physionomie/index.html.twig');
+
+      
+        $this->em->remove($physionomie);
+        $this->em->flush();
+        
+        
+        $this->addFlash('success','physionime successfully deleted ' );
+        return $this->redirectToRoute('app_admin_physionomie_list');
     }
+
+    // -----------------------------------------------------------------------------------------------------------
     
 
 

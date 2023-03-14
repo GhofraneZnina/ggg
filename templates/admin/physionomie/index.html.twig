@@ -14,7 +14,7 @@
 
 {% block body %}
     {#  Show alert : START #}
-    {# {% for message in app.flashes('success') %}
+   {% for message in app.flashes('success') %}
         <div class="card-alert card green">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -23,8 +23,8 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %} #}
-    {# {% for message in app.flashes('error') %}
+    {% endfor %} 
+   {% for message in app.flashes('error') %}
         <div class="card-alert card red">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -33,7 +33,7 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %} #}
+    {% endfor %} 
     {#  Show alert : END  #}
     <section class="users-list-wrapper section">
         <div class="users-list-filter">
