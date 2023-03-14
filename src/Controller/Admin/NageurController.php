@@ -131,6 +131,15 @@ class NageurController extends AbstractController
              'form' => $form->createView(),
          ]);
     }
+    #[Route('/admin/nageur/page', name: 'app_admin_nageur_page')]
+    public function page(): Response
+    {
+       
+       return $this->render('admin/nageur/pageNageur.html.twig', [
+           'controller_name' => 'NageurController',
+       ]);
+   }
+
 
 
 

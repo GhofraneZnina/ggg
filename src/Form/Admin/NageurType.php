@@ -97,6 +97,16 @@ class NageurType extends AbstractType
             'data_class' => Nageur::class,
         ]);
     }
-} 
+
+
+   
+
+}
+
+
+
+
+
+
 
 ?>
