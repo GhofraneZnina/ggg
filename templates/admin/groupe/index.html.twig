@@ -1,0 +1,129 @@
+{% extends "base.html.twig" %}
+{% block title %}Liste des groupes{% endblock %}
+{% block pageTitle %}Liste des groupes{% endblock %}
+{% block levelOne %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_groupe_list') }}">groupe</a></li>{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+    <div class="col s2 m6 l6">
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_groupe_create') }}">
+            Ajouter groupe</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {#  Show alert : START #}
+   {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %} 
+   {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %} 
+    {#  Show alert : END  #}
+    <section class="users-list-wrapper section">
+        <div class="users-list-filter">
+            <div class="card-panel">
+                <div class="row">
+                    <form>
+                        {# <div class="col s12 m6 l3">
+                            <label for="users-list-verified">Verified</label>
+                            <div class="input-field">
+                                <select class="form-control" id="users-list-verified">
+                                    <option value="">Any</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <label for="users-list-role">Role</label>
+                            <div class="input-field">
+                                <select class="form-control" id="users-list-role">
+                                    <option value="">Any</option>
+                                    <option value="User">groupe</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <label for="users-list-status">Status</label>
+                            <div class="input-field">
+                                <select class="form-control" id="users-list-status">
+                                    <option value="">Any</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Close">Close</option>
+                                    <option value="Banned">Banned</option>
+                                </select>
+                            </div>
+                        </div> #}
+                        <div class="col s12 m6 l3 display-flex align-items-center show-btn">
+                            <button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="users-list-table">
+            <div class="card">
+                <div class="card-content">
+                    <!-- datatable start -->
+                    <div class="responsive-table">
+                        <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Nageur</th>
+                                <th>Date</th>
+                    
+                                <th>Poids</th>
+                                
+                            </thead>
+                            <tbody>
+                            {% for groupe in groupes %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ groupe.id }}</td>
+                                    <td>{{ groupe.nageur}}</td> 
+                                   
+                                    <td>{{ groupe.intitule }}</td>
+                                    
+                                    <td>
+                                        <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
+                                    </td>
+                                    <td>    
+                                         <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
+                                      
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- datatable ends -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+
+
