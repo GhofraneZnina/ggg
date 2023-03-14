@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GroupeRepository::class)]
@@ -29,6 +31,36 @@ class Groupe
     public function setIntitule(string $intitule): self
     {
         $this->intitule = $intitule;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, nageur>
+     */
+    public function getNageur(): Collection
+    {
+        return $this->nageur;
+    }
+
+    public function addNageur(nageur $nageur): self
+    {
+        if (!$this->nageur->contains($nageur)) {
+            $this->nageur->add($nageur);
+            $nageur->setGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNageur(nageur $nageur): self
+    {
+        if ($this->nageur->removeElement($nageur)) {
+            // set the owning side to null (unless already changed)
+            if ($nageur->getGroupe() === $this) {
+                $nageur->setGroupe(null);
+            }
+        }
 
         return $this;
     }

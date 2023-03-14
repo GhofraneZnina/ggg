@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Controller\Admin;
-use App\Entity\groupe;
-use App\Form\Admin\groupeType;
+use App\Entity\Groupe;
+use App\Form\Admin\GroupeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,12 +12,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GroupeController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em) {
+
+
+
+ public function __construct(private EntityManagerInterface $em) {
         ;
     }
 
 
-    #[Route('/admin/groupe', name: 'app_admin_groupe_list')]
+
+
+
+#[Route('/admin/groupe', name: 'app_admin_groupe_list')]
     public function index(): Response
     {
         if (!$this->getUser()) {
@@ -31,94 +37,86 @@ class GroupeController extends AbstractController
          ]);
      } 
 
-     #[Route('/admin/groupe/create', name: 'app_admin_groupe_create')]
+    #[Route('/admin/groupe/create', name: 'app_admin_groupe_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if (!$this->getUser()) {
-           return $this->redirectToRoute('login') ;
+            return $this->redirectToRoute('login') ;
         }
-        $groupe = new Groupe() ;
-        $form = $this->createForm(groupeType::class, $groupe);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $data = $request->request->all() ;
+            $groupe = new groupe() ;
+         $form = $this->createForm(groupeType::class, $groupe);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
 
            
 
-             $this->em->persist($groupe);
-             $this->em->flush();
+            
+            
+           //dump($dataTimeDate);
+            //dd($form->getData());
+            
+            
 
-            $this->addFlash('success','physionime successfully created' );
+              $this->em->persist($groupe);
+              $this->em->flush();
 
-            return $this->redirectToRoute('app_admin_groupe_list') ;
-        } else if ($form->isSubmitted() && !$form->isValid()) {
+           $this->addFlash('success','groupe  successfully created' );
 
-           //dd($form->getData());
-            $this->addFlash('error','check your data');
-         }
+             return $this->redirectToRoute('app_admin_groupe_list') ;
+         } else if ($form->isSubmitted() && !$form->isValid()) {
+
+          //dd($form->getData());
+             $this->addFlash('error','check your data');
+          }
  
-        return $this->render('admin/groupe/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+         return $this->render('admin/groupe/create.html.twig', [
+             'form' => $form->createView(),
+       ]);
+     }
 
 
-    // #[Route('/admin/groupe/{id}/delete', name: 'app_admin_groupe_delete')]
 
-    // public function deletegroupe($id)
-    // {
-        
-    //     //$entityManager = $this->getDoctrine()->getManager();
-    //     $groupe = $this->em->getRepository(groupe::class)->find(['id'=>$id]);
-    
-    //     if (!$groupe) {
-    //         throw $this->createNotFoundException(
-    //             'Aucune groupe trouvée pour l\'id '.$id
-    //         );
-    //     }
-    
-    //     $em->remove($groupe);
-    //     $em->flush();
-    
-    //     return $this->redirectToRoute('admin/groupe/index.html.twig');
-    // }
-    
-    // -----------------------------------------------------------------------------------------------------------
 
-    #[Route('/admin/groupe/{id}/delete', name: 'app_admin_groupe_delete')]
-    public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
+
+     #[Route('/admin/groupe/delete', name: 'app_admin_groupe_delete')]
+     
+    public function delete( $id, EntityManagerInterface $em): Response
     {
-        
-        $user = $this->getUser();
+        $em->remove($id);
+        $em->flush();
 
-        
-        $groupeRepository = $this->em->getRepository(groupe::class);
-       
-        $groupe =$groupeRepository->find(['id'=>$id]);;
-        if (!$groupe) {
-            return $this->redirectToRoute('app_admin_groupe_list');
-        }
-
-      
-        $this->em->remove($groupe);
-        $this->em->flush();
-        
-        
-        $this->addFlash('success','physionime successfully deleted ' );
-        return $this->redirectToRoute('app_admin_groupe_list');
+        return new Response('Entity deleted successfully.');
     }
-
-    // -----------------------------------------------------------------------------------------------------------
-    
-
-
-
-
 }
+
+
+
+   /*  public function create(Request $request, EntityManagerInterface $em): Response
+    {
+        // Create new category here
+        $groupe=new groupe ();
+        // Add $category to createForm method as second argument
+        $form=$this->createForm(groupeType::class, $groupe);
+        $form->handleRequest($request);
+    
+        if($form->isSubmitted()){
+            // After form is submitted
+            // $category will be filled 
+            // with data from $form
+            $em->persist($groupe);
+            $em->flush();
+            dump($request);
+        }
+        $formView = $form->createView();
+    
+        return $this->render('admin/groupe/create.html.twig', [
+                     'form' => $form->createView(),
+                 ]);
+    }
+ */
+    
 
 
 
 
 ?>
-

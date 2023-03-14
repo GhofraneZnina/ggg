@@ -8,13 +8,14 @@
 {% block btnLink %}
     <div class="col s2 m6 l6">
         <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_groupe_create') }}">
-            Ajouter groupe</a>
+            Create nageur</a>
     </div>
 {% endblock %}
 
+
 {% block body %}
     {#  Show alert : START #}
-   {% for message in app.flashes('success') %}
+    {# {% for message in app.flashes('success') %}
         <div class="card-alert card green">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -23,8 +24,8 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %} 
-   {% for message in app.flashes('error') %}
+    {% endfor %} #}
+    {# {% for message in app.flashes('error') %}
         <div class="card-alert card red">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -33,7 +34,7 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %} 
+    {% endfor %} #}
     {#  Show alert : END  #}
     <section class="users-list-wrapper section">
         <div class="users-list-filter">
@@ -88,10 +89,9 @@
                             <tr>
                                 <th></th>
                                 <th>id</th>
-                                <th>Nageur</th>
-                                <th>Date</th>
+                                 <th>Nageur</th>
+                                <th>intitule</th>
                     
-                                <th>Poids</th>
                                 
                             </thead>
                             <tbody>
@@ -100,16 +100,15 @@
                                     <td></td>
                                     <td>{{ groupe.id }}</td>
                                     <td>{{ groupe.nageur}}</td> 
-                                   
-                                    <td>{{ groupe.intitule }}</td>
-                                    
+                                  
+                                    <td>{{ groupe.intitule }}</td> 
+                                     
                                     <td>
                                         <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                    </td>
-                                    <td>    
-                                         <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
+                                        
+                                    <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
                                       
-                                    </td>
+                                </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -121,9 +120,3 @@
         </div>
     </section>
 {% endblock %}
-
-
-
-
-
-
