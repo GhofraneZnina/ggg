@@ -11,12 +11,7 @@
             Create nageur</a>
     </div>
 {% endblock %}
-{% block btnLink %}
-    <div class="col s2 m6 l6">
-        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_delete') }}">
-            delete groupe</a>
-    </div>
-{% endblock %}
+
 
 {% block body %}
     {#  Show alert : START #}
@@ -111,10 +106,8 @@
                                     <td>
                                         <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
                                         
-                                    </td>
-                                    <td>
-                                    <a href="app_admin_groupe_delete"><i class="material-icons">remove_red_eye</i></a>
-                                    
+                                    <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
+                                      
                                 </td>
                                 </tr>
                             {% endfor %}
