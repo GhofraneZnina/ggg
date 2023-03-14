@@ -75,30 +75,23 @@ class PhysionomieController extends AbstractController
     }
 
 
-
-   /*  public function create(Request $request, EntityManagerInterface $em): Response
+    #[Route('/admin/physionomie/{id}/delete', name: 'app_admin_physionomie_edit')]
+    public function deletePhysionomie($id)
     {
-        // Create new category here
-        $physionomie=new physionomie ();
-        // Add $category to createForm method as second argument
-        $form=$this->createForm(PhysionomieType::class, $physionomie);
-        $form->handleRequest($request);
+        $entityManager = $this->getDoctrine()->getManager();
+        $physionomie = $entityManager->getRepository(Physionomie::class)->find($id);
     
-        if($form->isSubmitted()){
-            // After form is submitted
-            // $category will be filled 
-            // with data from $form
-            $em->persist($physionomie);
-            $em->flush();
-            dump($request);
+        if (!$physionomie) {
+            throw $this->createNotFoundException(
+                'Aucune physionomie trouvée pour l\'id '.$id
+            );
         }
-        $formView = $form->createView();
     
-        return $this->render('admin/physionomie/create.html.twig', [
-                     'form' => $form->createView(),
-                 ]);
+        $entityManager->remove($physionomie);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('physionomie_list');
     }
- */
     
 
 
