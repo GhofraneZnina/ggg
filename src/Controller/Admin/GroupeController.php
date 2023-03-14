@@ -77,6 +77,21 @@ class GroupeController extends AbstractController
 
 
 
+
+
+     #[Route('/admin/groupe/delete', name: 'app_admin_groupe_delete')]
+     
+    public function delete( $id, EntityManagerInterface $em): Response
+    {
+        $em->remove($id);
+        $em->flush();
+
+        return new Response('Entity deleted successfully.');
+    }
+}
+
+
+
    /*  public function create(Request $request, EntityManagerInterface $em): Response
     {
         // Create new category here
@@ -104,10 +119,5 @@ class GroupeController extends AbstractController
 
 
 
-
-
-
-
-}
 
 ?>
