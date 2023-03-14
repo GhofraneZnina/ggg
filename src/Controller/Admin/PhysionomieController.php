@@ -75,11 +75,13 @@ class PhysionomieController extends AbstractController
     }
 
 
-    #[Route('/admin/physionomie/{id}/delete', name: 'app_admin_physionomie_edit')]
+    #[Route('/admin/physionomie/{id}/delete', name: 'app_admin_physionomie_delete')]
+
     public function deletePhysionomie($id)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $physionomie = $entityManager->getRepository(Physionomie::class)->find($id);
+        
+        //$entityManager = $this->getDoctrine()->getManager();
+        $physionomie = $this->em->getRepository(Physionomie::class)->find(['id'=>$id]);
     
         if (!$physionomie) {
             throw $this->createNotFoundException(
@@ -87,10 +89,10 @@ class PhysionomieController extends AbstractController
             );
         }
     
-        $entityManager->remove($physionomie);
-        $entityManager->flush();
+        $em->remove($physionomie);
+        $em->flush();
     
-        return $this->redirectToRoute('physionomie_list');
+        return $this->redirectToRoute('admin/physionomie/index.html.twig');
     }
     
 

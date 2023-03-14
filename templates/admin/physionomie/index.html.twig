@@ -7,8 +7,8 @@
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
     <div class="col s2 m6 l6">
-        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_create') }}">
-            Create nageur</a>
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_physionomie_create') }}">
+            Ajouter physionomie</a>
     </div>
 {% endblock %}
 
@@ -105,7 +105,10 @@
                                     
                                     <td>
                                         <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                        
+                                    </td>
+                                    <td>    
+                                         <a href="{{ path('app_admin_physionomie_delete',{'id': physionomie.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
+                                      
                                     </td>
                                 </tr>
                             {% endfor %}

@@ -25,7 +25,7 @@ class Physionomie
 
     #[ORM\ManyToOne(inversedBy: 'physionomies')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?nageur $nageur = null;
+    private ?Nageur $nageur = null;
 
     public function getId(): ?int
     {

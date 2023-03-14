@@ -87,7 +87,7 @@ class NageurController extends AbstractController
             $this->addFlash('error','check your data');
          }
  
-        return $this->render('admin/Nageur/create.html.twig', [
+        return $this->render('admin/nageur/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -131,6 +131,9 @@ class NageurController extends AbstractController
              'form' => $form->createView(),
          ]);
     }
+
+
+
     #[Route('/admin/nageur/page', name: 'app_admin_nageur_page')]
     public function page(): Response
     {

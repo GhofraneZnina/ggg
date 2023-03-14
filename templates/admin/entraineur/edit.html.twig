@@ -72,15 +72,22 @@
                                         </div>
                                        
                                          <div class="col s12 m6 input-field">
-                                            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
-                                            <label class="active">Password</label>
-                                            <small class="errorTxt7"></small>
-                                        </div>
-                                         <div class="col s12 m6 input-field">
-                                            {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
-                                            <label class="active">date Naissance</label>
-                                            <small class="errorTxt7"></small>
-                                        </div>
+										{{ form_widget(form.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+										<label class="active">Password</label>
+										<small class="errorTxt7"></small>
+									</div>
+									<div class="col s12 m6 input-field">
+										{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+										<label class="active">Confirm password</label>
+										<small class="errorTxt8"></small>
+									</div>
+                                         <div
+										 class="col s12 m6 input-field" id="view-date-picker-1">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="entraineur_dateNaissance">dateNaissance</label>
+										{{ form_widget(form.dateNaissance,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									    </div>
                                          <div class="col s12 m6 input-field">
                                             {{ form_widget(form.description, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
                                             <label class="active">description</label>
