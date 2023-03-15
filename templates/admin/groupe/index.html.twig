@@ -6,10 +6,27 @@
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
-    <div class="col s2 m6 l6">
-        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_groupe_create') }}">
-            Create groupe</a>
-    </div>
+
+
+
+
+
+<!-- Modal Trigger -->
+{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+<button data-target="modal1" class="btn modal-trigger">groupe</button>
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>create groupe</h4>
+    <p>intitule</p>
+    <p>nageur</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+
+
 {% endblock %}
 
 
@@ -117,4 +134,24 @@
             </div>
         </div>
     </section>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    
+{# <script src="../../../app-assets/js/scripts/advance-ui-modals.js"></script> #}
+<script src="{{asset('assets/app-assets/js/scripts/advance-ui-modals.js')}}"></script>
+<script type="text/javascript">
+jQuery('.modal').modal({
+  dismissible: true, // Modal can be dismissed by clicking outside of the modal
+  opacity: .5, // Opacity of modal background
+  inDuration: 300, // Transition in duration
+  outDuration: 200, // Transition out duration
+  startingTop: '4%', // Starting top style attribute
+  endingTop: '10%', // Ending top style attribute
+  ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+  alert("Ready");
+  console.log(modal, trigger);
+  },
+  complete: function() { alert('Closed'); } // Callback for Modal close
+  }
+)
+</script>
 {% endblock %}
