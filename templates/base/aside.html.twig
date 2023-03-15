@@ -65,6 +65,19 @@
               </span>
             </a>
           </li>
+          
+        </ul>
+        <li class="active bold">
+      <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+        <i class="material-icons">
+          face
+        </i>
+        <span class="menu-title" data-i18n="User">
+          les detailles
+        </span>
+      </a>
+      <div class="collapsible-body">
+        <ul class="collapsible collapsible-sub" data-collapsible="accordion">
           <li>
             <a {% if( currentPath == path('app_admin_groupe_list') )  %} class="active" {%endif%} href="{{ path('app_admin_groupe_list') }}">
               <i class="material-icons">
@@ -86,6 +99,7 @@
             </a>
           </li>
         </ul>
+          
       </div>
     </li>
     {#

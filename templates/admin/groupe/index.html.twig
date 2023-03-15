@@ -15,11 +15,18 @@
 {# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
 <button data-target="modal1" class="btn modal-trigger">groupe</button>
 <!-- Modal Structure -->
-<div id="modal1" class="modal bottom-sheet">
+<div id="modal1" class="modal modal-fixed-footer">
   <div class="modal-content">
-    <h4>create groupe</h4>
-    <p>intitule</p>
-    <p>nageur</p>
+    <div class="modal-content">
+			<form action="/action_page.php">
+                <label for="intitulé">Intitulé</label><br>
+				<input type="text" id="intitulé"><br><br>
+				<label for="nageur">Nageur</label><br>
+				<input type="text" id="nageur"><br><br>
+                
+                
+				<input type="submit" value="Submit">
+			</form>
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -116,7 +123,7 @@
                                 <tr>
                                     <td></td>
                                     <td>{{ groupe.id }}</td>
-                                    <td> jhvjh</td> 
+                                    {# <td> jhvjh</td> #} 
                                     <td>{{ groupe.intitule }}</td> 
                                     <td>
                                         <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>

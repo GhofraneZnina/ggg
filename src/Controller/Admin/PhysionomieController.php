@@ -69,8 +69,8 @@ class PhysionomieController extends AbstractController
             $this->addFlash('error','check your data');
          }
  
-        return $this->render('admin/physionomie/create.html.twig', [
-            //return $this->render('admin/physionomie/indexModal.html.twig', [
+        //return $this->render('admin/physionomie/create.html.twig', [
+            return $this->render('admin/physionomie/indexModal.html.twig', [
             'form' => $form->createView(),
         ]);
     }
