@@ -1,20 +1,21 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des physionomies{% endblock %}
-{% block pageTitle %}Liste des physionomies{% endblock %}
+{% block title %}Liste des groupes{% endblock %}
+{% block pageTitle %}Liste des groupes{% endblock %}
 {% block levelOne %}
-    <li class="breadcrumb-item"><a href="{{ path('app_admin_physionomie_list') }}">Physionomie</a></li>{% endblock %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_groupe_list') }}">groupe</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
     <div class="col s2 m6 l6">
-        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_physionomie_create') }}">
-            Create nageur</a>
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_groupe_create') }}">
+            Create groupe</a>
     </div>
 {% endblock %}
 
+
 {% block body %}
     {#  Show alert : START #}
-   {% for message in app.flashes('success') %}
+  {% for message in app.flashes('success') %}
         <div class="card-alert card green">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -40,7 +41,7 @@
             <div class="card-panel">
                 <div class="row">
                     <form>
-                        {# <div class="col s12 m6 l3">
+                          <div class="col s12 m6 l3">
                             <label for="users-list-verified">Verified</label>
                             <div class="input-field">
                                 <select class="form-control" id="users-list-verified">
@@ -55,7 +56,7 @@
                             <div class="input-field">
                                 <select class="form-control" id="users-list-role">
                                     <option value="">Any</option>
-                                    <option value="User">Physionomie</option>
+                                    <option value="User">groupe</option>
                                     <option value="Staff">Staff</option>
                                 </select>
                             </div>
@@ -70,7 +71,7 @@
                                     <option value="Banned">Banned</option>
                                 </select>
                             </div>
-                        </div> #}
+                        </div>  
                         <div class="col s12 m6 l3 display-flex align-items-center show-btn">
                             <button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
                         </div>
@@ -86,28 +87,24 @@
                         <table id="users-list-datatable" class="table">
                             <thead>
                             <tr>
-                                <th></th>
-                                <th>id</th>
-                                <th>Nageur</th>
-                                <th>Date</th>
-                    
-                                <th>Poids</th>
-                                
+                                 <th></th>
+                                 <th>id</th>
+                                 <th>Nageur</th>
+                                 <th>intitule</th>
+                                 <th>Action</th> 
+                            </tr>   
                             </thead>
                             <tbody>
-                            {% for physionomie in physionomies %}
+                            {% for groupe in groupes %}
                                 <tr>
                                     <td></td>
-                                    <td>{{ physionomie.id }}</td>
-                                    <td>{{ physionomie.nageur}}</td> 
-                                   <td>{{ physionomie.date |date('Y-m-d') }}</td> 
-                                    <td>{{ physionomie.poids }}</td>
-                                    
+                                    <td>{{ groupe.id }}</td>
+                                    <td> jhvjh</td> 
+                                    <td>{{ groupe.intitule }}</td> 
                                     <td>
                                         <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                    </td>
-                                    <td>    
-                                         <a href="{{ path('app_admin_physionomie_delete',{'id': physionomie.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
+                                        
+                                        <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"><i  class="btn-small btn-light-pink">supprimer</i></a>
                                       
                                     </td>
                                 </tr>
