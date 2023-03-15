@@ -18,6 +18,14 @@ class Groupe
     #[ORM\Column(length: 255)]
     private ?string $intitule = null;
 
+    #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: Nageur::class)]
+    private Collection $nageur;
+
+    public function __construct()
+    {
+        $this->nageur = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,14 +44,14 @@ class Groupe
     }
 
     /**
-     * @return Collection<int, nageur>
+     * @return Collection<int, Nageur>
      */
     public function getNageur(): Collection
     {
         return $this->nageur;
     }
 
-    public function addNageur(nageur $nageur): self
+    public function addNageur(Nageur $nageur): self
     {
         if (!$this->nageur->contains($nageur)) {
             $this->nageur->add($nageur);
@@ -53,7 +61,7 @@ class Groupe
         return $this;
     }
 
-    public function removeNageur(nageur $nageur): self
+    public function removeNageur(Nageur $nageur): self
     {
         if ($this->nageur->removeElement($nageur)) {
             // set the owning side to null (unless already changed)
@@ -64,4 +72,6 @@ class Groupe
 
         return $this;
     }
+
+
 }

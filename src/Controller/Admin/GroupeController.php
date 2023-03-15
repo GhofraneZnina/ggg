@@ -32,7 +32,7 @@ class GroupeController extends AbstractController
 
     $groupes = $this->em->getRepository(groupe::class)->findAll() ;
 
-         return $this->render('admin/groupe/index.html.twig', [
+         return $this->render('admin/groupe/new.html.twig', [
              'groupes' => $groupes,
          ]);
      } 
@@ -78,14 +78,18 @@ class GroupeController extends AbstractController
 
 
 
-     #[Route('/admin/groupe/delete', name: 'app_admin_groupe_delete')]
-     
+     #[Route('/admin/groupe/delete/{id}', name: 'app_admin_groupe_delete')]
     public function delete( $id, EntityManagerInterface $em): Response
     {
-        $em->remove($id);
+        $groupe = $this->em->getRepository(groupe::class)->findOneBy(['id'=> $id]) ;
+        if(!$groupe){
+            $this->addFlash('error','groupe not found.' );
+            return $this->redirectToRoute('app_admin_groupe_list') ;
+        }
+        $em->remove($groupe);
         $em->flush();
-
-        return new Response('Entity deleted successfully.');
+        $this->addFlash('success','groupe deleted successfully.' );
+        return $this->redirectToRoute('app_admin_groupe_list') ;
     }
 }
 

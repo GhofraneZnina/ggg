@@ -63,6 +63,7 @@ class Nageur extends User
 
     #[ORM\ManyToOne(inversedBy: 'nageur')]
     private ?Groupe $groupe = null;
+ 
 
     public function __construct()
     {
@@ -228,6 +229,7 @@ class Nageur extends User
 
         return $this;
     }
+ 
 
 }
 ?>
