@@ -184,35 +184,6 @@ class Nageur extends User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Physionomie>
-     */
-    public function getPhysionomies(): Collection
-    {
-        return $this->physionomies;
-    }
-
-    public function addPhysionomy(Physionomie $physionomy): self
-    {
-        if (!$this->physionomies->contains($physionomy)) {
-            $this->physionomies->add($physionomy);
-            $physionomy->setNageur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhysionomy(Physionomie $physionomy): self
-    {
-        if ($this->physionomies->removeElement($physionomy)) {
-            // set the owning side to null (unless already changed)
-            if ($physionomy->getNageur() === $this) {
-                $physionomy->setNageur(null);
-            }
-        }
-
-        return $this;
-    }
 
 }
 ?>
