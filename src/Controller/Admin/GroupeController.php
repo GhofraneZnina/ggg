@@ -24,15 +24,30 @@ class GroupeController extends AbstractController
 
 
 #[Route('/admin/groupe', name: 'app_admin_groupe_list')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('login') ;
-     }
+         }
 
-    $groupes = $this->em->getRepository(Groupe::class)->findAll() ;
-
+         //  TODO : create new group : START
+         $groupe = new Groupe() ;
+         $form = $this->createForm(groupeType::class, $groupe);
+         $form->handleRequest($request);if ($form->isSubmitted() && $form->isValid()) { 
+               $this->em->persist($groupe);
+               $this->em->flush();
+ 
+              $this->addFlash('success','groupe  successfully created' ); 
+              return $this->redirectToRoute('app_admin_groupe_list') ;
+          } else if ($form->isSubmitted() && !$form->isValid()) {
+ 
+           //dd($form->getData());
+              $this->addFlash('error','check your data');
+           }
+         //  TODO : create new group : END 
+         $groupes = $this->em->getRepository(Groupe::class)->findAll() ; 
          return $this->render('admin/groupe/index.html.twig', [
+            'form' => $form->createView(),
              'groupes' => $groupes,
          ]);
      } 
