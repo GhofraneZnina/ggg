@@ -134,15 +134,34 @@ class NageurController extends AbstractController
 
 
 
-    #[Route('/admin/nageur/page', name: 'app_admin_nageur_page')]
-    public function page(): Response
-    {
+//     #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+//     public function page(): Response
+//     {
        
-       return $this->render('admin/nageur/pageNageur.html.twig', [
-           'controller_name' => 'NageurController',
-       ]);
-   }
+//        return $this->render('admin/nageur/pageNageur.html.twig', [
+//            'controller_name' => 'NageurController',
+//        ]);
+//    }
 
+
+
+
+
+
+
+
+#[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+public function pageNageur($id): Response
+{ 
+    $nageur = $this->em->getRepository(Nageur::class)->find(['id'=>$id]);;
+    if (!$nageur) {
+        return $this->redirectToRoute('app_admin_nageur_list');
+    }
+
+   return $this->render('admin/nageur/pageNageur.html.twig', [
+       'nageur' => $nageur,
+   ]);
+}
 
 
 
@@ -150,5 +169,28 @@ class NageurController extends AbstractController
 
 
 
+
+
+
+
+
+
+// #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+// Assuming you're using Symfony's built-in User class
+        // $data = [
+        //     'login' => $nageur->getLogin(),
+        //     'password' => $nageur->getPassword(),
+        //     'email' => $nageur->getEmail(),
+        //     'nom' => $nageur->getNom(),
+        //     'prenom' => $nageur->getPrenom(),
+        //     'telephne' => $nageur->getTelephone(),
+        //     'parent' => $nageur->getPrenom(),
+            
+        //     // Add any other data you want to pass to the template
+        // ];
+       /*  return $this->render('admin/nageur/pageNageur.html.twig', $data[
+            
+        ]); */
+    
 
 ?>
