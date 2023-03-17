@@ -49,7 +49,7 @@
 										<span>Change Password</span>
 									</a>
 								</li>
-								
+
 								<li class="tab">
 									<a href="#social-link">
 										<i class="material-icons">chat_bubble_outline</i>
@@ -91,6 +91,7 @@
 										<small>Allowed JPG, GIF or PNG. Max size of 800kB</small>
 										<div class="upfilewrapper">
 											<input id="upfile" type="file"/>
+
 										</div>
 									</div>
 								</div>
@@ -103,214 +104,213 @@
 										<li>
 											<strong>Nom:</strong>
 											{{ nageur.nom }}</li>
+										<li></li>
 										<li>
-                    <li>
 											<strong>Parent:</strong>
 											{{ nageur.parent}}</li>
 										<li>
-                    <strong>Email:</strong>
+											<strong>Email:</strong>
 											{{ nageur.email}}</li>
-										</li>
-                    <li>
-                    <strong>Telephone:</strong>
-											{{ nageur.telephone}}</li>
-										</li>
-									</ul>
-									{# <p1>Prenom : </p1> 
-									              <p1>{{ nageur.prenom }}</p1> </br>
-									              <p1>Nom : </p1> 
-									              <p1>{{ nageur.nom}}</p1></br>
-									              <p1>Parent : </p1> 
-									              <p1>{{ nageur.parent }}</p1></br>
-									              <p1>Email: </p1> 
-									              <p1>{{ nageur.email}}</p1></br>
-									              <p1>Telephone : </p1> 
-									              <p1>{{ nageur.telephone }}</p1> #}
+									</li>
+									<li>
+										<strong>Telephone:</strong>
+										{{ nageur.telephone}}</li>
+								</li>
+							</ul>
+							{# <p1>Prenom : </p1> 
+																              <p1>{{ nageur.prenom }}</p1> </br>
+																              <p1>Nom : </p1> 
+																              <p1>{{ nageur.nom}}</p1></br>
+																              <p1>Parent : </p1> 
+																              <p1>{{ nageur.parent }}</p1></br>
+																              <p1>Email: </p1> 
+																              <p1>{{ nageur.email}}</p1></br>
+																              <p1>Telephone : </p1> 
+																              <p1>{{ nageur.telephone }}</p1> #}
 
 
-								</div>
-
-							</div>
 						</div>
-						<div id="change-password">
-							<div class="card-panel">
-								{{ form_start(form) }}
-								<div class="row">
-									<div class="col s12">
-										<div class="input-field">
-											{{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
-											<label for="oldpswd">Taper nouveau mot de passe</label>
-											<small class="errorTxt4"></small>
-										</div>
-										<div class="input-field">
-											{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
-											<label for="oldpswd">Confirmer</label>
-											<small class="errorTxt4"></small>
-										</div>
-									</div>
+
+					</div>
+				</div>
+				<div id="change-password">
+					<div class="card-panel">
+						{{ form_start(form) }}
+						<div class="row">
+							<div class="col s12">
+								<div class="input-field">
+									{{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
+									<label for="oldpswd">Taper nouveau mot de passe</label>
+									<small class="errorTxt4"></small>
+								</div>
+								<div class="input-field">
+									{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt1'}}) }}
+									<label for="oldpswd">Confirmer</label>
+									<small class="errorTxt4"></small>
+								</div>
+							</div>
 
 
-									<div class="col s12 display-flex justify-content-end mt-3">
+							<div class="col s12 display-flex justify-content-end mt-3">
 								{{ form_widget(form.submit, {'label': 'Modidier'}) }}
 								<button type="button" class="btn btn-light">Cancel</button>
 							</div>
-								</div>
-								{{ form_start(form) }}
-							</div>
 						</div>
-						
-						<div id="social-link">
-							<div class="card-panel">
-								<form>
-									<div class="row">
-										<div class="col s12">
-											<div class="input-field">
-												<input id="twitter-link" type="text" class="validate" placeholder="Add link" value="https://www.twitter.com">
-												<label for="twitter-link">Twitter</label>
-											</div>
-										</div>
-										<div class="col s12">
-											<div class="input-field">
-												<input id="fb-link" type="text" class="validate" placeholder="Add link">
-												<label for="fb-link">Facebook</label>
-											</div>
-										</div>
-										<div class="col s12">
-											<div class="input-field">
-												<input id="google+link" type="text" class="validate" placeholder="Add link">
-												<label for="google+link">Google+</label>
-											</div>
-										</div>
-										<div class="col s12">
-											<div class="input-field">
-												<input id="linkedin" type="text" class="validate" placeholder="Add link" value="https://www.linkedin.com">
-												<label for="linkedin">LinkedIn</label>
-											</div>
-										</div>
-										<div class="col s12">
-											<div class="input-field">
-												<input id="instragram-link" type="text" class="validate" placeholder="Add link">
-												<label for="instragram-link">Instagram</label>
-											</div>
-										</div>
-										<div class="col s12">
-											<div class="input-field">
-												<input id="quora-link" type="text" class="validate" placeholder="Add link">
-												<label for="quora-link">Quora</label>
-											</div>
-										</div>
-										<div class="col s12 display-flex justify-content-end form-action">
-											<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-												                  changes</button>
-											<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div id="connections">
-							<div class="card-panel">
-								<div class="row">
-									<div class="col s12 mt-1 mb-1">
-										<a href="javascript: void(0);" class="btn cyan waves-effect waves-light">
-											Connect to
-											<strong>Twitter</strong>
-										</a>
-									</div>
-									<div class="col s12 mt-1 mb-1">
-										<button class="btn btn-small waves-effect waves-light btn-light-indigo float-right">edit</button>
-										<h6>You are connected to facebook.</h6>
-										<p>Johndoe@gmail.com</p>
-									</div>
-									<div class="col s12 mt-1 mb-1">
-										<a href="javascript: void(0);" class="btn waves-effect waves-light">Connect to
-											<strong>Google</strong>
-										</a>
-									</div>
-									<div class="col s12 mt-1 mb-1">
-										<button class="btn btn-small btn-light-indigo float-right waves-effect waves-light">edit</button>
-										<h6>You are connected to Instagram.</h6>
-										<p>Johndoe@gmail.com</p>
-									</div>
-									<div class="col s12 display-flex justify-content-end form-action">
-										<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-											                changes</button>
-										<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
+						{{ form_start(form) }}
+					</div>
+				</div>
+
+				<div id="social-link">
+					<div class="card-panel">
+						<form>
+							<div class="row">
+								<div class="col s12">
+									<div class="input-field">
+										<input id="twitter-link" type="text" class="validate" placeholder="Add link" value="https://www.twitter.com">
+										<label for="twitter-link">Twitter</label>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div id="notifications">
-							<div class="card-panel">
-								<div class="row">
-									<h6 class="col s12 mb-2">Activity</h6>
-									<div class="col s12 mb-1">
-										<div class="switch">
-											<label>
-												<input type="checkbox" checked id="accountSwitch1">
-												<span class="lever"></span>
-											</label>
-											<span class="switch-label w-100">Email me when someone comments on my article</span>
-										</div>
-									</div>
-									<div class="col s12 mb-1">
-										<div class="switch">
-											<label>
-												<input type="checkbox" checked id="accountSwitch2">
-												<span class="lever"></span>
-											</label>
-											<span class="switch-label w-100">
-												Email me when someone answers on my form</span>
-										</div>
-									</div>
-									<div class="col s12 mb-1">
-										<div class="switch">
-											<label>
-												<input type="checkbox" id="accountSwitch3">
-												<span class="lever"></span>
-											</label>
-											<span class="switch-label w-100">
-												Email me hen someone follows me</span>
-										</div>
-									</div>
-									<h6 class="col s12 mb-2 mt-2">Application</h6>
-									<div class="col s12 mb-1">
-										<div class="switch">
-											<label>
-												<input type="checkbox" checked id="accountSwitch4">
-												<span class="lever"></span>
-											</label>
-											<span class="switch-label w-100">News and announcements</span>
-										</div>
-									</div>
-									<div class="col s12 mb-1">
-										<div class="switch">
-											<label>
-												<input type="checkbox" id="accountSwitch5">
-												<span class="lever"></span>
-											</label>
-											<span class="switch-label w-100">Weekly product updates</span>
-										</div>
-									</div>
-									<div class="col s12 mb-1">
-										<div class="switch">
-											<label>
-												<input type="checkbox" class="custom-control-input" checked id="accountSwitch6">
-												<span class="lever"></span>
-											</label>
-											<span class="switch-label w-100">Weekly blog digest</span>
-										</div>
-									</div>
-									<div class="col s12 display-flex justify-content-end form-action mt-2">
-										<button type="submit" class="btn indigo waves-light waves-effect mr-sm-1 mr-2">Save
-											                changes</button>
-										<button type="button" class="btn btn-light-pink waves-light waves-effect">Cancel</button>
+								<div class="col s12">
+									<div class="input-field">
+										<input id="fb-link" type="text" class="validate" placeholder="Add link">
+										<label for="fb-link">Facebook</label>
 									</div>
 								</div>
+								<div class="col s12">
+									<div class="input-field">
+										<input id="google+link" type="text" class="validate" placeholder="Add link">
+										<label for="google+link">Google+</label>
+									</div>
+								</div>
+								<div class="col s12">
+									<div class="input-field">
+										<input id="linkedin" type="text" class="validate" placeholder="Add link" value="https://www.linkedin.com">
+										<label for="linkedin">LinkedIn</label>
+									</div>
+								</div>
+								<div class="col s12">
+									<div class="input-field">
+										<input id="instragram-link" type="text" class="validate" placeholder="Add link">
+										<label for="instragram-link">Instagram</label>
+									</div>
+								</div>
+								<div class="col s12">
+									<div class="input-field">
+										<input id="quora-link" type="text" class="validate" placeholder="Add link">
+										<label for="quora-link">Quora</label>
+									</div>
+								</div>
+								<div class="col s12 display-flex justify-content-end form-action">
+									<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
+																						                  changes</button>
+									<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="connections">
+					<div class="card-panel">
+						<div class="row">
+							<div class="col s12 mt-1 mb-1">
+								<a href="javascript: void(0);" class="btn cyan waves-effect waves-light">
+									Connect to
+									<strong>Twitter</strong>
+								</a>
+							</div>
+							<div class="col s12 mt-1 mb-1">
+								<button class="btn btn-small waves-effect waves-light btn-light-indigo float-right">edit</button>
+								<h6>You are connected to facebook.</h6>
+								<p>Johndoe@gmail.com</p>
+							</div>
+							<div class="col s12 mt-1 mb-1">
+								<a href="javascript: void(0);" class="btn waves-effect waves-light">Connect to
+									<strong>Google</strong>
+								</a>
+							</div>
+							<div class="col s12 mt-1 mb-1">
+								<button class="btn btn-small btn-light-indigo float-right waves-effect waves-light">edit</button>
+								<h6>You are connected to Instagram.</h6>
+								<p>Johndoe@gmail.com</p>
+							</div>
+							<div class="col s12 display-flex justify-content-end form-action">
+								<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
+																				                changes</button>
+								<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</section><!-- START RIGHT SIDEBAR NAV --></head>
+				<div id="notifications">
+					<div class="card-panel">
+						<div class="row">
+							<h6 class="col s12 mb-2">Activity</h6>
+							<div class="col s12 mb-1">
+								<div class="switch">
+									<label>
+										<input type="checkbox" checked id="accountSwitch1">
+										<span class="lever"></span>
+									</label>
+									<span class="switch-label w-100">Email me when someone comments on my article</span>
+								</div>
+							</div>
+							<div class="col s12 mb-1">
+								<div class="switch">
+									<label>
+										<input type="checkbox" checked id="accountSwitch2">
+										<span class="lever"></span>
+									</label>
+									<span class="switch-label w-100">
+										Email me when someone answers on my form</span>
+								</div>
+							</div>
+							<div class="col s12 mb-1">
+								<div class="switch">
+									<label>
+										<input type="checkbox" id="accountSwitch3">
+										<span class="lever"></span>
+									</label>
+									<span class="switch-label w-100">
+										Email me hen someone follows me</span>
+								</div>
+							</div>
+							<h6 class="col s12 mb-2 mt-2">Application</h6>
+							<div class="col s12 mb-1">
+								<div class="switch">
+									<label>
+										<input type="checkbox" checked id="accountSwitch4">
+										<span class="lever"></span>
+									</label>
+									<span class="switch-label w-100">News and announcements</span>
+								</div>
+							</div>
+							<div class="col s12 mb-1">
+								<div class="switch">
+									<label>
+										<input type="checkbox" id="accountSwitch5">
+										<span class="lever"></span>
+									</label>
+									<span class="switch-label w-100">Weekly product updates</span>
+								</div>
+							</div>
+							<div class="col s12 mb-1">
+								<div class="switch">
+									<label>
+										<input type="checkbox" class="custom-control-input" checked id="accountSwitch6">
+										<span class="lever"></span>
+									</label>
+									<span class="switch-label w-100">Weekly blog digest</span>
+								</div>
+							</div>
+							<div class="col s12 display-flex justify-content-end form-action mt-2">
+								<button type="submit" class="btn indigo waves-light waves-effect mr-sm-1 mr-2">Save
+																				                changes</button>
+								<button type="button" class="btn btn-light-pink waves-light waves-effect">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</head>
 	</html>
-</body></html>{% endblock %}
+</div></section><!-- START RIGHT SIDEBAR NAV --></head></html></body></html>{% endblock %}
