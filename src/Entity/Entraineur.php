@@ -21,6 +21,9 @@ class Entraineur extends User
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
+    #[ORM\ManyToOne(inversedBy: 'entraineur')]
+    private ?Groupe $groupe = null;
+
 
 
     public function getDateNaissance(): ?\DateTimeInterface
@@ -55,6 +58,18 @@ class Entraineur extends User
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getGroupe(): ?Groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Groupe $groupe): self
+    {
+        $this->groupe = $groupe;
 
         return $this;
     }

@@ -132,6 +132,81 @@ class NageurController extends AbstractController
          ]);
     }
 
+    #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+    public function pageNageur($id, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    { 
+        // TODO : create new nageur : START
+        $nageur = new Nageur();
+        $form = $this->createForm(NageurType::class, $nageur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { 
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['photo']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+            $this->em->persist($nageur);
+            $this->em->flush();
+            $this->addFlash('success', 'nageur successfully created');
+            return $this->redirectToRoute('app_admin_nageur_page');
+        } else if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'check your data');
+        }
+        // TODO : create new group : END
+    
+        // TODO : edit nageur : START
+        $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
+        $form = $this->createForm(NageurType::class, $nageur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $nageur = $form->getData();
+            $password = $form->get('password')->getData();
+            if (isset($password)){
+                $password = $userPasswordHasher->hashPassword($nageur, $password);
+                $nageur->setPassword($password);
+            }
+            $this->em->persist($nageur);
+            $this->em->flush();
+            $this->addFlash('success','password successfully updated');
+            return $this->redirectToRoute('app_admin_nageur_page');
+        } else if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', $nageur->getLogin().' : Login already exists!');
+        }
+        // TODO : edit nageur : END
+          
+        $nageur = $this->em->getRepository(Nageur::class)->find($id);
+        if (!$nageur) {
+            return $this->redirectToRoute('app_admin_nageur_page');
+        }
+    
+        return $this->render('admin/nageur/pageNageur.html.twig', [
+            'nageur' => $nageur,
+            'form' => $form->createView(),
+        ]);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //     #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
@@ -150,63 +225,111 @@ class NageurController extends AbstractController
 
 
 
-#[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
-public function pageNageur($id ,Request $request): Response
-{ 
-// // TODO : create new nageur : START
- $nageur = new Nageur() ;
- $form = $this->createForm(NageurType::class, $nageur);
- $form->handleRequest($request);if ($form->isSubmitted() && $form->isValid()) { 
-      $this->em->persist($nageur);
-      $this->em->flush();
-
-     $this->addFlash('success','nageur  successfully created' ); 
-           return $this->redirectToRoute('app_admin_nageur_page') ;
-  } else if ($form->isSubmitted() && !$form->isValid()) {
-
-   //dd($form->getData());
-      $this->addFlash('error','check your data');
-   }
-//  TODO : create new group : END
-
-    // TODO : edit naggeur : START
-    $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
-
-
-         $form = $this->createForm(NageurType::class, $nageur);
-         $form->handleRequest($request);
-         if ($form->isSubmitted() && $form->isValid()) {
-             $nageur = $form->getData();
-             
-             $password = $form->get('password')->getData();
-             if (isset($password)){
-                 $password = $userPasswordHasher->hashPassword($nageur, $password);
-                 $nageur->setPassword($password);
-             }
-
-             $this->em->persist($nageur);
-             $this->em->flush();
-
-             $this->addFlash('success','password successfully updated' );
-
-             return $this->redirectToRoute('app_admin_nageur_page') ;
-         }else if ($form->isSubmitted() && !$form->isValid()) {
-             $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
-         }
+// #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+// public function pageNageur($id ,Request $request): Response
+// { 
+// // // TODO : create new nageur : START
+//  $nageur = new Nageur() ;
+//  $form = $this->createForm(NageurType::class, $nageur);
+//  $form->handleRequest($request);if ($form->isSubmitted() && $form->isValid()) { 
     
-    //  TODO :edit nageur : END
+//         /** @var UploadedFile $uploadedFile */
+//         $uploadedFile = $form['photo']->getData();
+//         $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+//       $this->em->persist($nageur);
+//       $this->em->flush();
+
+//      $this->addFlash('success','nageur  successfully created' ); 
+//            return $this->redirectToRoute('app_admin_nageur_page') ;
+//   } else if ($form->isSubmitted() && !$form->isValid()) {
+
+//    //dd($form->getData());
+//       $this->addFlash('error','check your data');
+//    }
+// //  TODO : create new group : END
+
+//     // TODO : edit naggeur : START
+//     $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
+
+
+//          $form = $this->createForm(NageurType::class, $nageur);
+//          $form->handleRequest($request);
+//          if ($form->isSubmitted() && $form->isValid()) {
+//              $nageur = $form->getData();
+             
+//              $password = $form->get('password')->getData();
+//              if (isset($password)){
+//                  $password = $userPasswordHasher->hashPassword($nageur, $password);
+//                  $nageur->setPassword($password);
+//              }
+
+//              $this->em->persist($nageur);
+//              $this->em->flush();
+
+//              $this->addFlash('success','password successfully updated' );
+
+//              return $this->redirectToRoute('app_admin_nageur_page') ;
+//          }else if ($form->isSubmitted() && !$form->isValid()) {
+//              $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
+//          }
+    
+//     //  TODO :edit nageur : END
       
-    $nageur = $this->em->getRepository(Nageur::class)->find(['id'=>$id]);;
-    if (!$nageur) {
-        return $this->redirectToRoute('app_admin_nageur_page');
+//     $nageur = $this->em->getRepository(Nageur::class)->find(['id'=>$id]);;
+//     if (!$nageur) {
+//         return $this->redirectToRoute('app_admin_nageur_page');
+//     }
+
+//    return $this->render('admin/nageur/pageNageur.html.twig', [
+//        'nageur' => $nageur,
+//        'form' => $form->createView(),
+       
+//    ]);
+// }
+
+
+//uploading photo 
+public function uploadPhoto(Request $request): Response
+{
+    $form = $this->createForm(PhotoType::class);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $photo = $form->get('photo')->getData();
+
+        // persist the photo to your database or storage
+        $photoFilename = uniqid().'.'.$photo->guessExtension();
+        $photo->move(
+            $this->getParameter('photos_directory'),
+            $photoFilename
+        );
+
+        // ...
+
+        return $this->redirectToRoute('app_admin_nageur_page', ['id' => $photo->getId()]);
     }
 
-   return $this->render('admin/nageur/pageNageur.html.twig', [
-       'nageur' => $nageur,
-       'form' => $form->createView(),
-       
-   ]);
+    return $this->render('admin/nageur/pageNageur.html.twig', [
+        'form' => $form->createView(),
+    ]);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
