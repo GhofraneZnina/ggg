@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class NageurController extends AbstractController
 {
@@ -141,7 +144,7 @@ class NageurController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form['photo']->getData();
+            $uploadedPhoto = $form['photo']->getData();
             $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
             $this->em->persist($nageur);
             $this->em->flush();
@@ -182,7 +185,51 @@ class NageurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+     // uploading photo function
+     #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+     public function new(Request $request, SluggerInterface $slugger)
+     {
+         $nageur = new Nageur();
+         $form = $this->createForm(NageurType::class, $nageur);
+         $form->handleRequest($request);
+ 
+         if ($form->isSubmitted() && $form->isValid()) {
+             /** @var UploadedFile $brochureFile */
+             $photo = $form->get('photo')->getData();
+ 
+             // this condition is needed because the 'brochure' field is not required
+             // so the PDF file must be processed only when a file is uploaded
+             if ($photo) {
+                 $originalPhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                 // this is needed to safely include the file name as part of the URL
+                 $safePhoto = $slugger->slug($originalPhoto);
+                 $newPhoto = $safePhoto.'-'.uniqid().'.'.$photo->guessExtension();
+ 
+                 // Move the file to the directory where brochures are stored
+                 try {
+                     $photo->move(
+                         $this->getParameter('photos_directory'),
+                         $newPhoto
+                     );
+                 } catch (FileException $e) {
+                     // ... handle exception if something happens during file upload
+                 }
+ 
+                 // updates the 'brochureFilename' property to store the PDF file name
+                 // instead of its contents
+                 $nageur->setPhoto($newPhoto);
+             }
+ 
+             // ... persist the $product variable or any other work
+ 
+             return $this->redirectToRoute('app_admin_nageur_list');
+         }
+ 
+         return $this->render('admin/nageur/pageNageur.html.twig', [
+             'form' => $form,
+         ]);
+     }
+ 
 
 
 

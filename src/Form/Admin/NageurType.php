@@ -51,7 +51,7 @@ class NageurType extends AbstractType
                 'required'=> false,'mapped'=>false,
 
             ])
-            ->add('photoo', FileType::class, [
+            ->add('photo', FileType::class, [
                 'label' => 'photo',
 
                 // unmapped means that this field is not associated to any entity property

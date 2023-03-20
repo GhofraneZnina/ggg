@@ -78,8 +78,15 @@
 						<div id="general">
 							<div class="card-panel">
 								<div class="display-flex">
-									<div class="media">
-										<img src="{{asset('assets/app-assets/images/avatar/avatar-12.png')}}" class="border-radius-4" alt="profile image" height="64" width="64">
+									<div
+										class="media">
+
+										{# <img src="{{asset('assets/app-assets/images/avatar/avatar-12.png')}}" class="border-radius-4" alt="profile image" height="64" width="64"> #}
+										{{ form_start(form) }}
+										{# ... #}
+
+										{{ form_row(form.photo) }}
+										{{ form_end(form) }}
 									</div>
 									<div class="media-body">
 										<div class="general-action-btn">
@@ -118,15 +125,15 @@
 								</li>
 							</ul>
 							{# <p1>Prenom : </p1> 
-																              <p1>{{ nageur.prenom }}</p1> </br>
-																              <p1>Nom : </p1> 
-																              <p1>{{ nageur.nom}}</p1></br>
-																              <p1>Parent : </p1> 
-																              <p1>{{ nageur.parent }}</p1></br>
-																              <p1>Email: </p1> 
-																              <p1>{{ nageur.email}}</p1></br>
-																              <p1>Telephone : </p1> 
-																              <p1>{{ nageur.telephone }}</p1> #}
+																							              <p1>{{ nageur.prenom }}</p1> </br>
+																							              <p1>Nom : </p1> 
+																							              <p1>{{ nageur.nom}}</p1></br>
+																							              <p1>Parent : </p1> 
+																							              <p1>{{ nageur.parent }}</p1></br>
+																							              <p1>Email: </p1> 
+																							              <p1>{{ nageur.email}}</p1></br>
+																							              <p1>Telephone : </p1> 
+																							              <p1>{{ nageur.telephone }}</p1> #}
 
 
 						</div>
@@ -202,7 +209,7 @@
 								</div>
 								<div class="col s12 display-flex justify-content-end form-action">
 									<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-																						                  changes</button>
+																																                  changes</button>
 									<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
 								</div>
 							</div>
@@ -235,7 +242,7 @@
 							</div>
 							<div class="col s12 display-flex justify-content-end form-action">
 								<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-																				                changes</button>
+																													                changes</button>
 								<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
 							</div>
 						</div>
@@ -304,7 +311,7 @@
 							</div>
 							<div class="col s12 display-flex justify-content-end form-action mt-2">
 								<button type="submit" class="btn indigo waves-light waves-effect mr-sm-1 mr-2">Save
-																				                changes</button>
+																													                changes</button>
 								<button type="button" class="btn btn-light-pink waves-light waves-effect">Cancel</button>
 							</div>
 						</div>
