@@ -14,28 +14,18 @@
 
 
 	<!-- Modal Trigger -->
-	{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
-		<div class="col s2 m6 l6"> <button data-target="modal1" class="btn modal-trigger">Ajouter Physionomie</button>
-	</div>
-
-	<!-- Modal Structure -->
-	<div id="modal1" class="modal modal-fixed-footer">
-		<div class="modal-content">
-			<form action="/action_page.php">
-				<label for="nageur">Nageur</label><br>
-				<input type="text" id="nageur"><br><br>
-                <label for="date">Date</label><br>
-				<input type="text" id="date"><br><br>
-                <label for="poids">Poids</label><br>
-				<input type="text" id="poids"><br><br>
-				<input type="submit" value="Submit">
-			</form>
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-		</div>
-	</div>
-
+{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">physionomie</a>
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="modal-content"> 
+             {{ form(form)}} 
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
 
 {% endblock %}
 
@@ -70,7 +60,7 @@
 			<div class="card-panel">
 				<div class="row">
 					<form>
-						{# <div class="col s12 m6 l3">
+						{<div class="col s12 m6 l3">
 						                            <label for="users-list-verified">Verified</label>
 						                            <div class="input-field">
 						                                <select class="form-control" id="users-list-verified">
@@ -100,7 +90,7 @@
 						                                    <option value="Banned">Banned</option>
 						                                </select>
 						                            </div>
-						                        </div> #}
+						                        </div> 
 						<div class="col s12 m6 l3 display-flex align-items-center show-btn">
 							<button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
 						</div>
@@ -135,14 +125,10 @@
 										<td>{{ physionomie.poids }}</td>
 
 										<td>
-											<a href="page-users-view.html">
-												<i class="material-icons">remove_red_eye</i>
-											</a>
-										</td>
-										<td>
-											<a href="{{ path('app_admin_physionomie_delete',{'id': physionomie.id}) }}">
-												<i class="btn-small btn-light-pink">supprimer</i>
-											</a>
+											<a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
+										
+										
+											<a href="{{ path('app_admin_physionomie_delete',{'id': physionomie.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
 
 										</td>
 									</tr>

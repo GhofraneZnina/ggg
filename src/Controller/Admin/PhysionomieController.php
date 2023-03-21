@@ -20,18 +20,55 @@ class PhysionomieController extends AbstractController
 
 
     #[Route('/admin/physionomie', name: 'app_admin_physionomie_list')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('login') ;
      }
 
-    $physionomies = $this->em->getRepository(Physionomie::class)->findAll() ;
 
+
+
+//  TODO : create new physionomie: START
+         $physionomie = new Physionomie() ;
+         $form = $this->createForm(physionomieType::class, $physionomie);
+         $form->handleRequest($request);if ($form->isSubmitted() && $form->isValid()) { 
+
+           
+            $data = $request->request->all() ;
+
+            $date = str_replace('/','-',$data['physionomie']['date']) ;
+            $dataTimeDate = new \DateTime($date);
+            $physionomie->setDate($dataTimeDate );
+
+               $this->em->persist($physionomie);
+               $this->em->flush();
+ 
+              $this->addFlash('success','physionomie  successfully created' ); 
+              return $this->redirectToRoute('app_admin_physionomie_list') ;
+          } else if ($form->isSubmitted() && !$form->isValid()) {
+ 
+           dd($form->getData());
+              $this->addFlash('error','check your data');
+           }
+           
+           
+          //dump($dataTimeDate);
+           //dd($form->getData());
+           
+         //  TODO : create new physionomie : END 
+         $physionomies = $this->em->getRepository(physionomie::class)->findAll() ; 
          return $this->render('admin/physionomie/index.html.twig', [
+            'form' => $form->createView(),
              'physionomies' => $physionomies,
          ]);
      } 
+
+
+
+
+
+
 
      #[Route('/admin/physionomie/create', name: 'app_admin_physionomie_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
@@ -70,7 +107,7 @@ class PhysionomieController extends AbstractController
          }
  
         //return $this->render('admin/physionomie/create.html.twig', [
-            return $this->render('admin/physionomie/indexModal.html.twig', [
+            return $this->render('admin/physionomie/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
