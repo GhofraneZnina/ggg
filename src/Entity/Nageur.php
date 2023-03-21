@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: NageurRepository::class)]
 class Nageur extends User
 {
-    const SYSTEME_TN = 'Systeme tunisien' ;
+    const SYSTEME_TN = 'systeme tunisien' ;
     const SYSTEME_CN ='systeme canadien' ;
     const SYSTEME_FR ='systeme francais' ;
     const SYSTEME_AUTRE='autre';
