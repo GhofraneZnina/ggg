@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Parents;
 use App\Form\Admin\ParentsType;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -115,26 +116,7 @@ class ParentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
     #[Route('/admin/parent/{id}/edit', name: 'app_admin_parent_edit')]
