@@ -11,6 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+
 
 class EntraineurController extends AbstractController
 {
@@ -35,7 +41,7 @@ class EntraineurController extends AbstractController
      } 
 
     #[Route('/admin/entraineur/create', name: 'app_admin_entraineur_create')]
-    public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher,SluggerInterface $slugger): Response
     {
         if (!$this->getUser()) {
           return $this->redirectToRoute('login') ;
@@ -52,7 +58,8 @@ class EntraineurController extends AbstractController
             $dateNaissance = str_replace('/','-',$data['entraineur']['dateNaissance']) ;
             $dataTimeDateNaissance = new \DateTime($dateNaissance);
             $entraineur->setDateNaissance($dataTimeDateNaissance);
-
+            
+           
             $entraineur = $form->getData();
             $chekUser = $this->em->getRepository(Entraineur::class)->findOneByLogin($entraineur->getLogin());
             if($chekUser){
@@ -63,15 +70,49 @@ class EntraineurController extends AbstractController
             $password = $userPasswordHasher->hashPassword($entraineur, $password);
             $entraineur->setPassword($password);
 
-            $this->em->persist($entraineur);
-            $this->em->flush();
 
-            $this->addFlash('success','Entraineur successfully created' );
 
-            return $this->redirectToRoute('app_admin_entraineur_list') ;
-        }else if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
-        }
+ /** @var UploadedFile $brochureFile */
+ $photo = $form->get('photo')->getData();
+ if ($photo ) {
+         $originalPhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+         // this is needed to safely include the file name as part of the URL
+         $safePhoto = $slugger->slug($originalPhoto);
+         $newPhoto = $safePhoto.'-'.uniqid().'.'.$photo->guessExtension();
+
+         // Move the file to the directory where brochures are stored
+         try {
+             $photo->move(
+                 $this->getParameter('photos_directory'),
+                 $newPhoto
+             );
+         } catch (FileException $e) {
+             // ... handle exception if something happens during file upload
+         }
+
+         // updates the 'brochureFilename' property to store the PDF file name
+         // instead of its contents
+         $entraineur->setPhoto($newPhoto);
+ 
+ }
+ $this->em->persist($entraineur);
+ $this->em->flush();
+
+ $this->addFlash('success','entraineur successfully created' );
+
+ return $this->redirectToRoute('app_admin_entraineur_list') ;
+
+
+}else if ($form->isSubmitted() && !$form->isValid()) {
+
+ dd($form->getData());
+$this->addFlash('error','check your data');
+
+    $errors = $form->getErrors(true, true);
+    foreach ($errors as $error) {
+        $this->addFlash('error', $error->getMessage());
+    }
+}
 
         return $this->render('admin/Entraineur/create.html.twig', [
             'form' => $form->createView(),
