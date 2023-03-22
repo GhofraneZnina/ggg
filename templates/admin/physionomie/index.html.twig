@@ -14,27 +14,19 @@
 
 
 	<!-- Modal Trigger -->
-	{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
-		<div class="col s2 m6 l6"> <button data-target="modal1" class="btn modal-trigger">Ajouter Physionomie</button>
-	</div>
+{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">ajouter physionomie</a>
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="modal-content"> 
+             {{ form(form)}} 
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
 
-	<!-- Modal Structure -->
-	<div id="modal1" class="modal modal-fixed-footer">
-		<div class="modal-content">
-			<form action="/action_page.php">
-				<label for="nageur">Nageur</label><br>
-				<input type="text" id="nageur"><br><br>
-                <label for="date">Date</label><br>
-				<input type="text" id="date"><br><br>
-                <label for="poids">Poids</label><br>
-				<input type="text" id="poids"><br><br>
-				<input type="submit" value="Submit">
-			</form>
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-		</div>
-	</div>
 
 
 {% endblock %}
