@@ -19,8 +19,54 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer">
   <div class="modal-content">
-    <div class="modal-content"> 
-             {{ form(form)}} 
+    
+            
+		<div class="card">
+			<div class="card-content">
+				<div class="divider mb-3"></div>
+				<div class="row">
+					<div
+						class="col s12" id="account">
+						<!-- users edit media object ends -->
+						{{ form_start(form) }}
+						<div class="row">
+							<div class="col s12 ">
+								<div class="row">
+									<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="physionomie_date">date</label>
+										{{ form_widget(form.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+									<div class="col s12 m6 input-field">
+										{{ form_widget(form.taille, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+										<label class="active">taille</label>
+										<small class="errorTxt2"></small>
+									</div>
+									<div class="col s12 input-field">
+										{{ form_widget(form.poids, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+										<label class="active">poids</label>
+										<small class="errorTxt3"></small>
+									</div>
+									 
+									
+									
+								</div>
+							</div>
+							<div class="col s12 display-flex justify-content-end mt-3">
+								{{ form_widget(form.submit) }}
+								<button type="button" class="btn btn-light">Cancel</button>
+							</div>
+						</div>
+						{{ form_end(form) }}
+						<!-- users edit account form ends -->
+					</div>
+				</div>
+				<!-- </div> -->
+			
+		</div>
+	
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>

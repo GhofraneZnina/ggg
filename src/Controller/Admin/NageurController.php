@@ -242,16 +242,17 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
     
  }
 // TODO : edit nageur : END
-      
+
    //listing nageur
     $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
     if (!$nageurs) {
         return $this->redirectToRoute('app_admin_nageur_page');
     }
-    //listing physionomie
+    
     return $this->render('admin/nageur/pageNageur.html.twig', [
         'nageurs' => $nageurs,
         'form' => $form->createView(),
+        
     ]);
 }
 

@@ -188,6 +188,9 @@ class Nageur extends User
         return $this->physionomies;
     }
 
+   
+
+
     public function addPhysionomy(Physionomie $physionomy): self
     {
         if (!$this->physionomies->contains($physionomy)) {
