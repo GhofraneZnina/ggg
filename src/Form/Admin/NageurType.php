@@ -116,7 +116,7 @@ class NageurType extends AbstractType
                 'required'=> false,'mapped'=>false,
 
             ])
-            ->add('physionomies')
+            
             ->add('genre', ChoiceType::class, [
                 'choices'  => ['FEMME' => 'femme' ,
                     'HOMME' => 'homme' 

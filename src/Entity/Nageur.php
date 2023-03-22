@@ -187,6 +187,7 @@ class Nageur extends User
     {
         return $this->physionomies;
     }
+    
 
    
 

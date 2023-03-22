@@ -241,6 +241,9 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
 
     
  }
+ //adding physionomie
+ 
+ //end addind physionomie
 // TODO : edit nageur : END
 
    //listing nageur
@@ -249,9 +252,11 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
         return $this->redirectToRoute('app_admin_nageur_page');
     }
     
+    
     return $this->render('admin/nageur/pageNageur.html.twig', [
         'nageurs' => $nageurs,
         'form' => $form->createView(),
+        
         
     ]);
 }

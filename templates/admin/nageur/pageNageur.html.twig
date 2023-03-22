@@ -494,91 +494,25 @@
                                 <th>Parent</th> 
                                 <th>Telephone</th>
                                 <th>Email</th>
-                                
                                 <th>groupe</th>
                                
                                 
                             </tr>
                             </thead>
                             <tbody>
-                           
-                                <tr>
-                                <div class="row">
-                                    <td></td>
-                                </div>
-                                <div class="row">
-                                    <td>{{ nageurs.id }}</td>
-                                </div>
-                                <div class="row">
-                                    <td>{{ nageurs.prenom ~ ' ' ~ nageurs.nom }}</td> 
-                                </div>
-                                <div class="row">
-                                   <td>{{ nageurs.parent.prenom ~ ' ' ~ nageurs.parent.nom }}</td> 
-                                </div>
-                                <div class="row">
-                                    <td>{{ nageurs.telephone }}</td>
-                                </div>
-                                    <td>{{ nageurs.email }}</td>
-                                <div class="row">  
-                                    <td>{{ nageurs.groupe.intitule }}</td>
-                                </div> 
+                                <tr> 
+                                    <td></td> 
+                                    <td>{{ nageurs.id }}</td> 
+                                    <td>{{ nageurs.prenom ~ ' ' ~ nageurs.nom }}</td>   
+                                    <td>{{ nageurs.parent.prenom ~ ' ' ~ nageurs.parent.nom }}</td>   
+                                    <td>{{ nageurs.telephone }}</td> 
+                                    <td>{{ nageurs.email }}</td> 
+                                    <td>{{ nageurs.groupe.intitule }}</td> 
 
                                 </tr>
-                            
                             </tbody>
                         </table>
             </div>
-        </div>
-
-        
-         {#  <form class="formValidate" method="get">
-            <div class="row">
-              <div class="col s12">
-                <div class="input-field">
-                  <label for="uname">nom complet</label>
-                  <input type="text" id="uname" name="uname" value="hermione007" data-error=".errorTxt1">
-                  <small class="errorTxt1"></small>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <label for="name">Name</label>
-                  <input id="name" name="name" type="text" value="Hermione Granger" data-error=".errorTxt2">
-                  <small class="errorTxt2"></small>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <label for="email">E-mail</label>
-                  <input id="email" type="email" name="email" value="granger007@hogward.com" data-error=".errorTxt3">
-                  <small class="errorTxt3"></small>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="card-alert card orange lighten-5">
-                  <div class="card-content orange-text">
-                    <p>Your email is not confirmed. Please check your inbox.</p>
-                    <a href="javascript: void(0);">Resend confirmation</a>
-                  </div>
-                  <button type="button" class="close orange-text" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="company" type="text">
-                  <label for="company">Company Name</label>
-                </div>
-              </div>
-              <div class="col s12 display-flex justify-content-end form-action">
-                <button type="submit" class="btn indigo waves-effect waves-light mr-2">
-                  Save changes
-                </button>
-                <button type="button" class="btn btn-light-pink waves-effect waves-light mb-1">Cancel</button>
-              </div>
-            </div>
-          </form> #}
         </div>
       </div>
       <div id="change-password">
@@ -619,24 +553,23 @@
         <div class="card-panel">
           	<div class="divider mb-1 mt-1"></div>
            <div class="responsive-table">
-                        	<table id="users-list-datatable" class="table">
+                <table id="users-list-datatable" class="table">
 							<thead>
 								<tr>
 									<th></th>
 									<th>id</th>
-									
 									<th>Date</th>
-
 									<th>Poids</th>
 								</tr>
 							</thead>
 							<tbody>
 								{% for physionomies in nageurs.physionomies %}
-									
-                  <td>{{ physionomies.id }}</td>
-                  <td>{{ physionomies.date | date('Y-m-d') }}</td>
-                  <td>{{ physionomies.poids }}</td>
-
+									<tr>
+                  <td></td>
+                    <td>{{ physionomies.id }}</td>
+                    <td>{{ physionomies.date | date('Y-m-d') }}</td>
+                    <td>{{ physionomies.poids }}</td>
+                  </tr>
 								{% endfor %}
 							</tbody>
 						</table>
@@ -645,55 +578,6 @@
         </div>
       </div>
       <div id="social-link">
-        <div class="card-panel">
-          <form>
-            <div class="row">
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="twitter-link" type="text" class="validate" placeholder="Add link"
-                    value="https://www.twitter.com">
-                  <label for="twitter-link">Twitter</label>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="fb-link" type="text" class="validate" placeholder="Add link">
-                  <label for="fb-link">Facebook</label>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="google+link" type="text" class="validate" placeholder="Add link">
-                  <label for="google+link">Google+</label>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="linkedin" type="text" class="validate" placeholder="Add link"
-                    value="https://www.linkedin.com">
-                  <label for="linkedin">LinkedIn</label>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="instragram-link" type="text" class="validate" placeholder="Add link">
-                  <label for="instragram-link">Instagram</label>
-                </div>
-              </div>
-              <div class="col s12">
-                <div class="input-field">
-                  <input id="quora-link" type="text" class="validate" placeholder="Add link">
-                  <label for="quora-link">Quora</label>
-                </div>
-              </div>
-              <div class="col s12 display-flex justify-content-end form-action">
-                <button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-                  changes</button>
-                <button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
-              </div>
-            </div>
-          </form>
-        </div>
       </div>
       <div id="connections">
         <div class="card-panel">

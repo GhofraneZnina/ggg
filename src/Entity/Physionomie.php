@@ -84,6 +84,10 @@ class Physionomie
     {
         return $this->getId();
     }
+    public function __toStringg(): string
+    {
+        return $this->getPoids();
+    }
 
    
 
