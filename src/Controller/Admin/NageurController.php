@@ -211,7 +211,7 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
             // updates the 'brochureFilename' property to store the PDF file name
             // instead of its contents
             $nageur->setPhoto($newPhoto);
-       
+            
         $this->em->persist($nageur);
         $this->em->flush();
         $this->addFlash('success', 'nageur successfully created');
@@ -219,8 +219,8 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
     } else if ($form->isSubmitted() && !$form->isValid()) {
         $this->addFlash('error', 'check your data');
     }
-    // TODO : create new group : END
-
+    // TODO : create nageur : END
+   
     // TODO : edit nageur : START
     $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
     
@@ -241,15 +241,16 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
 
     
  }
-    
-    // TODO : edit nageur : END
+// TODO : edit nageur : END
       
-    $nageur = $this->em->getRepository(Nageur::class)->find($id);
-    if (!$nageur) {
+   //listing nageur
+    $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
+    if (!$nageurs) {
         return $this->redirectToRoute('app_admin_nageur_page');
     }
+    //listing physionomie
     return $this->render('admin/nageur/pageNageur.html.twig', [
-        'nageur' => $nageur,
+        'nageurs' => $nageurs,
         'form' => $form->createView(),
     ]);
 }
@@ -301,31 +302,17 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
 
          return $this->redirectToRoute('app_admin_nageur_list');
      }
-
+     
      return $this->render('admin/nageur/pageNageur.html.twig', [
          'form' => $form,
+         'nageurs' => $nageurs,
      ]);
  }
 
 
 
 
-// #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
-// Assuming you're using Symfony's built-in User class
-        // $data = [
-        //     'login' => $nageur->getLogin(),
-        //     'password' => $nageur->getPassword(),
-        //     'email' => $nageur->getEmail(),
-        //     'nom' => $nageur->getNom(),
-        //     'prenom' => $nageur->getPrenom(),
-        //     'telephne' => $nageur->getTelephone(),
-        //     'parent' => $nageur->getPrenom(),
-            
-        //     // Add any other data you want to pass to the template
-        // ];
-       /*  return $this->render('admin/nageur/pageNageur.html.twig', $data[
-            
-        ]); */
+
 }
 
 ?>

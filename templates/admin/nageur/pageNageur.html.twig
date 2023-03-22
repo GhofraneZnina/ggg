@@ -484,29 +484,40 @@
             </div>
           </div>
           <div class="divider mb-1 mt-1"></div>
-            <div class="row">
-              <div class="col s12">
-                <strong>Nom:</strong>
-								{{ nageur.nom }}</li>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <strong>Prenom:</strong>
-								{{ nageur.prenom }}</li>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <strong>Email:</strong>
-								{{ nageur.prenom }}</li>
-              </div>
-            </div>
-             <div class="row">
-              <div class="col s12">
-                <strong>telephone:</strong>
-								{{ nageur.telephone }}</li>
-              </div>
+           <div class="responsive-table">
+                        <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Nom complet</th>
+                                <th>Parent</th> 
+                                <th>Telephone</th>
+                                <th>Email</th>
+                                
+                                <th>groupe</th>
+                               
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                           
+                                <tr>
+                                    <td></td>
+                                    <td>{{ nageurs.id }}</td>
+                                    <td>{{ nageurs.prenom ~ ' ' ~ nageurs.nom }}</td> 
+                                   <td>{{ nageurs.parent.prenom ~ ' ' ~ nageurs.parent.nom }}</td> 
+                                    <td>{{ nageurs.telephone }}</td>
+                                    <td>{{ nageurs.email }}</td>
+                                  
+                                    <td>{{ nageurs.groupe.intitule }}</td>
+                                   
+                                   
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
             </div>
 
         
@@ -615,11 +626,7 @@
 										<small class="errorTxt3"></small>
 									</div>
 
-									<div class="col s12 input-field">
-										{{ form_widget(form.profileFacebook, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt5'}}) }}
-										<label class="active">Facebook</label>
-										<small class="errorTxt5"></small>
-									</div>
+									
 									<div class="col s12 input-field">
 										{{ form_widget(form.login, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt6'}}) }}
 										<label class="active">Login</label>
