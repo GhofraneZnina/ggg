@@ -93,7 +93,7 @@
                                 <th>Telephone</th>
                                 <th>Email</th>
                                 <th>Login</th>
-                                <th>Facebook</th>
+                                <th>groupe</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -108,7 +108,7 @@
                                     <td>{{ nageur.telephone }}</td>
                                     <td>{{ nageur.email }}</td>
                                     <td>{{ nageur.login }}</td>
-                                    <td>{{ nageur.profileFacebook }}</td>
+                                    <td>{{ nageur.groupe.intitule }}</td>
                                     {% if nageur.status == 1 %}
                                     <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
                                     {% else %}

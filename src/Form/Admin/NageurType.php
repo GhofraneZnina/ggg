@@ -38,12 +38,11 @@ class NageurType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('parent')
-            //EntityType::class, [
-              //'class' => Parent::class,
-                 //'choice_label' => 'nom', // Remplacez "nom" par le champ que vous souhaitez afficher dans la liste déroulante
-           // ])
-            //->add('groupe')
-            ->add('profileFacebook')
+
+
+            ->add('groupe')
+            
+           // ->add('profileFacebook')
             ->add('numLicence')
             ->add('dateLicence', TextType::class,
             [
