@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Nageur;
 use App\Form\Admin\NageurType;
+use App\Entity\Physionomie;
+use App\Form\Admin\PhysionomieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -242,6 +244,35 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
     
  }
  //adding physionomie
+ $physionomie = new Physionomie() ;
+        $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
+        $formPhysionomie->handleRequest($request);
+        if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
+
+            $data = $request->request->all() ;
+
+            $date = str_replace('/','-',$data['physionomie']['date']) ;
+            $dataTimeDate = new \DateTime($date);
+
+            
+            
+           //dump($dataTimeDate);
+            //dd($$formPhysionomie->getData());
+            $physionomie->setDate($dataTimeDate );
+           
+            
+
+             $this->em->persist($physionomie);
+             $this->em->flush();
+
+            $this->addFlash('success','physionime successfully created' );
+
+            return $this->redirectToRoute('app_admin_physionomie_list') ;
+        } else if ($formPhysionomie->isSubmitted() && !$formPhysionomie->isValid()) {
+
+           //dd($form->getData());
+            $this->addFlash('error','check your data');
+         }
  
  //end addind physionomie
 // TODO : edit nageur : END
@@ -256,7 +287,7 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
     return $this->render('admin/nageur/pageNageur.html.twig', [
         'nageurs' => $nageurs,
         'form' => $form->createView(),
-        
+        'formPhysionomie' => $formPhysionomie->createView(),
         
     ]);
 }

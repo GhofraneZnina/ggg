@@ -78,8 +78,8 @@ class PhysionomieController extends AbstractController
            return $this->redirectToRoute('login') ;
         }
         $physionomie = new Physionomie() ;
-        $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
-        $formPhysionomie->handleRequest($request);
+        $form = $this->createForm(PhysionomieType::class, $physionomie);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $request->request->all() ;
@@ -101,7 +101,7 @@ class PhysionomieController extends AbstractController
             $this->addFlash('success','physionime successfully created' );
 
             return $this->redirectToRoute('app_admin_physionomie_list') ;
-        } else if ($formPhysionomie->isSubmitted() && !$formPhysionomie->isValid()) {
+        } else if ($form->isSubmitted() && !$formPhysionomie->isValid()) {
 
            //dd($form->getData());
             $this->addFlash('error','check your data');
@@ -109,7 +109,7 @@ class PhysionomieController extends AbstractController
  
         //return $this->render('admin/physionomie/create.html.twig', [
             return $this->render('admin/physionomie/indexModal.html.twig', [
-            'form' => $formPhysionomie->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
