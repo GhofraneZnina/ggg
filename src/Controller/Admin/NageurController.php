@@ -136,7 +136,7 @@ class NageurController extends AbstractController
             $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
 
 
-            $form = $this->createForm(NageurType::class, $nageur);
+            $formEdit = $this->createForm(NageurType::class, $nageur);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $nageur = $form->getData();
@@ -238,7 +238,7 @@ public function pageNageur($id, Request $request, UserPasswordHasherInterface $u
         $this->addFlash('success','password successfully updated');
         return $this->redirectToRoute('app_admin_nageur_page');
     } else if ($form->isSubmitted() && !$form->isValid()) {
-        $this->addFlash('error', $nageur->getLogin().' : Login already exists!');
+        $this->addFlash('error', $nageur->getLogin().' : mot de passe invalide!');
     }
 
     
