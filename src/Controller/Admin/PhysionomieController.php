@@ -101,7 +101,7 @@ class PhysionomieController extends AbstractController
             $this->addFlash('success','physionime successfully created' );
 
             return $this->redirectToRoute('app_admin_physionomie_list') ;
-        } else if ($form->isSubmitted() && !$formPhysionomie->isValid()) {
+        } else if ($form->isSubmitted() && !$form->isValid()) {
 
            //dd($form->getData());
             $this->addFlash('error','check your data');
