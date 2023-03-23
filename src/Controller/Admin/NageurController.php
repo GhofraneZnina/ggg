@@ -29,9 +29,9 @@ class NageurController extends AbstractController
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('login') ;
-     }
+        }
 
-    $nageurs = $this->em->getRepository(Nageur::class)->findAll() ;
+        $nageurs = $this->em->getRepository(Nageur::class)->findAll() ;
 
          return $this->render('admin/nageur/index.html.twig', [
              'nageurs' => $nageurs,
@@ -134,18 +134,16 @@ class NageurController extends AbstractController
                 return $this->redirectToRoute('login') ;
             }
             $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
-
-
             $formEdit = $this->createForm(NageurType::class, $nageur);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $nageur = $form->getData();
+            $formEdit->handleRequest($request);
+            if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+                $nageur = $formEdit->getData();
                 $chekUser = $this->em->getRepository(Nageur::class)->findOneByLogin($nageur->getLogin());
                 if( $chekUser and $chekUser->getId() !== $nageur->getId() ){
                     $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
                     return $this->redirectToRoute('app_admin_nageur_list');
                 }
-                $password = $form->get('password')->getData();
+                $password = $formEdit->get('password')->getData();
                 if (isset($password)){
                     $password = $userPasswordHasher->hashPassword($nageur, $password);
                     $nageur->setPassword($password);
@@ -157,12 +155,12 @@ class NageurController extends AbstractController
                 $this->addFlash('success','User successfully updated' );
 
                 return $this->redirectToRoute('app_admin_nageur_list') ;
-            }else if ($form->isSubmitted() && !$form->isValid()) {
+            }else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
                 $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
             }
 
             return $this->render('admin/Nageur/edit.html.twig', [
-                'form' => $form->createView(),
+                'formEdit' => $formEdit->createView(),
             ]);
         }
 
@@ -184,172 +182,139 @@ class NageurController extends AbstractController
 
 
 
-#[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
-public function pageNageur($id, Request $request, UserPasswordHasherInterface $userPasswordHasher , SluggerInterface $slugger): Response
-{ 
-    // TODO : create new nageur : START
-    $nageur = new Nageur();
-    $form = $this->createForm(NageurType::class, $nageur);
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) { 
-        /** @var UploadedFile $brochureFile */
-        $photo = $form->get('photo')->getData();
-        if ($photo) {
-            $originalPhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safePhoto = $slugger->slug($originalPhoto);
-            $newPhoto = $safePhoto.'-'.uniqid().'.'.$photo->guessExtension();
+        #[Route('/admin/nageur/{id}/page', name: 'app_admin_nageur_page')]
+        public function pageNageur($id, Request $request, UserPasswordHasherInterface $userPasswordHasher , SluggerInterface $slugger): Response
+        { 
+            // TODO : create new nageur : START
+            $nageur = new Nageur();
+            $form = $this->createForm(NageurType::class, $nageur);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) { 
+                /** @var UploadedFile $brochureFile */
+                $photo = $form->get('photo')->getData();
+                if ($photo) {
+                    $originalPhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safePhoto = $slugger->slug($originalPhoto);
+                    $newPhoto = $safePhoto.'-'.uniqid().'.'.$photo->guessExtension();
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $photo->move(
-                    $this->getParameter('photos_directory'),
-                    $newPhoto
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $photo->move(
+                            $this->getParameter('photos_directory'),
+                            $newPhoto
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $nageur->setPhoto($newPhoto);
+                    
+                $this->em->persist($nageur);
+                $this->em->flush();
+                $this->addFlash('success', 'nageur successfully created');
+                return $this->redirectToRoute('app_admin_nageur_page');
+            } 
+            else if ($form->isSubmitted() && !$form->isValid()) {
+                $this->addFlash('error', 'check your data');
+            }
+            // TODO : create nageur : END
+        
+            // TODO : edit nageur : START
+            
+            $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
+            $formEdit = $this->createForm(NageurType::class, $nageur);
+            $formEdit->handleRequest($request);
+            if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+                $nageur = $formEdit->getData();
+                $password = $formEdit->get('password')->getData();
+                if (isset($password)){
+                    $password = $userPasswordHasher->hashPassword($nageur, $password);
+                    $nageur->setPassword($password);
+                }
+
+                $this->em->persist($nageur);
+                $this->em->flush();
+
+                $this->addFlash('success','password successfully updated' );
+
+                return $this->redirectToRoute('app_admin_nageur_page') ;
+            }
+            else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
+                $this->addFlash('error',$nageur->getLogin().' : Login already exists ! ');
+                
             }
 
-            // updates the 'brochureFilename' property to store the PDF file name
-            // instead of its contents
-            $nageur->setPhoto($newPhoto);
-            
-        $this->em->persist($nageur);
-        $this->em->flush();
-        $this->addFlash('success', 'nageur successfully created');
-        return $this->redirectToRoute('app_admin_nageur_page');
-    } else if ($form->isSubmitted() && !$form->isValid()) {
-        $this->addFlash('error', 'check your data');
-    }
-    // TODO : create nageur : END
-   
-    // TODO : edit nageur : START
-    $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
-    
-    if ($form->isSubmitted() && $form->isValid()) {
-        $nageur = $form->getData();
-        $password = $form->get('password')->getData();
-        if (isset($password)){
-            $password = $userPasswordHasher->hashPassword($nageur, $password);
-            $nageur->setPassword($password);
-        }
-        $this->em->persist($nageur);
-        $this->em->flush();
-        $this->addFlash('success','password successfully updated');
-        return $this->redirectToRoute('app_admin_nageur_page');
-    } else if ($form->isSubmitted() && !$form->isValid()) {
-        $this->addFlash('error', $nageur->getLogin().' : mot de passe invalide!');
-    }
-
-    
- }
- //adding physionomie
- $physionomie = new Physionomie() ;
-        $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
-        $formPhysionomie->handleRequest($request);
-        if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
-
-            $data = $request->request->all() ;
-
-            $date = str_replace('/','-',$data['physionomie']['date']) ;
-            $dataTimeDate = new \DateTime($date);
-
             
             
-           //dump($dataTimeDate);
-            //dd($$formPhysionomie->getData());
-            $physionomie->setDate($dataTimeDate );
-           
-            
+                // TODO : edit nageur : END
+                //adding physionomie
+                $physionomie = new Physionomie() ;
+                $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
+                $formPhysionomie->handleRequest($request);
+                if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
 
-             $this->em->persist($physionomie);
-             $this->em->flush();
+                    $data = $request->request->all() ;
 
-            $this->addFlash('success','physionime successfully created' );
+                    $date = str_replace('/','-',$data['physionomie']['date']) ;
+                    $dataTimeDate = new \DateTime($date);
 
-            return $this->redirectToRoute('app_admin_physionomie_list') ;
-        } else if ($formPhysionomie->isSubmitted() && !$formPhysionomie->isValid()) {
+                    
+                    
+                    //dump($dataTimeDate);
+                    //dd($$formPhysionomie->getData());
+                    $physionomie->setDate($dataTimeDate );
+                
+                    
 
-           //dd($form->getData());
-            $this->addFlash('error','check your data');
-         }
- 
- //end addind physionomie
-// TODO : edit nageur : END
+                    $this->em->persist($physionomie);
+                    $this->em->flush();
 
-   //listing nageur
-    $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
-    if (!$nageurs) {
-        return $this->redirectToRoute('app_admin_nageur_page');
-    }
-    
-    
-    return $this->render('admin/nageur/pageNageur.html.twig', [
-        'nageurs' => $nageurs,
-        'form' => $form->createView(),
-        'formPhysionomie' => $formPhysionomie->createView(),
+                    $this->addFlash('success','physionime successfully created' );
+
+                    return $this->redirectToRoute('app_admin_nageur_page') ;
+                }
+                else if ($formPhysionomie->isSubmitted() && !$formPhysionomie->isValid()) {
+
+                 dd($form->getData());
+                    $this->addFlash('error','check your data');
+                }
         
-    ]);
-}
+                //end addind physionomie
 
 
+                //listing nageur
+                    $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id'=>$id]);
+                    if (!$nageurs) {
+                        return $this->redirectToRoute('app_admin_nageur_page');
+                    }
+            
+            
+                    return $this->render('admin/nageur/pageNageur.html.twig', [
+                        'nageurs' => $nageurs,
+                        'form' => $form->createView(),
+                        'formEdit' => $formEdit->createView(), 
+                        'formPhysionomie' => $formPhysionomie->createView(),
+                            
+                    ]);
 
+        }
+        return $this->render('admin/nageur/pageNageur.html.twig', [
+            'nageurs' => $nageurs,
+            'form' => $form->createView(),
+            'formEdit' => $formEdit->createView(), 
+            'formPhysionomie' => $formPhysionomie->createView(),
+                
+        ]);
 
-
-
-
-
-
- // uploading photo function
- #[Route('/admin/nageur/{id}/page/bbbbb', name: 'app_admin_nageur_pagebbbb')]
- public function new(Request $request, SluggerInterface $slugger)
- {
-     $nageur = new Nageur();
-     $form = $this->createForm(NageurType::class, $nageur);
-     $form->handleRequest($request);
-
-     if ($form->isSubmitted() && $form->isValid()) {
-         /** @var UploadedFile $brochureFile */
-         $photo = $form->get('photo')->getData();
-
-         // this condition is needed because the 'brochure' field is not required
-         // so the PDF file must be processed only when a file is uploaded
-         if ($photo) {
-             $originalPhoto = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-             // this is needed to safely include the file name as part of the URL
-             $safePhoto = $slugger->slug($originalPhoto);
-             $newPhoto = $safePhoto.'-'.uniqid().'.'.$photo->guessExtension();
-
-             // Move the file to the directory where brochures are stored
-             try {
-                 $photo->move(
-                     $this->getParameter('photos_directory'),
-                     $newPhoto
-                 );
-             } catch (FileException $e) {
-                 // ... handle exception if something happens during file upload
-             }
-
-             // updates the 'brochureFilename' property to store the PDF file name
-             // instead of its contents
-             $nageur->setPhoto($newPhoto);
-         }
-
-         // ... persist the $product variable or any other work
-
-         return $this->redirectToRoute('app_admin_nageur_list');
-     }
-     
-     return $this->render('admin/nageur/pageNageur.html.twig', [
-         'form' => $form,
-         'nageurs' => $nageurs,
-     ]);
- }
-
-
-
+        } 
 
 
 }
+
+
+
 
 ?>

@@ -518,19 +518,21 @@
 							<div class="card-panel">
                 <div class="divider mb-1 mt-1"></div>
                   <div class="col s12 m6 input-field">
-                      {{ form_widget(form.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
+                  {{ form_start(formEdit) }}
+                      {{ form_widget(formEdit.password.first, {'required' : true  ,'attr': {'class': 'form-control', 'data-error' :'.errorTxt7'}}) }}
                       <label class="active">Password</label>
                       <small class="errorTxt7"></small>
                   </div>
                   <div class="col s12 m6 input-field">
-                      {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+                      {{ form_widget(formEdit.password.second, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
                       <label class="active">Confirm password</label>
                       <small class="errorTxt8"></small>
                   </div>
                   <div class="col s12 display-flex justify-content-end mt-3">
-                  {{ form_widget(form.submit, {'label': 'Modidier'}) }}
+                  {{ form_widget(formEdit.submit, {'label': 'Modidier'}) }}
                   <button type="button" class="btn btn-light">Cancel</button>
-                  </div>   
+                  </div> 
+                {{ form_end(formEdit) }} 
 						  </div>
             </div>
           
