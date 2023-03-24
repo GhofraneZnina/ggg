@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Nageur;
 use App\Form\Admin\NageurType;
+use App\Form\Admin\NageurTypee;
 use App\Entity\Physionomie;
 use App\Form\Admin\PhysionomieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -226,7 +227,7 @@ class NageurController extends AbstractController
         // TODO : edit nageur : START
 
         $nageur = $this->em->getRepository(Nageur::class)->findOneBy(['id' => $id]);
-        $formEdit = $this->createForm(NageurType::class, $nageur);
+        $formEdit = $this->createForm(NageurTypee::class, $nageur);
         $formEdit->handleRequest($request);
         if ($formEdit->isSubmitted() && $formEdit->isValid()) {
                 $nageur = $formEdit->getData();
