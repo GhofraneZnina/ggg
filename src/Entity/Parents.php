@@ -90,6 +90,24 @@ class Parents extends User
         return $this;
     }
 
+
+
+
+
+
+
+    // public function getPhoto(): ?string
+    // {
+    //     return $this->photo;
+    // }
+
+    // public function setPhoto(string $photo): self
+    // {
+    //     $this->photo = $photo;
+
+    //     return $this;
+    // }
+
     /**
      * @return Collection<int, Nageur>
      */
