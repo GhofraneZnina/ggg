@@ -242,7 +242,7 @@ class NageurController extends AbstractController
 
                 $this->addFlash('success', 'password successfully updated');
 
-                return $this->redirectToRoute('app_admin_nageur_page');
+                return $this->redirectToRoute('app_admin_nageur_page', ['id' => $id]);
         }
         
 
