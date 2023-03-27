@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 class ParentController extends AbstractController
 {
@@ -126,17 +130,6 @@ class ParentController extends AbstractController
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     #[Route('/admin/parent/{id}/edit', name: 'app_admin_parent_edit')]
     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
     {
@@ -170,11 +163,57 @@ class ParentController extends AbstractController
         }else if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error',$parent->getLogin().' : Login already exists ! ');
         }
-
-        return $this->render('admin/parent/edit.html.twig', [
+        return $this->render('admin/Parent/edit.html.twig', [
             'form' => $form->createView(),
         ]);
-   }
+
 
     }
+        #[Route('/admin/parent/{id}/page', name: 'app_admin_parent_page')]
+        public function pageParent($id, Request $request, UserPasswordHasherInterface $userPasswordHasher , SluggerInterface $slugger): Response
+        { 
+            
+            // TODO : create new parent : START
+           $parent = $this->em->getRepository(Parents::class)->findOneBy(['id'=>$id]);  
+           $form = $this->createForm(ParentsType::class, $parent);
+           $form->handleRequest($request);
+            //TODO : edit parent : START
+           
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $parent = $form->getData();
+                $password = $form->get('password')->getData();
+                if (isset($password)){
+                    $password = $userPasswordHasher->hashPassword($parent, $password);
+                    $parent->setPassword($password);
+                }
+                $this->em->persist($parent);
+                $this->em->flush();
+                $this->addFlash('success','password successfully updated');
+                return $this->redirectToRoute('app_admin_parent_page');
+            } else if ($form->isSubmitted() && !$form->isValid()) {
+                $this->addFlash('error', $parent->getLogin().' : Login already exists!');
+            }
+            
+            return $this->render('admin/parent/pageParent.html.twig', [
+                'parent' => $parent,
+                'form' => $form->createView(),
+            ]);
+        
+
+        
+            
+         }
+         
+        } 
+          // TODO : edit parent : END
+                
+           
+        
+        
+        
+        
+        
+
+    
     ?>

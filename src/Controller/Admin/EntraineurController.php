@@ -105,7 +105,7 @@ class EntraineurController extends AbstractController
 
 }else if ($form->isSubmitted() && !$form->isValid()) {
 
- dd($form->getData());
+ //dd($form->getData());
 $this->addFlash('error','check your data');
 
     $errors = $form->getErrors(true, true);
