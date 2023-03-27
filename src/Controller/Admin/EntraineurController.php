@@ -126,8 +126,8 @@ class EntraineurController extends AbstractController
     public function pageEntraineur($id, Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): Response
     {
         // TODO : create new entraineur : START
-        $entraineur = new Entraineur();
-        $form = $this->createForm(EntraineurType::class, $entraineur);
+        $entraineurs = new Entraineur();
+        $form = $this->createForm(EntraineurType::class, $entraineurs);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $brochureFile */
@@ -149,9 +149,9 @@ class EntraineurController extends AbstractController
                 }
 
                 
-                $entraineur->setPhoto($newPhoto);
+                $entraineurs->setPhoto($newPhoto);
 
-                $this->em->persist($entraineur);
+                $this->em->persist($entraineurs);
                 $this->em->flush();
                 $this->addFlash('success', 'entraineur successfully created');
                 return $this->redirectToRoute('app_admin_entraineur_page');
@@ -164,26 +164,27 @@ class EntraineurController extends AbstractController
 
         // TODO : edit entraineur : START
 
-        $entraineur = $this->em->getRepository(Entraineur::class)->findOneBy(['id' => $id]);
-        $formEdit = $this->createForm(EntraineurTypee::class, $entraineur);
+        $entraineurs = $this->em->getRepository(Entraineur::class)->findOneBy(['id' => $id]);
+        $formEdit = $this->createForm(EntraineurTypee::class, $entraineurs);
         $formEdit->handleRequest($request);
         if ($formEdit->isSubmitted() && $formEdit->isValid()) {
-                $entraineur = $formEdit->getData();
+                $entraineurs = $formEdit->getData();
                 $password = $formEdit->get('password')->getData();
                 if (isset($password)) {
-                    $password = $userPasswordHasher->hashPassword($entraineur, $password);
-                    $entraineur->setPassword($password);
+                    $password = $userPasswordHasher->hashPassword($entraineurs, $password);
+                    $entraineurs->setPassword($password);
                 }
 
-                $this->em->persist($entraineur);
+                $this->em->persist($entraineurs);
                 $this->em->flush();
 
                 $this->addFlash('success', 'password successfully updated');
 
-                return $this->redirectToRoute('app_admin_nageur_page');
+                
+                return $this->redirectToRoute('app_admin_nageur_page', ['id' => $id]);
         }
         else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
-                $this->addFlash('error', $entraineur->getLogin() . ' : Login already exists ! ');
+                $this->addFlash('error', $entraineurs->getLogin() . ' : Login already exists ! ');
 
         }
 

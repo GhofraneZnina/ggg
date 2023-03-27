@@ -216,7 +216,7 @@ class NageurController extends AbstractController
                 $this->em->persist($nageur);
                 $this->em->flush();
                 $this->addFlash('success', 'nageur successfully created');
-                return $this->redirectToRoute('app_admin_nageur_page');
+                return $this->redirectToRoute('app_admin_nageur_page', ['id' => $id]);
             }
         }
         else if ($form->isSubmitted() && !$form->isValid()) {
@@ -244,6 +244,8 @@ class NageurController extends AbstractController
 
                 return $this->redirectToRoute('app_admin_nageur_page');
         }
+        
+
         else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
                 $this->addFlash('error', $nageur->getLogin() . ' : Login already exists ! ');
 
