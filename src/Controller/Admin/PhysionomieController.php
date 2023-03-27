@@ -26,45 +26,46 @@ class PhysionomieController extends AbstractController
             return $this->redirectToRoute('login') ;
      }
 
+    //create 
+    $physionomie = new Physionomie() ;
+    $form = $this->createForm(PhysionomieType::class, $physionomie);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
 
+        $data = $request->request->all() ;
 
+        $date = str_replace('/','-',$data['physionomie']['date']) ;
+        $dataTimeDate = new \DateTime($date);
 
-//  TODO : create new physionomie: START
-         $physionomie = new Physionomie() ;
-         $form = $this->createForm(physionomieType::class, $physionomie);
-         $form->handleRequest($request);if ($form->isSubmitted() && $form->isValid()) { 
+        
+        
+       //dump($dataTimeDate);
+        //dd($form->getData());
+        $physionomie->setDate($dataTimeDate );
+       
+        
 
-           
-            $data = $request->request->all() ;
+         $this->em->persist($physionomie);
+         $this->em->flush();
 
-            $date = str_replace('/','-',$data['physionomie']['date']) ;
-            $dataTimeDate = new \DateTime($date);
-            $physionomie->setDate($dataTimeDate );
+        $this->addFlash('success','physionime successfully created' );
 
-               $this->em->persist($physionomie);
-               $this->em->flush();
- 
-              $this->addFlash('success','physionomie  successfully created' ); 
-              return $this->redirectToRoute('app_admin_physionomie_list') ;
-          } else if ($form->isSubmitted() && !$form->isValid()) {
- 
-           dd($form->getData());
-              $this->addFlash('error','check your data');
-           }
-           
-           
-          //dump($dataTimeDate);
-           //dd($form->getData());
-           
-         //  TODO : create new physionomie : END 
-         $physionomies = $this->em->getRepository(physionomie::class)->findAll() ; 
-         return $this->render('admin/physionomie/index.html.twig', [
-            'form' => $form->createView(),
-             'physionomies' => $physionomies,
-         ]);
+        return $this->redirectToRoute('app_admin_physionomie_list') ;
+    } else if ($form->isSubmitted() && !$form->isValid()) {
+
+       //dd($form->getData());
+        $this->addFlash('error','check your data');
+     }
+     //  TODO : create new group : END 
+     
+    $physionomies = $this->em->getRepository(Physionomie::class)->findAll() ;
+     return $this->render('admin/physionomie/index.html.twig', [
+        'form' => $form->createView(),
+        'physionomies' => $physionomies,
+     ]);
+
+       
      } 
-
-
 
 
 
@@ -159,7 +160,22 @@ class PhysionomieController extends AbstractController
     }
 
     // -----------------------------------------------------------------------------------------------------------
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

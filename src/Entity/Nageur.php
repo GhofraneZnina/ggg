@@ -168,14 +168,6 @@ class Nageur extends User
         return $this;
     }
    
-
-
-
-
-
-
-
-
     public function getParent(): ?Parents
     {
         return $this->parent;
@@ -195,6 +187,10 @@ class Nageur extends User
     {
         return $this->physionomies;
     }
+    
+
+   
+
 
     public function addPhysionomy(Physionomie $physionomy): self
     {

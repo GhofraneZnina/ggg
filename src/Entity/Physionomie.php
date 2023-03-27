@@ -79,4 +79,19 @@ class Physionomie
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getId();
+    }
+    public function __toStringg(): string
+    {
+        return $this->getPoids();
+    }
+
+   
+
+
+
 }
+
