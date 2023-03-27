@@ -548,22 +548,24 @@
 							<div class="card-panel">
 								<div class="divider mb-1 mt-1"></div>
 								<div class="responsive-table">
-									<table id="users-list-datatable" class="table">
+									<table class="bordered">
 										<thead>
 											<tr>
-												<th></th>
+												
 												<th>id</th>
 												<th>Date</th>
 												<th>Poids</th>
+												<th>Taille</th>
 											</tr>
 										</thead>
 										<tbody>
 											{% for physionomies in nageurs.physionomies %}
 												<tr>
-													<td></td>
+													
 													<td>{{ physionomies.id }}</td>
 													<td>{{ physionomies.date | date('Y-m-d') }}</td>
 													<td>{{ physionomies.poids }}</td>
+													<td>{{ physionomies.taille }}</td>
 												</tr>
 											{% endfor %}
 										</tbody>
