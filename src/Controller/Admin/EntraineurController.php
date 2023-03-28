@@ -181,7 +181,7 @@ class EntraineurController extends AbstractController
                 $this->addFlash('success', 'password successfully updated');
 
                 
-                return $this->redirectToRoute('app_admin_nageur_page', ['id' => $id]);
+                return $this->redirectToRoute('app_admin_entraineur_page', ['id' => $id]);
         }
         else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
                 $this->addFlash('error', $entraineurs->getLogin() . ' : Login already exists ! ');
