@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
-{% block title %}Profile Nageur
+{% block title %}Profile entraineur
 {% endblock %}
-{% block pageTitle %}Profile Nageur
+{% block pageTitle %}Profile entraineur
 {% endblock %}
 {% block levelOne %}
 	<li class="breadcrumb-item">
@@ -13,7 +13,7 @@
 {% block btnLink %}
 	<div class="col s2 m6 l6">
 		<a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_create') }}">
-			Create nageur</a>
+			Create entraineur</a>
 	</div>
 {% endblock %}
 
@@ -429,13 +429,13 @@
 									</a>
 									<div class="media-body">
 										<h6 class="media-heading">
-											<span class="users-view-username">{{ nageurs.prenom ~ ' ' ~ nageurs.nom }}
+											<span class="users-view-username">{{ entraineurs.prenom ~ ' ' ~ entraineurs.nom }}
 											</span>
-
-
+											
+											
 										</h6>
-										<span>ID:{{ nageurs.id}}</span>
-
+										<span>ID:</span>
+										<span class="users-view-ID">{{ entraineurs.id }}</span>
 									</div>
 								</div>
 							</div>
@@ -443,8 +443,8 @@
 								<a href="app-email.html" class="btn-small btn-light-indigo">
 									<i class="material-icons">mail_outline</i>
 								</a>
-								<a href="{{ path('app_admin_nageur_page',{'id': nageurs.id}) }}" class="btn-small btn-light-indigo">Profile</a>
-								<a href="{{ path('app_admin_nageur_edit',{'id': nageurs.id}) }}" class="btn-small indigo">Edit</a>
+								<a href="{{ path('app_admin_entraineur_page',{'id': entraineurs.id}) }}" class="btn-small btn-light-indigo">Profile</a>
+								<a href="{{ path('app_admin_entraineur_edit',{'id': entraineurs.id}) }}" class="btn-small indigo">Edit</a>
 							</div>
 						</div>
 					</div>
@@ -488,7 +488,6 @@
 							</ul>
 						</div>
 					</div>
-
 					<div
 						class="col l8 s12">
 						<!-- tabs content -->
@@ -497,36 +496,39 @@
 
 								<div class="divider mb-1 mt-1"></div>
 								<div class="responsive-table">
-									
+
 									<table class="striped">
 										<tbody>
+
 											<tr>
 												<td>ID:</td>
-												<td class="users-view-ID">{{ nageurs.id }}</td>
+												<td class="users-view-ID">{{ entraineurs.id }}</td>
 											</tr>
 											<tr>
 												<td>Nom complet:</td>
-												<td class="users-view-username">{{ nageurs.prenom ~ ' ' ~ nageurs.nom }}</td>
+												<td class="users-view-username">{{ entraineurs.prenom ~ ' ' ~ entraineurs.nom }}</td>
 											</tr>
 											<tr>
-												<td>Parent:</td>
-												<td class="users-view-parent">{{ nageurs.parent.prenom ~ ' ' ~ nageurs.parent.nom }}</td>
+												<td>Login:</td>
+												<td class="users-view-login">{{ entraineurs.login }}</td>
 											</tr>
+
 											<tr>
 												<td>Telephone:</td>
-												<td class="users-view-telephone">{{ nageurs.telephone }}</td>
+												<td class="users-view-telephone">{{ entraineurs.telephone }}</td>
 											</tr>
 											<tr>
 												<td>E-mail:</td>
-												<td class="users-view-email">{{ nageurs.email }}</td>
+												<td class="users-view-email">{{ entraineurs.email }}</td>
 											</tr>
 											<tr>
-												<td>Groupe:</td>
-												<td class="users-view-groupe">{{ nageurs.groupe.intitule }}</td>
+												<td>Login:</td>
+												<td class="users-view-login">{{ entraineurs.login }}</td>
 											</tr>
 
 										</tbody>
 									</table>
+
 								</div>
 							</div>
 						</div>
@@ -559,110 +561,105 @@
 							</div>
 						</div>
 
-						<div id="info">
-
-							<div class="card-panel">
-								<div class="divider mb-1 mt-1"></div>
-								<div class="responsive-table">
-									<table class="bordered">
-										<thead>
-											<tr>
-
-												<th>id</th>
-												<th>Date</th>
-												<th>Poids</th>
-												<th>Taille</th>
-											</tr>
-										</thead>
-										<tbody>
-											{% for physionomies in nageurs.physionomies %}
-												<tr>
-
-													<td>{{ physionomies.id }}</td>
-													<td>{{ physionomies.date | date('Y-m-d') }}</td>
-													<td>{{ physionomies.poids }}</td>
-													<td>{{ physionomies.taille }}</td>
-												</tr>
-											{% endfor %}
-										</tbody>
-									</table>
-								</div>
-							</div>
+						<div
+							id="info">{# <div class="card-panel">
+																								<div class="divider mb-1 mt-1"></div>
+																								<div class="responsive-table">
+																									<table id="users-list-datatable" class="table">
+																										<thead>
+																											<tr>
+																												<th></th>
+																												<th>id</th>
+																												<th>Date</th>
+																												<th>Poids</th>
+																											</tr>
+																										</thead>
+																										<tbody>
+																											{% for physionomies in entraineurs.physionomies %}
+																												<tr>
+																													<td></td>
+																													<td>{{ physionomies.id }}</td>
+																													<td>{{ physionomies.date | date('Y-m-d') }}</td>
+																													<td>{{ physionomies.poids }}</td>
+																												</tr>
+																											{% endfor %}
+																										</tbody>
+																									</table>
+																								</div>
+																							</div> #}
 						</div>
 
-						<div id="social-link">
+						<div
+							id="social-link">{# <div class="card-panel">
+																								<div class="divider mb-1 mt-1"></div>
+																								{{ form_start(formPhysionomie) }}
+																								<div class="row">
+																									<div class="col s12 ">
+																										<div class="row">
+																											<div
+																												class="col s12 m6 input-field" id="view-date-picker-2">
+																												
+																												<label for="physionomie_date">date</label>
+																												{{ form_widget(formPhysionomie.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+																
+																											</div>
+																											<div class="col s12 m6 input-field">
+																												{{ form_widget(formPhysionomie.taille, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+																												<label class="active">taille</label>
+																												<small class="errorTxt2"></small>
+																											</div>
+																											<div class="col s12 input-field">
+																												{{ form_widget(formPhysionomie.poids, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+																												<label class="active">poids</label>
+																												<small class="errorTxt3"></small>
+																											</div>
+																
+																
+																										</div>
+																									</div>
+																									<div class="col s12 display-flex justify-content-end mt-3">
+																										{{ form_widget(formPhysionomie.submit) }}
+																										<button type="button" class="btn btn-light">Cancel</button>
+																									</div>
+																								</div>
+																								{{ form_end(formPhysionomie) }} #}
+						</div>
+						<div id="connections">
 							<div class="card-panel">
-								<div class="divider mb-1 mt-1"></div>
-								{{ form_start(formPhysionomie) }}
 								<div class="row">
-									<div class="col s12 ">
-										<div class="row">
-											<div
-												class="col s12 m6 input-field" id="view-date-picker-2">
-												{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
-												<label for="physionomie_date">date</label>
-												{{ form_widget(formPhysionomie.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
-
-											</div>
-											<div class="col s12 m6 input-field">
-												{{ form_widget(formPhysionomie.taille, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
-												<label class="active">taille</label>
-												<small class="errorTxt2"></small>
-											</div>
-											<div class="col s12 input-field">
-												{{ form_widget(formPhysionomie.poids, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-												<label class="active">poids</label>
-												<small class="errorTxt3"></small>
-											</div>
-
-
-										</div>
+									<div class="col s12 mt-1 mb-1">
+										<a href="javascript: void(0);" class="btn cyan waves-effect waves-light">
+											Connect to
+											<strong>Twitter</strong>
+										</a>
 									</div>
-									<div class="col s12 display-flex justify-content-end mt-3">
-										{{ form_widget(formPhysionomie.submit) }}
-										<button type="button" class="btn btn-light">Cancel</button>
+									<div class="col s12 mt-1 mb-1">
+										<button class="btn btn-small waves-effect waves-light btn-light-indigo float-right">edit</button>
+										<h6>You are connected to facebook.</h6>
+										<p>Johndoe@gmail.com</p>
 									</div>
-								</div>
-								{{ form_end(formPhysionomie) }}
-							</div>
-							<div id="connections">
-								<div class="card-panel">
-									<div class="row">
-										<div class="col s12 mt-1 mb-1">
-											<a href="javascript: void(0);" class="btn cyan waves-effect waves-light">
-												Connect to
-												<strong>Twitter</strong>
-											</a>
-										</div>
-										<div class="col s12 mt-1 mb-1">
-											<button class="btn btn-small waves-effect waves-light btn-light-indigo float-right">edit</button>
-											<h6>You are connected to facebook.</h6>
-											<p>Johndoe@gmail.com</p>
-										</div>
-										<div class="col s12 mt-1 mb-1">
-											<a href="javascript: void(0);" class="btn waves-effect waves-light">Connect to
-												<strong>Google</strong>
-											</a>
-										</div>
-										<div class="col s12 mt-1 mb-1">
-											<button class="btn btn-small btn-light-indigo float-right waves-effect waves-light">edit</button>
-											<h6>You are connected to Instagram.</h6>
-											<p>Johndoe@gmail.com</p>
-										</div>
-										<div class="col s12 display-flex justify-content-end form-action">
-											<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-																																																										                changes</button>
-											<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
-										</div>
+									<div class="col s12 mt-1 mb-1">
+										<a href="javascript: void(0);" class="btn waves-effect waves-light">Connect to
+											<strong>Google</strong>
+										</a>
+									</div>
+									<div class="col s12 mt-1 mb-1">
+										<button class="btn btn-small btn-light-indigo float-right waves-effect waves-light">edit</button>
+										<h6>You are connected to Instagram.</h6>
+										<p>Johndoe@gmail.com</p>
+									</div>
+									<div class="col s12 display-flex justify-content-end form-action">
+										<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
+																																																								                changes</button>
+										<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
 									</div>
 								</div>
 							</div>
-
 						</div>
+
 					</div>
-				</head>
-			</html>
+				</div>
+			</head>
 		</head>
 	</html>
-</section>
-<!-- START RIGHT SIDEBAR NAV --></body></html>{% endblock %}
+</head></html></section><!-- START RIGHT SIDEBAR NAV --></body></html>{% endblock %}
