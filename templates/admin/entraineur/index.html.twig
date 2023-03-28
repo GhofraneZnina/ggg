@@ -115,7 +115,7 @@
                                         <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
                                     {% endif %}
                                     <td>
-                                        <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
+                                        <a href="{{ path('app_admin_entraineur_page',{'id': entraineur.id}) }}"><i class="material-icons">remove_red_eye</i></a>
                                         <a href="{{ path('app_admin_entraineur_edit',{'id': entraineur.id}) }}"><i class="material-icons">edit</i></a>
                                     </td>
                                 </tr>
