@@ -25,7 +25,7 @@ class PhysionomieType extends AbstractType
             'required'=> false,'mapped'=>false,
 
         ])
-        ->add('date')
+     
         ->add('taille')
         ->add('poids')
         ->add('nageur')

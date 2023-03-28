@@ -11,10 +11,23 @@
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
-	<div class="col s2 m6 l6">
-		<a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_create') }}">
-			Create nageur</a>
+	
+	<!-- Modal Trigger -->
+	
+	<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">Physionomie</a>
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		 
+				 
 	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+	</div>
+	</div>
+
+
+
 {% endblock %}
 
 {% block body %}
