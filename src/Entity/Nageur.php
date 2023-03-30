@@ -63,11 +63,18 @@ class Nageur extends User
 
     #[ORM\ManyToOne(inversedBy: 'nageur')]
     private ?Groupe $groupe = null;
+
+    #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: CotisationAnnuelle::class)]
+    private Collection $cotisationAnnuelles;
+
+    #[ORM\ManyToOne(inversedBy: 'nageur')]
+    private ?Categorie $categorie = null;
  
 
     public function __construct()
     {
         $this->physionomies = new ArrayCollection();
+        $this->cotisationAnnuelles = new ArrayCollection();
     }
 
 
@@ -222,6 +229,48 @@ class Nageur extends User
     public function setGroupe(?Groupe $groupe): self
     {
         $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CotisationAnnuelle>
+     */
+    public function getCotisationAnnuelles(): Collection
+    {
+        return $this->cotisationAnnuelles;
+    }
+
+    public function addCotisationAnnuelle(CotisationAnnuelle $cotisationAnnuelle): self
+    {
+        if (!$this->cotisationAnnuelles->contains($cotisationAnnuelle)) {
+            $this->cotisationAnnuelles->add($cotisationAnnuelle);
+            $cotisationAnnuelle->setNageur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotisationAnnuelle(CotisationAnnuelle $cotisationAnnuelle): self
+    {
+        if ($this->cotisationAnnuelles->removeElement($cotisationAnnuelle)) {
+            // set the owning side to null (unless already changed)
+            if ($cotisationAnnuelle->getNageur() === $this) {
+                $cotisationAnnuelle->setNageur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

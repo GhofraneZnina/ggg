@@ -1,11 +1,11 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des physionomies
+{% block title %}Liste des Saisons
 {% endblock %}
-{% block pageTitle %}Liste des physionomies
+{% block pageTitle %}Liste des saisons
 {% endblock %}
 {% block levelOne %}
 	<li class="breadcrumb-item">
-		<a href="{{ path('app_admin_physionomie_list') }}">Physionomie</a>
+		<a href="{{ path('app_admin_saison_list') }}">Saison</a>
 	</li>
 {% endblock %}
 {% block levelTwo %}{% endblock %}
@@ -16,7 +16,7 @@
 	<!-- Modal Trigger -->
 {# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
 
-<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">ajouter physionomie</a>
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">ajouter Saison</a>
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer">
   <div class="modal-content">
@@ -33,23 +33,28 @@
 						<div class="row">
 							<div class="col s12 ">
 								<div class="row">
+
+                                <div class="col s12 m6 input-field">
+										{{ form_widget(form.intitule, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+										<label class="active">intitule</label>
+										<small class="errorTxt2"></small>
+									</div>
 									<div
 										class="col s12 m6 input-field" id="view-date-picker-2">
 										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
-										<label for="physionomie_date">date</label>
-										{{ form_widget(form.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+										<label for="saison_dateDebut">Date Debut</label>
+										{{ form_widget(form.dateDebut,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
 									</div>
-									<div class="col s12 m6 input-field">
-										{{ form_widget(form.taille, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
-										<label class="active">taille</label>
-										<small class="errorTxt2"></small>
+                                   <div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="saison_dateFin">Date Fin</label>
+										{{ form_widget(form.dateFin,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
 									</div>
-									<div class="col s12 input-field">
-										{{ form_widget(form.poids, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-										<label class="active">poids</label>
-										<small class="errorTxt3"></small>
-									</div>
+									
+									
 									 
 									
 									
@@ -126,7 +131,7 @@
 						                            <div class="input-field">
 						                                <select class="form-control" id="users-list-role">
 						                                    <option value="">Any</option>
-						                                    <option value="User">Physionomie</option>
+						                                    <option value="User">Saison</option>
 						                                    <option value="Staff">Staff</option>
 						                                </select>
 						                            </div>
@@ -160,27 +165,25 @@
 								<tr>
 									<th></th>
 									<th>id</th>
-									<th>Nageur</th>
-									<th>Date</th>
-									<th>Poids</th>
-									<th>Taille</th>
+									<th>intitule</th>
+									<th>Date Debut</th>
+									<th>Date Fin</th>
+									
 								</tr>
 							</thead>
 							<tbody>
-								{% for physionomie in physionomies %}
+								{% for saison in saison %}
 									<tr>
 										<td></td>
-										<td>{{ physionomie.id }}</td>
-										<td>{{ physionomie.nageur}}</td>
-										<td>{{ physionomie.date |date('Y-m-d') }}</td>
-										<td>{{ physionomie.poids }}</td>
-										<td>{{ physionomie.taille }}</td>
-
+										<td>{{ saison.id }}</td>
+										<td>{{ saison.intitule}}</td>
+										<td>{{ saison.dateDebut |date('Y-m-d') }}</td>
+                                        <td>{{ saison.dateFin |date('Y-m-d') }}</td>
 										<td>
-											
+											{#<a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>#}
 										
 										
-											<a href="{{ path('app_admin_physionomie_delete',{'id': physionomie.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
+											<a href="{{ path('app_admin_saison_delete',{'id': saison.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
 
 										</td>
 									</tr>
