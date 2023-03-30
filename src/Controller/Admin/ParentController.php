@@ -204,7 +204,7 @@ class ParentController extends AbstractController
                 
             return $this->render('admin/parent/pageParent.html.twig', [
                 'parent' => $parent,
-                ' formEdit' => $formEdit->createView(), ]);
+                'formEdit' => $formEdit->createView(), ]);
         
 
         
