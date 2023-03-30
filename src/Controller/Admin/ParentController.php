@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Parents;
 use App\Form\Admin\ParentsType;
+use App\Form\Admin\ParentssType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -175,30 +176,35 @@ class ParentController extends AbstractController
             
             // TODO : create new parent : START
            $parent = $this->em->getRepository(Parents::class)->findOneBy(['id'=>$id]);  
-           $form = $this->createForm(ParentsType::class, $parent);
-           $form->handleRequest($request);
+           $formEdit = $this->createForm(ParentssType::class, $parent);
+           $formEdit->handleRequest($request);
             //TODO : edit parent : START
            
             
-            if ($form->isSubmitted() && $form->isValid()) {
-                $parent = $form->getData();
-                $password = $form->get('password')->getData();
-                if (isset($password)){
+            if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+                $parent = $formEdit->getData();
+                $password = $formEdit->get('password')->getData();
+                if (isset($password)) {
                     $password = $userPasswordHasher->hashPassword($parent, $password);
                     $parent->setPassword($password);
                 }
+
                 $this->em->persist($parent);
                 $this->em->flush();
-                $this->addFlash('success','password successfully updated');
-                return $this->redirectToRoute('app_admin_parent_page');
-            } else if ($form->isSubmitted() && !$form->isValid()) {
-                $this->addFlash('error', $parent->getLogin().' : Login already exists!');
-            }
-            
+
+                $this->addFlash('success', 'password successfully updated');
+
+                return $this->redirectToRoute('app_admin_parent_page', ['id' => $id]);
+        }
+        else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
+                $this->addFlash('error', $parent->getLogin() . ' : Login already exists ! ');
+
+        }
+
+                
             return $this->render('admin/parent/pageParent.html.twig', [
                 'parent' => $parent,
-                'form' => $form->createView(),
-            ]);
+                ' formEdit' => $formEdit->createView(), ]);
         
 
         
