@@ -25,6 +25,9 @@ class CotisationAnnuelle
     #[ORM\ManyToOne(inversedBy: 'cotisationAnnuelles')]
     private ?nageur $nageur = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cotisationAnnuelles')]
+    private ?Saison $saison = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class CotisationAnnuelle
     public function setNageur(?nageur $nageur): self
     {
         $this->nageur = $nageur;
+
+        return $this;
+    }
+
+    public function getSaison(): ?saison
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(?saison $saison): self
+    {
+        $this->saison = $saison;
 
         return $this;
     }

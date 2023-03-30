@@ -167,6 +167,7 @@
 									<th>id</th>
 									<th>Montant</th>
 									<th>Nageur</th>
+									<th>Saison</th>
 									<th>Statut Paiement</th>
 									<th>Remarque</th>
 
@@ -179,6 +180,7 @@
 										<td>{{ cotisation.id }}</td>
 										<td>{{ cotisation.montant}}</td>
 										<td>{{ cotisation.nageur.prenom ~ ' ' ~ cotisation.nageur.nom }}</td>
+										<td>{{ cotisation.saison.intitule }}</td>
 										<td>{{ cotisation.statutPaiement }}</td>
 										<td>{{ cotisation.remarque }}</td>
 
