@@ -66,6 +66,9 @@ class Nageur extends User
 
     #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: CotisationAnnuelle::class)]
     private Collection $cotisationAnnuelles;
+
+    #[ORM\ManyToOne(inversedBy: 'nageur')]
+    private ?Categorie $categorie = null;
  
 
     public function __construct()
@@ -256,6 +259,18 @@ class Nageur extends User
                 $cotisationAnnuelle->setNageur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

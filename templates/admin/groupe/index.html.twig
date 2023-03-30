@@ -102,29 +102,27 @@
                     <div class="responsive-table">
                         <table id="users-list-datatable" class="table">
                             <thead>
-                            <tr>
-                                 <th></th>
-                                 <th>id</th>
-                                 
-                                 <th>intitule</th>
-                                 <th>Action</th> 
-                            </tr>   
+                                <tr>
+                                    <th></th>
+                                    <th>id</th>
+                                    
+                                    <th>intitule</th>
+                                    <th>Action</th> 
+                                    
+                                </tr>   
                             </thead>
                             <tbody>
-                            {% for groupe in groupes %}
-                                <tr>
-                                    <td></td>
-                                    <td> {{ groupe.id }}</td>
-                                     
-                                    <td>{{ groupe.intitule }}</td> 
-                                    <td>
-                                        <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
+                                {% for groupe in groupes %}
+                                    <tr>
+                                        <td></td>
+                                        <td> {{ groupe.id }}</td>
                                         
-                                        <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"> <i  class="btn-small btn-light-pink">supprimer</i> </a>
-                                      
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                                        <td>{{ groupe.intitule }}</td> 
+                                        <td> 
+                                            <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"> <i  class="btn-small btn-light-pink">supprimer</i> </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

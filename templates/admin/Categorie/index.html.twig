@@ -1,0 +1,127 @@
+{% extends "base.html.twig" %}
+{% block title %}Liste des Categories
+{% endblock %}
+{% block pageTitle %}Liste des Categories
+{% endblock %}
+{% block levelOne %}
+	<li class="breadcrumb-item">
+		<a href="{{ path('app_admin_cotisation_list') }}">cotisations</a>
+	</li>
+{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+
+
+
+{% endblock %}
+
+
+{% block body %}
+	{#  Show alert : START #}
+	{% for message in app.flashes('success') %}
+		<div class="card-alert card green">
+			<div class="card-content white-text">
+				<p>
+					{{ message }}</p>
+			</div>
+			<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="card-alert card red">
+			<div class="card-content white-text">
+				<p>
+					{{ message }}</p>
+			</div>
+			<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	{% endfor %}
+	{#  Show alert : END  #}
+	<section class="users-list-wrapper section">
+		<div class="users-list-filter">
+			<div class="card-panel">
+				<div class="row">
+					<form>
+						<div class="col s12 m6 l3">
+							<label for="users-list-verified">Verified</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-verified">
+									<option value="">Any</option>
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3">
+							<label for="users-list-role">Role</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-role">
+									<option value="">Any</option>
+									<option value="User">Categorie</option>
+									<option value="Staff">Staff</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3">
+							<label for="users-list-status">Status</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-status">
+									<option value="">Any</option>
+									<option value="Active">Active</option>
+									<option value="Close">Close</option>
+									<option value="Banned">Banned</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3 display-flex align-items-center show-btn">
+							<button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="users-list-table">
+			<div class="card">
+				<div
+					class="card-content">
+					<!-- datatable start -->
+					<div class="responsive-table">
+						<table id="users-list-datatable" class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>id</th>
+									<th>intitule</th>
+									<th>Duree</th>
+									<th>La categorie d'age</th>
+									
+
+								</tr>
+							</thead>
+							<tbody>
+								{% for categorie in categorie %}
+									<tr>
+										<td></td>
+										<td>{{ categorie.id }}</td>
+										<td>{{ categorie.intitule}}</td>
+										<td>{{ categorie.duree}}</td>
+										<td>{{ categorie.categorieAge }}</td>
+										
+
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<!-- datatable ends -->
+				</div>
+			</div>
+		</div>
+	</section>
+	
+{% endblock %}

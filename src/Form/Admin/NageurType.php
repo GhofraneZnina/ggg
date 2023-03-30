@@ -38,7 +38,7 @@ class NageurType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('parent')
-
+            ->add('categorie')
 
             ->add('groupe')
             
