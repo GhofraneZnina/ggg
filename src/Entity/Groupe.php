@@ -21,9 +21,13 @@ class Groupe
     #[ORM\OneToMany(mappedBy: 'groupe', targetEntity: Nageur::class)]
     private Collection $nageur;
 
+    #[ORM\ManyToMany(targetEntity: Seance::class, mappedBy: 'groupe')]
+    private Collection $seances;
+
     public function __construct()
     {
         $this->nageur = new ArrayCollection();
+        $this->seances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +77,33 @@ class Groupe
             if ($nageur->getGroupe() === $this) {
                 $nageur->setGroupe(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Seance>
+     */
+    public function getSeances(): Collection
+    {
+        return $this->seances;
+    }
+
+    public function addSeance(Seance $seance): self
+    {
+        if (!$this->seances->contains($seance)) {
+            $this->seances->add($seance);
+            $seance->addGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeance(Seance $seance): self
+    {
+        if ($this->seances->removeElement($seance)) {
+            $seance->removeGroupe($this);
         }
 
         return $this;
