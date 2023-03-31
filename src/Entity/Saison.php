@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SaisonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,6 +25,14 @@ class Saison
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateFin = null;
 
+    #[ORM\OneToMany(mappedBy: 'saison', targetEntity: CotisationAnnuelle::class)]
+    private Collection $cotisationAnnuelles;
+
+    public function __construct()
+    {
+        $this->cotisationAnnuelles = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,7 +42,10 @@ class Saison
     {
         return $this->intitule;
     }
-
+    public function __toString(): string
+    {
+        return $this->getIntitule();
+    }
     public function setIntitule(string $intitule): self
     {
         $this->intitule = $intitule;
@@ -60,6 +73,36 @@ class Saison
     public function setDateFin(\DateTimeInterface $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CotisationAnnuelle>
+     */
+    public function getCotisationAnnuelles(): Collection
+    {
+        return $this->cotisationAnnuelles;
+    }
+
+    public function addCotisationAnnuelle(CotisationAnnuelle $cotisationAnnuelle): self
+    {
+        if (!$this->cotisationAnnuelles->contains($cotisationAnnuelle)) {
+            $this->cotisationAnnuelles->add($cotisationAnnuelle);
+            $cotisationAnnuelle->setSaison($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotisationAnnuelle(CotisationAnnuelle $cotisationAnnuelle): self
+    {
+        if ($this->cotisationAnnuelles->removeElement($cotisationAnnuelle)) {
+            // set the owning side to null (unless already changed)
+            if ($cotisationAnnuelle->getSaison() === $this) {
+                $cotisationAnnuelle->setSaison(null);
+            }
+        }
 
         return $this;
     }

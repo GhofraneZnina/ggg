@@ -24,6 +24,7 @@ class CotisationType extends AbstractType
         ->add('statutPaiement')
         ->add('remarque')
         ->add('nageur')
+        ->add('saison')
             
         ->add('submit', SubmitType::class,
             [
