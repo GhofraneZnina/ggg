@@ -96,6 +96,36 @@
               </span>
             </a>
           </li>
+          <li>
+            <a {% if( currentPath == path('app_admin_saison_list') )  %} class="active" {%endif%} href="{{ path('app_admin_saison_list') }}">
+              <i class="material-icons">
+                radio_button_unchecked
+              </i>
+              <span data-i18n="Edit">
+                Saison
+              </span>
+            </a>
+          </li>
+          <li>
+            <a {% if( currentPath == path('app_admin_categorie_list') )  %} class="active" {%endif%} href="{{ path('app_admin_categorie_list') }}">
+              <i class="material-icons">
+                radio_button_unchecked
+              </i>
+              <span data-i18n="Edit">
+                Categorie
+              </span>
+            </a>
+          </li>
+          <li>
+            <a {% if( currentPath == path('app_admin_cotisation_list') )  %} class="active" {%endif%} href="{{ path('app_admin_cotisation_list') }}">
+              <i class="material-icons">
+                radio_button_unchecked
+              </i>
+              <span data-i18n="Edit">
+                cotisation annuelle
+              </span>
+            </a>
+          </li>
         </ul>
         <li class="active bold">
       <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
