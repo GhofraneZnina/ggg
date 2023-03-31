@@ -18,7 +18,7 @@ class LieuEntrainementController extends AbstractController
     }
 
 
-    #[Route('/admin/lieuentrainement', name: 'app_admin_lieuEntrainement_list')]
+    #[Route('/admin/LieuEntrainement', name: 'app_admin_lieuEntrainement_list')]
     public function index(Request $request): Response
     {
         if (!$this->getUser()) {
@@ -26,8 +26,8 @@ class LieuEntrainementController extends AbstractController
          }
 
          //  TODO : create new group : START
-         $lieuEntrainement = new lieuEntrainement() ;
-         $form = $this->createForm(lieuEntrainementType::class, $lieuEntrainement);
+         $lieuEntrainement = new LieuEntrainement() ;
+         $form = $this->createForm(LieuEntrainementType::class, $lieuEntrainement);
          $form->handleRequest($request);if ($form->isSubmitted() && $form->isValid()) { 
                $this->em->persist($lieuEntrainement);
                $this->em->flush();
@@ -40,8 +40,8 @@ class LieuEntrainementController extends AbstractController
               $this->addFlash('error','check your data');
            }
          //  TODO : create new group : END 
-         $lieuEntrainements = $this->em->getRepository(lieuEntrainement::class)->findAll() ; 
-         return $this->render('admin/lieuentrainement/index.html.twig', [
+         $lieuEntrainements = $this->em->getRepository(LieuEntrainement::class)->findAll() ; 
+         return $this->render('admin/lieuEntrainement/index.html.twig', [
             'form' => $form->createView(),
              'lieuEntrainements' => $lieuEntrainements,
          ]);
