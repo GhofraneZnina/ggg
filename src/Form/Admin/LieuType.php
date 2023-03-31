@@ -22,8 +22,24 @@ class LieuType extends AbstractType
      
         ->add('intitule')
         ->add('description')
-        ->add('TypePicine')
-        
+
+        ->add('typepicine', ChoiceType::class, [
+            'choices'  => [ 'PICINE_1'=>'P50',
+            'P50' => 'PICINE_1'  ,
+            'P25M' => 'PICINE_2' ,
+            'AUTRE'=>'autre']
+            
+        ])
+       
+
+
+
+        // ->add('TypePicine', ChoiceType::class, [
+        //     'choices'  => [
+        //         LieuEntrainement::'p50' =>LieuEntrainement::'p25m' ,
+        //         LieuEntrainement::'autre',           
+        // ]])
+       
             
         ->add('submit', SubmitType::class,
             [
