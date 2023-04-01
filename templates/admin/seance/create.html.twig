@@ -1,0 +1,97 @@
+{% extends "base.html.twig" %}
+{% block title %}Ajouter seance
+{% endblock %}
+{% block pageTitle %}Ajouter seance
+{% endblock %}
+{% block levelOne %}
+	<li class="breadcrumb-item">
+		<a href="{{ path('app_admin_seance_list') }}">seance</a>
+	</li>
+{% endblock %}
+{% block levelTwo %}
+	<li class="breadcrumb-item active">Ajouter seance</li>
+{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}{% endblock %}
+{% block body %}
+	{#  Show alert : START #}
+	{% for message in app.flashes('success') %}
+		{% if message is not null and message is not empty %}
+			<div class="card-alert card green">
+				<div class="card-content white-text">
+					<p>
+						{{ message }}</p>
+				</div>
+				<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+		{% endif %}
+	{% endfor %}
+	{% for message in app.flashes('error') %}
+		{% if message is not null and message is not empty %}
+			<div class="card-alert card red">
+				<div class="card-content white-text">
+					<p>
+						{{ message }}</p>
+				</div>
+				<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+		{% endif %}
+	{% endfor %} 
+	{#  Show alert : END  #}
+	<div class="section users-edit">
+		<div class="card">
+			<div class="card-content">
+				<div class="divider mb-3"></div>
+				<div class="row">
+					<div
+						class="col s12" id="account">
+						<!-- users edit media object ends -->
+						{{ form_start(form) }}
+						<div class="row">
+							<div class="col s12 ">
+								<div class="row">
+
+                                <div class="col s12 m6 input-field">
+										{{ form_widget(form.intitule, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+										<label class="active">intitule</label>
+										<small class="errorTxt2"></small>
+									</div>
+									<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="seance_dateDebut">Date Debut</label>
+										{{ form_widget(form.dateDebut,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+                                   <div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="seance_dateFin">Date Fin</label>
+										{{ form_widget(form.dateFin,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+									
+									
+									 
+									
+									
+								</div>
+							</div>
+							<div class="col s12 display-flex justify-content-end mt-3">
+								{{ form_widget(form.submit) }}
+								<button type="button" class="btn btn-light">Cancel</button>
+							</div>
+						</div>
+						{{ form_end(form) }}
+						<!-- users edit account form ends -->
+					</div>
+				</div>
+				<!-- </div> -->
+			</div>
+		</div>
+	</div>
+{% endblock %}
