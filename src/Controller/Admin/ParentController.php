@@ -38,43 +38,7 @@ class ParentController extends AbstractController
         ]);
     }
 
-    // #[Route('/admin/parent/create', name: 'app_admin_parent_create')]
-    // public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
-    // {
-    //     if (!$this->getUser()) {
-    //        return $this->redirectToRoute('login') ;
-    //     }
-    //     $parent = new Parents() ;
-    //     $parent->setRoles([Parents::ROLE_PARENTS])  ;
-    //     $parent->setStatus(Parents::STATUT_ACTIF);
 
-    //     $form = $this->createForm(ParentsType::class, $parent);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $parent = $form->getData();
-    //         $chekUser = $this->em->getRepository(Parents::class)->findOneByLogin($parent->getLogin());
-    //         if($chekUser){
-    //             $this->addFlash('error',$parent->getLogin().' : Login already exists ! ');
-    //             return $this->redirectToRoute('app_admin_parent_list');
-    //         }
-    //         $password = $form->get('password')->getData();
-    //         $password = $userPasswordHasher->hashPassword($parent, $password);
-    //         $parent->setPassword($password);
-    //         dd($form->getData());
-    //         $this->em->persist($parent);
-    //         $this->em->flush();
-
-    //         $this->addFlash('success','parent successfully created' );
-
-    //         return $this->redirectToRoute('app_admin_parent_list') ;
-    //     }else if ($form->isSubmitted() && !$form->isValid()) {
-    //         $this->addFlash('error',$parent->getLogin().' : Login already exists ! ');
-    //     }
-
-    //     return $this->render('admin/parent/create.html.twig', [
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
 
     #[Route('/admin/parent/create', name: 'app_admin_parent_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
