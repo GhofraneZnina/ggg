@@ -94,13 +94,14 @@
                                 <th>categorie</th>
                                 <th>Login</th>
                                 <th>groupe</th>
-                                
+                                <th>cotisation annuelle</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for nageur in nageurs %}
+                            
                                 <tr>
                                     <td></td>
                                     <td>{{ nageur.id }}</td>
@@ -110,7 +111,11 @@
                                     <td>{{ nageur.categorie.intitule  }}</td>
                                     <td>{{ nageur.login }}</td>
                                     <td>{{ nageur.groupe.intitule }}</td>
-                                    
+                                    <td>
+                                        {% for cotisationAnnuelle in nageur.cotisationAnnuelles %}
+                                            {{ cotisationAnnuelle.remarque }}
+                                        {% endfor %}
+                                     </td>
                                     {% if nageur.status == 1 %}
                                     <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
                                     {% else %}

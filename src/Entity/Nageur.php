@@ -232,6 +232,7 @@ class Nageur extends User
 
         return $this;
     }
+  
 
     /**
      * @return Collection<int, CotisationAnnuelle>
