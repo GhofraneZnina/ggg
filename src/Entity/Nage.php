@@ -15,6 +15,12 @@ class Nage
 
     #[ORM\Column(length: 255)]
     private ?string $label = null;
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+     /**
+     * @ORM\Column(type="integer")
+     */
+    private $position;
 
     public function getId(): ?int
     {
@@ -29,6 +35,28 @@ class Nage
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
