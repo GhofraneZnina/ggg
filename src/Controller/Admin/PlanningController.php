@@ -22,97 +22,109 @@ class PlanningController extends AbstractController
     {
         ;
     }
-
-    #[Route('/admin/planning/{id}/page', name: 'app_admin_planning_page')]
-    public function pagePlanning($id, Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): Response
+    #[Route('/admin/planning', name: 'app_admin_planning_list')]
+    public function index(Request $request): Response
     {
-        // TODO : create new nageur : START
-        $planning = new Planning();
-        $form= $this->createForm(PlanningType::class, $planning);
-        $form->handleRequest($request);
        
+    $plannings = $this->em->getRepository(Planning::class)->findAll() ;
+    //create 
+    $plannings = new Planning() ;
+    $form = $this->createForm(PlanningType::class, $plannings);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+
+        $data = $request->request->all() ;
+        $date = str_replace('/','-',$data['planning']['date']) ;
+        $dataTimeDate = new \DateTime($date);
+        $plannings->setDate($dataTimeDate);
+        
+         $this->em->persist($plannings);
+         $this->em->flush();
+
+        $this->addFlash('success','planning successfully created' );
+
+        return $this->redirectToRoute('app_admin_planning_list') ;
+    } else if ($form->isSubmitted() && !$form->isValid()) {
+
+       //dd($form->getData());
+        $this->addFlash('error','check your data');
+     }
+     //  TODO : create new cotisation : END 
+     
+    $plannings = $this->em->getRepository(Planning::class)->findAll() ;
+     return $this->render('admin/planning/index.html.twig', [
+        'form' => $form->createView(),
+        'planning' => $plannings,
+     ]);
+
+    }
+
+    #[Route('/admin/planning/create', name: 'app_admin_planning_create')]
+    public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher,SluggerInterface $slugger): Response
+    {
+        $planning= new Planning();
+        $form = $this->createForm(PlanningType::class, $planning);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $data = $request->request->all();
 
-            $date = str_replace('/', '-', $data['planning']['date']);
+            $data = $request->request->all() ;
+            $date = str_replace('/','-',$data['planning']['date']) ;
             $dataTimeDate = new \DateTime($date);
-
-
-
-            //dump($dataTimeDate);
-            //dd($$formPhysionomie->getData());
             $planning->setDate($dataTimeDate);
             
-            //dump($dataTime);
            
-            //dd($form->getData());
             $planning = $form->getData();
            
+                        
             $this->em->persist($planning);
             $this->em->flush();
 
             $this->addFlash('success','planning successfully created' );
 
-            return $this->redirectToRoute('app_admin_planning_page') ;
-        } else if ($form->isSubmitted() && !$form->isValid()) {
-            dump($form);
-           dd($form->getData());
+            return $this->redirectToRoute('app_admin_planning_list') ;
 
+
+        } 
+        else if ($form->isSubmitted() && !$form->isValid()) {
+
+            //dd($form->getData());
             $this->addFlash('error','check your data');
-         }
-      
-        // TODO : create nageur : END
 
-        // TODO : edit nageur : START
+                $errors = $form->getErrors(true, true);
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
 
-        $planning = $this->em->getRepository(Planning::class)->findOneBy(['id' => $id]);
-        $formEdit = $this->createForm(PlanningTypee::class, $planning);
-        $formEdit->handleRequest($request);
-        if ($formEdit->isSubmitted() && $formEdit->isValid()) {
-                $planning = $formEdit->getData();
-               
-
-                $this->em->persist($planning);
-                $this->em->flush();
-
-                $this->addFlash('success', 'password successfully updated');
-
-                return $this->redirectToRoute('app_admin_planning_page', ['id' => $id]);
-        }
-        else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
-                $this->addFlash('error', ' : Planning already exists ! ');
-
-        }
-
-
-        // TODO : edit nageur : END
-        //adding physionomie
-
-
-            //listing nageur
-        $plannings = $this->em->getRepository(Planning::class)->findOneBy(['id' => $id]);
-        if (!$plannings) {
-            return $this->redirectToRoute('app_admin_planning_page');
-         }
-
-
-        return $this->render('admin/nageur/pagePlanning.html.twig', [
-        'plannings' => $planning,
-        'form' => $form->createView(),
-        'formEdit' => $formEdit->createView(),
-        
+        return $this->render('admin/Planning/create.html.twig', [
+            'form' => $form->createView(),
         ]);
+    }
+    #[Route('/admin/planning/{id}/delete', name: 'app_admin_planning_delete')]
+    public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
+    {
+        
+        $user = $this->getUser();
 
-              
+        
+        $planningRepository = $this->em->getRepository(Planning::class);
+       
+        $planning =$planningRepository->find(['id'=>$id]);
+        if (!$planning) {
+            return $this->redirectToRoute('app_admin_planning_list');
+        }
+
+      
+        $this->em->remove($planning);
+        $this->em->flush();
+        
+        
+        $this->addFlash('success','planning successfully deleted ' );
+        return $this->redirectToRoute('app_admin_planning_list');
     }
 
-
     
-
-
 }
-
 
 
 
