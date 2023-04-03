@@ -61,6 +61,10 @@ class CotisationAnnuelle
     {
         return $this->remarque;
     }
+    public function __toString(): string
+    {
+        return $this->getRemarque();
+    }
 
     public function setRemarque(string $remarque): self
     {

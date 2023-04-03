@@ -17,11 +17,13 @@ class Planning
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $horairedebut = null;
+    #[ORM\Column(length: 255)]
+    private ?string $horairedebut = null;
 
     #[ORM\Column(length: 255)]
     private ?string $horairefin = null;
+
+   
 
     public function getId(): ?int
     {
@@ -40,12 +42,12 @@ class Planning
         return $this;
     }
 
-    public function getHorairedebut(): ?\DateTimeInterface
+    public function getHorairedebut(): ?string
     {
         return $this->horairedebut;
     }
 
-    public function setHorairedebut(\DateTimeInterface $horairedebut): self
+    public function setHorairedebut(string $horairedebut): self
     {
         $this->horairedebut = $horairedebut;
 
