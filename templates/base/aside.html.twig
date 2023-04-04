@@ -96,16 +96,7 @@
               </span>
             </a>
           </li>
-          <li>
-            <a {% if( currentPath == path('app_admin_saison_list') )  %} class="active" {%endif%} href="{{ path('app_admin_saison_list') }}">
-              <i class="material-icons">
-                radio_button_unchecked
-              </i>
-              <span data-i18n="Edit">
-                Saison
-              </span>
-            </a>
-          </li>
+          
           <li>
             <a {% if( currentPath == path('app_admin_categorie_list') )  %} class="active" {%endif%} href="{{ path('app_admin_categorie_list') }}">
               <i class="material-icons">
@@ -127,13 +118,10 @@
             </a>
           </li>
         </ul>
-        <li class="active bold">
-      <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-       <i class="material-icons">person_outline</i>
-        <span class="menu-title" data-i18n="User">
-          les profiles
-        </span>
-      </a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="/admin/saison"><i class="material-icons">photo_filter</i><span class="menu-title" data-i18n="Mail">Les Saisons</span></a>
+        
+      
+      
       <div class="collapsible-body">
      
         <ul class="collapsible collapsible-sub" data-collapsible="accordion">
