@@ -32,7 +32,28 @@ class CategorieController extends AbstractController
         ]);
     }
    
+    #[Route('/admin/categorie/{id}/delete', name: 'app_admin_categorie_delete')]
+    public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
+    {
+        
+        $user = $this->getUser();
 
+        
+        $categorieRepository = $this->em->getRepository(Categorie::class);
+       
+        $categorie =$categorieRepository->find(['id'=>$id]);;
+        if (!$categorie) {
+            return $this->redirectToRoute('app_admin_categorie_list');
+        }
+
+      
+        $this->em->remove($categorie);
+        $this->em->flush();
+        
+        
+        $this->addFlash('success','category successfully deleted ' );
+        return $this->redirectToRoute('app_admin_categorielist');
+    }
 
 
 

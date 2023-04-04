@@ -15,16 +15,16 @@ class Categorie
     #[ORM\Column]
     private ?int $id = null;
 
+    private $position;
     #[ORM\Column(length: 255)]
     private ?string $intitule = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $duree = null;
+  
 
     #[ORM\Column(length: 255)]
     private ?string $categorieAge = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: nageur::class)]
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Nageur::class)]
     private Collection $nageur;
 
     public function __construct()
@@ -53,17 +53,7 @@ class Categorie
         return $this;
     }
 
-    public function getDuree(): ?string
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(string $duree): self
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
+    
 
     public function getCategorieAge(): ?string
     {
@@ -103,6 +93,17 @@ class Categorie
                 $nageur->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

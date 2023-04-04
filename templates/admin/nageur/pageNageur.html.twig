@@ -146,6 +146,7 @@
 								</a>
 								<a href="{{ path('app_admin_nageur_page',{'id': nageurs.id}) }}" class="btn-small btn-light-indigo">Profile</a>
 								<a href="{{ path('app_admin_nageur_edit',{'id': nageurs.id}) }}" class="btn-small indigo">Edit</a>
+								
 							</div>
 						</div>
 					</div>
@@ -177,7 +178,7 @@
 								<li class="tab">
 									<a href="#connections">
 										<i class="material-icons">link</i>
-										<span>Performances</span>
+										<span>Cotisations Annuelles</span>
 									</a>
 								</li>
 
@@ -286,42 +287,34 @@
 							</div>
 						</div>
 
-						<div id="social-link">	
-						</div>
-							<div id="connections">
-								<div class="card-panel">
-									<div class="row">
-										<div class="col s12 mt-1 mb-1">
-											<a href="javascript: void(0);" class="btn cyan waves-effect waves-light">
-												Connect to
-												<strong>Twitter</strong>
-											</a>
-										</div>
-										<div class="col s12 mt-1 mb-1">
-											<button class="btn btn-small waves-effect waves-light btn-light-indigo float-right">edit</button>
-											<h6>You are connected to facebook.</h6>
-											<p>Johndoe@gmail.com</p>
-										</div>
-										<div class="col s12 mt-1 mb-1">
-											<a href="javascript: void(0);" class="btn waves-effect waves-light">Connect to
-												<strong>Google</strong>
-											</a>
-										</div>
-										<div class="col s12 mt-1 mb-1">
-											<button class="btn btn-small btn-light-indigo float-right waves-effect waves-light">edit</button>
-											<h6>You are connected to Instagram.</h6>
-											<p>Johndoe@gmail.com</p>
-										</div>
-										<div class="col s12 display-flex justify-content-end form-action">
-											<button type="submit" class="btn indigo waves-effect waves-light mr-2">Save
-																																																																																		                changes</button>
-											<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
-										</div>
-									</div>
+						<div id="connections">	
+							<div class="card-panel">
+								
+								<div class="responsive-table">
+									<table id="users-list-datatable" class="table">
+										<thead>
+											<tr>
+												<th></th>
+												<th>id</th>
+												<th>Montant</th>
+												<th>Saison</th>
+												<th>Remarque</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for cotisationAnnuelle in nageurs.cotisationAnnuelles %}
+												<tr>
+													<td></td>
+													<td>{{ cotisationAnnuelle.id }}</td>
+													<td>{{ cotisationAnnuelle.montant }}</td>
+													<td>{{cotisationAnnuelle.saison }}</td>
+													<td>{{ cotisationAnnuelle.remarque }}</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
 								</div>
 							</div>
-
-						</div>
 					</div>
 				</head>
 			</html>

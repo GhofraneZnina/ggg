@@ -21,7 +21,7 @@ class CategorieType extends AbstractType
         
      
         ->add('intitule')
-        ->add('duree')
+        
         ->add('categorieAge')
         
         
