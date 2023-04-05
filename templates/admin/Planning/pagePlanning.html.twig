@@ -1,32 +1,59 @@
 {% extends 'base.html.twig' %}
 
+{% block pageTitle %}Les Plannings
+{% endblock %}
+{% block levelOne %}
+	<li class="breadcrumb-item">
+		<a href="{{ path('app_admin_planning_list') }}">Plannings</a>
+	</li>
+{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block title %}Planning{% endblock %}
+
 {% block body %}
-    <h1>Calendar</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for week in weeks %}
-                <tr>
-                    {% for day in week.days %}
-                        <td>
-                            <strong>{{ day.date|date('j') }}</strong>
-                            {% for planning in day.plannings %}
-                                <div>{{ planning.horairedebut }} - {{ planning.horairefin }}</div>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
+  <div class="container-fluid">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          {% for jour in jours %}
+            <th>{{ jour|date('l') }}<br>{{ jour|date('d/m/Y') }}</th>
+          {% endfor %}
+        </tr>
+        <tr>
+          <th></th>
+          {% for jour in jours %}
+            <th>{{ jour|date('l') }}</th>
+          {% endfor %}
+        </tr>
+        <tr>
+          <th>Horaires</th>
+          {% for jour in jours %}
+            <th>
+              {% for seance in seances %}
+                {% if seance.jour|date('Y-m-d') == jour|date('Y-m-d') %}
+                  {{ seance.horaireDebut }} - {{ seance.horaireFin }}<br>
+                {% endif %}
+              {% endfor %}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Groupes</th>
+          {% for jour in jours %}
+            <td>
+              {% for seance in seances %}
+                {% if seance.jour|date('Y-m-d') == jour|date('Y-m-d') %}
+                  {{ seance.groupe|join(', ') }}<br>
+                {% endif %}
+              {% endfor %}
+            </td>
+          {% endfor %}
+        </tr>
+      </tbody>
     </table>
+  </div>
 {% endblock %}

@@ -27,7 +27,7 @@ class Seance
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $jour = null;
 
-    #[ORM\ManyToMany(targetEntity: groupe::class, inversedBy: 'seances')]
+    #[ORM\ManyToMany(targetEntity: Groupe::class, inversedBy: 'seances')]
     private Collection $groupe;
 
     #[ORM\ManyToOne(inversedBy: 'seance')]

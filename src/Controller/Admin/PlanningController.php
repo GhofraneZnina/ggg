@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Planning;
+use App\Entity\Seance;
 use App\Form\Admin\PlanningType;
+use App\Form\Admin\SeanceType;
 use App\Form\Admin\PlanningTypee;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -124,10 +126,35 @@ class PlanningController extends AbstractController
         return $this->redirectToRoute('app_admin_planning_list');
     }
     //////////////
-  
+    #[Route('/admin/planning/{id}/page', name: 'app_admin_planning_page')]
     
-}
+    
+        /**
+         * @Route("/planning", name="planning")
+         */
+        public function planning(Request $request): Response
+        {
+            $seances = $this->em->getRepository(Seance::class)->findAll();
+          
+            $jours = [];
 
+            foreach ($seances as $seance) {
+                $jours[] = $seance->getJour()->format('Y-m-d');
+            }
+
+           $jours = array_unique($jours);
+
+           sort($jours);
+
+            return $this->render('admin/Planning/pagePlanning.html.twig', [
+                'seances' => $seances,
+                'jours' => $jours,
+             ]);
+
+        }
+    
+
+}
 
 
 ?>
