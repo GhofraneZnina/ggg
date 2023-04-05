@@ -8,22 +8,71 @@
 {% block btnLink %}
 
 
+	<!-- Modal Trigger -->
+{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
 
-
-
-<!-- Modal Trigger -->
-{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_seance_list') }}">create seance</a> #}
-<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">seance</a>
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">ajouter Seance</a>
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer">
   <div class="modal-content">
-    <div class="modal-content"> 
-             {{ form(form)}} 
+    
+            
+		<div class="card">
+			<div class="card-content">
+				<div class="divider mb-3"></div>
+				<div class="row">
+					<div
+						class="col s12" id="account">
+						<!-- users edit media object ends -->
+						{{ form_start(form) }}
+						<div class="row">
+							<div class="col s12 ">
+								<div class="row">
+									
+									<div class="col s12 m6 input-field">
+										{{ form_widget(form.horaireDebut, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+										<label class="active">Horaire Debut</label>
+										<small class="errorTxt2"></small>
+									</div>
+									<div class="col s12 input-field">
+										{{ form_widget(form.horaireFin, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+										<label class="active">Horaire Fin</label>
+										<small class="errorTxt3"></small>
+									</div>
+                                   <div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="saison_dateDebut">Jour</label>
+										{{ form_widget(form.jour,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+                                    
+									 
+									
+									
+								</div>
+							</div>
+							<div class="col s12 display-flex justify-content-end mt-3">
+								{{ form_widget(form.submit) }}
+								<button type="button" class="btn btn-light">Cancel</button>
+							</div>
+						</div>
+						{{ form_end(form) }}
+						<!-- users edit account form ends -->
+					</div>
+				</div>
+			</div>	<!-- </div> -->
+			
+		</div>
+
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
   </div>
 </div>
+
+
+
 
 
 {% endblock %}
@@ -105,22 +154,28 @@
                                 <tr>
                                     <th></th>
                                     <th>id</th>
-                                    
-                                    <th>intitule</th>
-                                    <th>Action</th> 
+                                    <th>Horaire Debut</th>
+                                    <th>Horaire Fin</th> 
+                                    <th>Jour</th> 
+                                    <th>Groupe</th> 
                                     
                                 </tr>   
                             </thead>
                             <tbody>
-                                {% for seance in seances %}
+                                {% for seance in seance %}
                                     <tr>
                                         <td></td>
                                         <td> {{ seance.id }}</td>
                                         
-                                        <td>{{ seance.intitule }}</td> 
-                                        <td> 
-                                            <a href="{{ path('app_admin_seance_delete',{'id': seance.id}) }}"> <i  class="btn-small btn-light-pink">supprimer</i> </a>
-                                        </td>
+                                        <td>{{ seance.horaireDebut }}</td> 
+                                        <td>{{ seance.horaireFin }}</td>
+                                        <td>{{ seance.jour|date('Y-m-d') }}</td>
+                                        <td>
+                                            {% for groupe in seance.groupe %}
+                                                {{ groupe.intitule}}
+                                            {% endfor %}
+                                     </td>
+                                       
                                     </tr>
                                 {% endfor %}
                             </tbody>

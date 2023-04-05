@@ -29,6 +29,11 @@ class SeanceController extends AbstractController
     $form = $this->createForm(SeanceType::class, $seance);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+        $data = $request->request->all() ;
+
+        $jour = str_replace('/','-',$data['seance']['jour']) ;
+        $dataTimeJour = new \DateTime($jour);
+        $seance->setJour($dataTimeJour);
 
  
          $this->em->persist($seance);
