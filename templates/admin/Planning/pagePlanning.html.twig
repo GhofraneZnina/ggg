@@ -10,21 +10,91 @@
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block title %}Planning{% endblock %}
+{% block btnLink %}
+
+
+	<!-- Modal Trigger -->
+{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">ajouter Seance</a>
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    
+            
+		<div class="card">
+			<div class="card-content">
+				<div class="divider mb-3"></div>
+				<div class="row">
+					<div
+						class="col s12" id="account">
+						<!-- users edit media object ends -->
+						{{ form_start(form) }}
+						<div class="row">
+							<div class="col s12 ">
+								<div class="row">
+									
+									<div class="col s12 m6 input-field">
+										{{ form_widget(form.horaireDebut, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+										<label class="active">Horaire Debut</label>
+										<small class="errorTxt2"></small>
+									</div>
+									<div class="col s12 input-field">
+										{{ form_widget(form.horaireFin, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+										<label class="active">Horaire Fin</label>
+										<small class="errorTxt3"></small>
+									</div>
+                                   <div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="saison_dateDebut">Jour</label>
+										{{ form_widget(form.jour,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+                                    
+									 
+									
+									
+								</div>
+							</div>
+							<div class="col s12 display-flex justify-content-end mt-3">
+								{{ form_widget(form.submit) }}
+								<button type="button" class="btn btn-light">Cancel</button>
+							</div>
+						</div>
+						{{ form_end(form) }}
+						<!-- users edit account form ends -->
+					</div>
+				</div>
+			</div>	<!-- </div> -->
+			
+		</div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}
 
 {% block body %}
   <div class="container-fluid">
     <table class="table table-bordered">
       <thead>
+         <tr>
+          <th></th>
+          <br>
+          <br>
+        </tr> 
         <tr>
           <th></th>
           {% for jour in jours %}
             <th>{{ jour|date('l') }}<br>{{ jour|date('d/m/Y') }}</th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <th></th>
-          {% for jour in jours %}
-            <th>{{ jour|date('l') }}</th>
           {% endfor %}
         </tr>
         <tr>
@@ -56,4 +126,24 @@
       </tbody>
     </table>
   </div>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    
+{# <script src="../../../app-assets/js/scripts/advance-ui-modals.js"></script> #}
+<script src="{{asset('assets/app-assets/js/scripts/advance-ui-modals.js')}}"></script>
+<script type="text/javascript">
+jQuery('.modal').modal({
+  dismissible: true, // Modal can be dismissed by clicking outside of the modal
+  opacity: .5, // Opacity of modal background
+  inDuration: 300, // Transition in duration
+  outDuration: 200, // Transition out duration
+  startingTop: '4%', // Starting top style attribute
+  endingTop: '10%', // Ending top style attribute
+  ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+  alert("Ready");
+  console.log(modal, trigger);
+  },
+  complete: function() { alert('Closed'); } // Callback for Modal close
+  }
+)
+</script>
 {% endblock %}

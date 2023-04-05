@@ -145,10 +145,35 @@ class PlanningController extends AbstractController
            $jours = array_unique($jours);
 
            sort($jours);
+            //create 
+        $seance = new Seance() ;
+        $form = $this->createForm(SeanceType::class, $seance);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->all() ;
+
+            $jour = str_replace('/','-',$data['seance']['jour']) ;
+            $dataTimeJour = new \DateTime($jour);
+            $seance->setJour($dataTimeJour);
+
+    
+            $this->em->persist($seance);
+            $this->em->flush();
+
+            $this->addFlash('success','seance successfully created' );
+
+            return $this->redirectToRoute('app_admin_planning_page') ;
+    } else if ($form->isSubmitted() && !$form->isValid()) {
+
+       //dd($form->getData());
+        $this->addFlash('error','check your data');
+     }
+     //  TODO : create new seance : END 
 
             return $this->render('admin/Planning/pagePlanning.html.twig', [
                 'seances' => $seances,
                 'jours' => $jours,
+                'form' => $form->createView(),
              ]);
 
         }
