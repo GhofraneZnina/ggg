@@ -55,54 +55,6 @@ class SeanceController extends AbstractController
 
 
 
-
-
-      
-    #[Route('/admin/seance/create', name: 'app_admin_seance_create')]
-    
-    public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher,SluggerInterface $slugger): Response
-    {
-        $seance= new seance();
-        $form = $this->createForm(seanceType::class, $seance);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $data = $request->request->all() ;
-            $date = str_replace('/','-',$data['seance']['date']) ;
-            $dataTimeDate = new \DateTime($date);
-            $seance->setDate($dataTimeDate);
-            
-           
-            $seance = $form->getData();
-           
-                        
-            $this->em->persist($seance);
-            $this->em->flush();
-
-            $this->addFlash('success','seance successfully created' );
-
-            return $this->redirectToRoute('app_admin_seance_list') ;
-
-
-        } 
-        else if ($form->isSubmitted() && !$form->isValid()) {
-
-            //dd($form->getData());
-            $this->addFlash('error','check your data');
-
-                $errors = $form->getErrors(true, true);
-                foreach ($errors as $error) {
-                    $this->addFlash('error', $error->getMessage());
-                }
-            }
-
-        return $this->render('admin/seance/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-
     }
 
 
