@@ -126,7 +126,7 @@ class PlanningController extends AbstractController
         return $this->redirectToRoute('app_admin_planning_list');
     }
     //////////////
-    #[Route('/admin/planning/{id}/page', name: 'app_admin_planning_page')]
+    #[Route('/admin/planning/pagePlanning', name: 'app_admin_planning_page')]
     
     
         /**
