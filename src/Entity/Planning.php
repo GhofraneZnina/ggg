@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlanningRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class Planning
 
     #[ORM\Column(length: 255)]
     private ?string $horairefin = null;
+
+    #[ORM\OneToMany(mappedBy: 'planning', targetEntity: seance::class)]
+    private Collection $seance;
+
+    public function __construct()
+    {
+        $this->seance = new ArrayCollection();
+    }
 
    
 
@@ -62,6 +72,36 @@ class Planning
     public function setHorairefin(string $horairefin): self
     {
         $this->horairefin = $horairefin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, seance>
+     */
+    public function getSeance(): Collection
+    {
+        return $this->seance;
+    }
+
+    public function addSeance(seance $seance): self
+    {
+        if (!$this->seance->contains($seance)) {
+            $this->seance->add($seance);
+            $seance->setPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeance(seance $seance): self
+    {
+        if ($this->seance->removeElement($seance)) {
+            // set the owning side to null (unless already changed)
+            if ($seance->getPlanning() === $this) {
+                $seance->setPlanning(null);
+            }
+        }
 
         return $this;
     }

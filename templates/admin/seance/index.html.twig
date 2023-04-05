@@ -174,8 +174,15 @@
                                             {% for groupe in seance.groupe %}
                                                 {{ groupe.intitule}}
                                             {% endfor %}
-                                     </td>
-                                       
+                                        </td>
+                                        <td>
+											
+										
+										
+											<a href="{{ path('app_admin_seance_delete',{'id': seance.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
+
+										</td>
+
                                     </tr>
                                 {% endfor %}
                             </tbody>

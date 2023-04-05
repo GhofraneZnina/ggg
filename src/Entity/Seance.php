@@ -30,6 +30,9 @@ class Seance
     #[ORM\ManyToMany(targetEntity: groupe::class, inversedBy: 'seances')]
     private Collection $groupe;
 
+    #[ORM\ManyToOne(inversedBy: 'seance')]
+    private ?Planning $planning = null;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
@@ -97,6 +100,18 @@ class Seance
     public function removeGroupe(groupe $groupe): self
     {
         $this->groupe->removeElement($groupe);
+
+        return $this;
+    }
+
+    public function getPlanning(): ?Planning
+    {
+        return $this->planning;
+    }
+
+    public function setPlanning(?Planning $planning): self
+    {
+        $this->planning = $planning;
 
         return $this;
     }
