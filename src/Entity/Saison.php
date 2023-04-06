@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: SaisonRepository::class)]
 class Saison
 {
@@ -28,9 +29,14 @@ class Saison
     #[ORM\OneToMany(mappedBy: 'saison', targetEntity: CotisationAnnuelle::class)]
     private Collection $cotisationAnnuelles;
 
+    #[ORM\OneToMany(mappedBy: 'saison', targetEntity: Planning::class)]
+    private Collection $plannings;
+
     public function __construct()
     {
         $this->cotisationAnnuelles = new ArrayCollection();
+        $this->plannings = new ArrayCollection();
+        $this->seances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,5 +111,50 @@ class Saison
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings->add($planning);
+            $planning->setSaison($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getSaison() === $this) {
+                $planning->setSaison(null);
+            }
+        }
+
+        return $this;
+    }
+
+    private $seances;
+   
+
+    /**
+     * @return Collection|Seance[]
+     */
+    public function getSeances(): Collection {
+        if ($this->seances === null) {
+            $this->seances = new ArrayCollection();
+        }
+        return $this->seances->filter(function($seance) {
+            return $seance !== null;
+        });
     }
 }

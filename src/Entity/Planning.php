@@ -28,6 +28,12 @@ class Planning
     #[ORM\OneToMany(mappedBy: 'planning', targetEntity: Seance::class)]
     private Collection $seance;
 
+    #[ORM\ManyToOne(inversedBy: 'plannings')]
+    private ?LieuEntrainement $LieuEntrainement = null;
+
+    #[ORM\ManyToOne(inversedBy: 'plannings')]
+    private ?Saison $saison = null;
+
     public function __construct()
     {
         $this->seance = new ArrayCollection();
@@ -102,6 +108,30 @@ class Planning
                 $seance->setPlanning(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieuEntrainement(): ?LieuEntrainement
+    {
+        return $this->LieuEntrainement;
+    }
+
+    public function setLieuEntrainement(?LieuEntrainement $LieuEntrainement): self
+    {
+        $this->LieuEntrainement = $LieuEntrainement;
+
+        return $this;
+    }
+
+    public function getSaison(): ?saison
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(?saison $saison): self
+    {
+        $this->saison = $saison;
 
         return $this;
     }
