@@ -124,12 +124,12 @@ class Planning
         return $this;
     }
 
-    public function getSaison(): ?saison
+    public function getSaison(): ?Saison
     {
         return $this->saison;
     }
 
-    public function setSaison(?saison $saison): self
+    public function setSaison(?Saison $saison): self
     {
         $this->saison = $saison;
 

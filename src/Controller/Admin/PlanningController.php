@@ -179,7 +179,31 @@ class PlanningController extends AbstractController
 
      }
         ////////////////////////////////////////////////////////////// */
-        
+        function filterByDay(Planning $planning, $day) {
+            
+            return $planning->getDate() == $day;
+        }
+        /* #[Route('/admin/planning/pagePlanningg/{saisonId}', name: 'app_admin_planning_page')]
+        public function showSeasonPlanningAction($saisonId)
+{
+    // Get the season based on the ID passed in the URL
+    
+    $saison = $this->em->getRepository(Saison::class)->find($saisonId);
+
+    // Get the planning for the season
+    $planning = $this->em->getRepository(Planning::class)->findBySaison($saison);
+    
+    $saison = $this->em->getRepository(Saison::class)->findWithPlanning($saisonId);
+    // Pass the season and planning data to the Twig template
+    return $this->render('admin/planning/seasonPlanning.html.twig', [
+        'saison' =>$saison,
+        'planning' => $planning
+    ]);
+    
+} */
+
+
+
 
 }
 
