@@ -179,15 +179,15 @@
 										<td>{{ saison.intitule}}</td>
 										<td>{{ saison.dateDebut |date('Y-m-d') }}</td>
                                         <td>{{ saison.dateFin |date('Y-m-d') }}</td>
-										<td>
-											{#<a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>#}
 										
-                                        	<a href="{{ path('app_admin_planning_page')}}"><i class="material-icons">remove_red_eye</i></a>
-                                        </td>
 										<td>
 											<a href="{{ path('app_admin_saison_delete',{'id': saison.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
 
 										</td>
+										 <td>
+                                        <a href="{{ path('app_admin_planningg_page',{'saisonId': saison.id}) }}"><i class="material-icons">remove_red_eye</i></a>
+										
+                                    	</td>
 									</tr>
 								{% endfor %}
 							</tbody>

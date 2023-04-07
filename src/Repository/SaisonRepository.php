@@ -39,17 +39,18 @@ class SaisonRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function findWithPlanning($saisonId)
+    public function findByPlanning($saisonId)
     {
         $qb = $this->createQueryBuilder('s');
         $qb->select('s', 'p', 'l')
-            ->leftJoin('s.planning', 'p')
-            ->leftJoin('p.lieuEntrainement', 'l')
+            ->leftJoin('s.plannings', 'p')
+            ->leftJoin('p.LieuEntrainement', 'l')
             ->where('s.id = :saisonId')
             ->setParameter('saisonId', $saisonId);
         
         return $qb->getQuery()->getOneOrNullResult();
     }
+   
 
 //    /**
 //     * @return Saison[] Returns an array of Saison objects

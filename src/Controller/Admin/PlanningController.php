@@ -136,7 +136,7 @@ class PlanningController extends AbstractController
          public function planning(Request $request): Response
          {
              $seances = $this->em->getRepository(Seance::class)->findAll();
-          
+             $saison = $this->em->getRepository(Saison::class)->findAll();
             $jours = [];
 
              foreach ($seances as $seance) {
@@ -174,6 +174,7 @@ class PlanningController extends AbstractController
          return $this->render('admin/Planning/pagePlanning.html.twig', [
                 'seances' => $seances,
                 'jours' => $jours,
+                'saison' => $saison,
                 'form' => $form->createView(),
              ]);
 
@@ -183,24 +184,26 @@ class PlanningController extends AbstractController
             
             return $planning->getDate() == $day;
         }
-        /* #[Route('/admin/planning/pagePlanningg/{saisonId}', name: 'app_admin_planning_page')]
+         #[Route('/admin/planning/pagePlanningg/{saisonId}', name: 'app_admin_planningg_page')]
         public function showSeasonPlanningAction($saisonId)
 {
-    // Get the season based on the ID passed in the URL
-    
-    $saison = $this->em->getRepository(Saison::class)->find($saisonId);
+     // Get the season based on the ID passed in the URL
+     $saison = $this->em->getRepository(Saison::class)->find($saisonId);
 
-    // Get the planning for the season
-    $planning = $this->em->getRepository(Planning::class)->findBySaison($saison);
+     // Get the planning for the season
+     $planning = $this->em->getRepository(Planning::class)->findBySaison($saison);
+     
+     // Get the seances for the planning
+     $seances = $this->em->getRepository(Seance::class)->findBy(['planning' => $planning]);
+ 
+     // Pass the season, planning, and seances data to the Twig template
+     return $this->render('admin/planning/seasonPlanning.html.twig', [
+         'saison' => $saison,
+         'planning' => $planning,
+         'seances' => $seances,
+     ]);
     
-    $saison = $this->em->getRepository(Saison::class)->findWithPlanning($saisonId);
-    // Pass the season and planning data to the Twig template
-    return $this->render('admin/planning/seasonPlanning.html.twig', [
-        'saison' =>$saison,
-        'planning' => $planning
-    ]);
-    
-} */
+} 
 
 
 

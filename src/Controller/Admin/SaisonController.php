@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 use App\Entity\Saison;
+use App\Entity\Seance;
 use App\Form\Admin\SaisonType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -124,6 +125,8 @@ class SaisonController extends AbstractController
         $this->addFlash('success','saison deleted successfully.' );
         return $this->redirectToRoute('app_admin_saison_list') ;
     }
+    /////////////////////////////////////////
+   
 }
 
 

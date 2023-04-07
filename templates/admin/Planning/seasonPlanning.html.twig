@@ -1,41 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-  <table>
-    <thead>
-      <tr>
-        <th>Day</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% set currentDate = saison.dateDebut %}
-      {% set endDate = saison.dateFin %}
-      {% for i in 0..endDate.diff(currentDate).days %}
-        {% set planningForDay = [] %}
-        {% for plan in planning %}
-          {% if plan.date|date('Y-m-d') == currentDate|date('Y-m-d') %}
-            {% set planningForDay = planningForDay|merge([plan]) %}
-          {% endif %}
-        {% endfor %}
-        <tr>
-          <td>{{ currentDate|date('Y-m-d') }}</td>
-          {% if planningForDay|length > 0 %}
-            {% for plan in saison.planning %}
-                <td>{{ plan.horairedebut }}</td>
-                <td>{{ plan.horairefin }}</td>
-    
-            {% endfor %}
-          {% else %}
-            <td colspan="3">No planning for this day</td>
-          {% endif %}
-        </tr>
-        {% set currentDate = currentDate|date_modify('+1 day') %}
-      {% endfor %}
-    </tbody>
-  </table>
+<br>
+<br>
+<br>
+<br>
+	<table>
+		<thead>
+			<tr>
+				<th>Day</th>
+				<th>Start Time</th>
+				<th>End Time</th>
+				<th>Location</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% set currentDate = saison.dateDebut %}
+			{% set endDate = saison.dateFin %}
+			{% for i in 0..endDate.diff(currentDate).days %}
+				{% set seancesForDay = [] %}
+				{% for seance in seances %}
+					{% if seance.jour|date('Y-m-d') == currentDate|date('Y-m-d') %}
+						{% set seancesForDay = seancesForDay|merge([seance]) %}
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td>{{ currentDate|date('Y-m-d') }}</td>
+					{% if seancesForDay|length > 0 %}
+						{% for seance in seancesForDay %}
+							<tr>
+								<td>{{ seance.date|date('Y-m-d') }}</td>
+								<td>{{ seance.horairedebut|date('H:i') }}</td>
+								<td>{{ seance.horairefin|date('H:i') }}</td>
+								<td>{{ seance.lieuEntrainement.name }}</td>
+							</tr>
+						{% endfor %}
+					{% else %}
+						<td colspan="3">No planning for this day</td>
+					{% endif %}
+				</tr>
+				{% set currentDate = currentDate|date_modify('+1 day') %}
+			{% endfor %}
+		</tbody>
+	</table>
 
 {% endblock %}
