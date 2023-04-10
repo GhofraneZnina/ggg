@@ -31,6 +31,14 @@ class LieuEntrainement
     #[Assert\Choice([self::PICINE_1, self::PICINE_2, self::AUTRE ])]
     private ?string $typePicine;
 
+    #[ORM\OneToMany(mappedBy: 'LieuEntrainement', targetEntity: Planning::class)]
+    private Collection $plannings;
+
+    public function __construct()
+    {
+        $this->plannings = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,6 +75,36 @@ class LieuEntrainement
     public function setTypePicine(string $typePicine): self
     {
         $this->typePicine = $typePicine;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings->add($planning);
+            $planning->setLieuEntrainement($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getLieuEntrainement() === $this) {
+                $planning->setLieuEntrainement(null);
+            }
+        }
 
         return $this;
     }

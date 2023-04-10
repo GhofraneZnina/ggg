@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Seance;
+use App\Entity\Saison;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +39,16 @@ class SeanceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    // public function findByCurrent($current)
+    // {
+    //     $qb = $this->createQueryBuilder('c')
+    //         ->where('c.current = :current')
+    //         ->setParameter('current', $current);
+
+    //     return $qb->getQuery()->getResult();
+    // }
+  
+    
 
 //    /**
 //     * @return Seance[] Returns an array of Seance objects

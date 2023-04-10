@@ -23,7 +23,7 @@ class CotisationAnnuelle
     private ?string $remarque = null;
 
     #[ORM\ManyToOne(inversedBy: 'cotisationAnnuelles')]
-    private ?nageur $nageur = null;
+    private ?Nageur $nageur = null;
 
     #[ORM\ManyToOne(inversedBy: 'cotisationAnnuelles')]
     private ?Saison $saison = null;

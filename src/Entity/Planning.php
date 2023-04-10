@@ -25,8 +25,14 @@ class Planning
     #[ORM\Column(length: 255)]
     private ?string $horairefin = null;
 
-    #[ORM\OneToMany(mappedBy: 'planning', targetEntity: seance::class)]
+    #[ORM\OneToMany(mappedBy: 'planning', targetEntity: Seance::class)]
     private Collection $seance;
+
+    #[ORM\ManyToOne(inversedBy: 'plannings')]
+    private ?LieuEntrainement $LieuEntrainement = null;
+
+    #[ORM\ManyToOne(inversedBy: 'plannings')]
+    private ?Saison $saison = null;
 
     public function __construct()
     {
@@ -102,6 +108,30 @@ class Planning
                 $seance->setPlanning(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieuEntrainement(): ?LieuEntrainement
+    {
+        return $this->LieuEntrainement;
+    }
+
+    public function setLieuEntrainement(?LieuEntrainement $LieuEntrainement): self
+    {
+        $this->LieuEntrainement = $LieuEntrainement;
+
+        return $this;
+    }
+
+    public function getSaison(): ?Saison
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(?Saison $saison): self
+    {
+        $this->saison = $saison;
 
         return $this;
     }

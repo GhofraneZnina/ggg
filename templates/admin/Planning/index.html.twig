@@ -161,6 +161,8 @@
 									<th>Date</th>
 									<th>Horaire Debut</th>
 									<th>horaire Fin</th>
+									<th>Action</th>
+
 									
 
 								</tr>
@@ -174,12 +176,10 @@
 										<td>{{ planning.horaireDebut }}</td>
 										<td>{{ planning.horaireFin}}</td>
 										<td>
-											
 										
-										
-											<a href="{{ path('app_admin_planning_delete',{'id': planning.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
-
+										<a href="{{ path('app_admin_planning_delete',{'id': planning.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
 										</td>
+										
 
 										
 									</tr>

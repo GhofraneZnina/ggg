@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  {{ dump(saison) }}
+  <h1>{{ saison.intitule }}</h1>
+  
+  {% set startDate = saison.dateDebut %}
+  {% set endDate = saison.dateFin %}
+  
+  {% set currentDate = startDate %}
+  {% set interval = 'P1D' %}
+  
+  {% set loopCondition = currentDate <= endDate %}
+  
+  {% block dateLoop %}
+    {% if loopCondition %}
+      <h2>{{ currentDate|date('l, F j, Y') }}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Seance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for seance in saison.seances %}
+            {% if seance.jour == currentDate|date('l') %}
+              <tr>
+                <td>{{ seance.horaireDebut|date('H:i') }} - {{ seance.horaireFin|date('H:i') }}</td>
+                <td>{{ seance.nom }}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+      {% set currentDate = currentDate|date_modify('+1 day') %}
+      {% set loopCondition = currentDate <= endDate %}
+      {{ block('dateLoop') }}
+    {% endif %}
+  {% endblock %}
+  
+  {{ block('dateLoop') }}
+{% endblock %}

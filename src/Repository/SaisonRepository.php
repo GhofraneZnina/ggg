@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Saison;
+use App\Entity\Planning;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +39,18 @@ class SaisonRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByPlanning($saisonId)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s', 'p', 'l')
+            ->leftJoin('s.plannings', 'p')
+            ->leftJoin('p.LieuEntrainement', 'l')
+            ->where('s.id = :saisonId')
+            ->setParameter('saisonId', $saisonId);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+   
 
 //    /**
 //     * @return Saison[] Returns an array of Saison objects

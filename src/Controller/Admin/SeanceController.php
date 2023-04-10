@@ -81,5 +81,29 @@ class SeanceController extends AbstractController
         return $this->redirectToRoute('app_admin_seance_list');
     }
 
+    #[Route('/admin/seance/{id}/edit', name: 'app_admin_seance_edit')]
+    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, $id): Response
+    {
+       
+        $seance = $this->em->getRepository(Seance::class)->findOneBy(['id' => $id]);
+        $form = $this->createForm(SeanceType::class, $seance);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $seance = $form->getData();
+            $this->em->persist($seance);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Seance successfully updated');
+
+            return $this->redirectToRoute('app_admin_seance_list');
+        } else if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', $seance);
+        }
+
+        return $this->render('admin/Nageur/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
 }

@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Planning;
+use App\Entity\Seance;
+use App\Entity\Saison;
 use App\Form\Admin\PlanningType;
+use App\Form\Admin\SeanceType;
 use App\Form\Admin\PlanningTypee;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -123,11 +126,89 @@ class PlanningController extends AbstractController
         $this->addFlash('success','planning successfully deleted ' );
         return $this->redirectToRoute('app_admin_planning_list');
     }
-    //////////////
-  
+     //////////////
+     #[Route('/admin/planning/pagePlanning', name: 'app_admin_planning_page')]
     
-}
+    
+         /**
+          * @Route("/planning", name="planning")
+          */
+         public function planning(Request $request): Response
+         {
+             $seances = $this->em->getRepository(Seance::class)->findAll();
+             $saison = $this->em->getRepository(Saison::class)->findAll();
+            $jours = [];
 
+             foreach ($seances as $seance) {
+                $jours[] = $seance->getJour()->format('Y-m-d');
+             }
+
+            $jours = array_unique($jours);
+
+            sort($jours);
+             //create 
+         $seance = new Seance() ;
+         $form = $this->createForm(SeanceType::class, $seance);
+           $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
+             $data = $request->request->all() ;
+
+             $jour = str_replace('/','-',$data['seance']['jour']) ;
+            $dataTimeJour = new \DateTime($jour);
+             $seance->setJour($dataTimeJour);
+
+    
+             $this->em->persist($seance);
+             $this->em->flush();
+
+            $this->addFlash('success','seance successfully created' );
+
+             return $this->redirectToRoute('app_admin_planning_page') ;
+     } else if ($form->isSubmitted() && !$form->isValid()) {
+
+        //dd($form->getData());
+        $this->addFlash('error','check your data');
+  }
+    //  //  TODO : create new seance : END 
+
+         return $this->render('admin/Planning/pagePlanning.html.twig', [
+                'seances' => $seances,
+                'jours' => $jours,
+                'saison' => $saison,
+                'form' => $form->createView(),
+             ]);
+
+     }
+        ////////////////////////////////////////////////////////////// */
+        function filterByDay(Planning $planning, $day) {
+            
+            return $planning->getDate() == $day;
+        }
+         #[Route('/admin/planning/pagePlanningg/{saisonId}', name: 'app_admin_planningg_page')]
+        public function showSeasonPlanningAction($saisonId)
+{
+     // Get the season based on the ID passed in the URL
+     $saison = $this->em->getRepository(Saison::class)->find($saisonId);
+
+     // Get the planning for the season
+     $planning = $this->em->getRepository(Planning::class)->findBySaison($saison);
+     
+     // Get the seances for the planning
+     $seances = $this->em->getRepository(Seance::class)->findBy(['planning' => $planning]);
+ 
+     // Pass the season, planning, and seances data to the Twig template
+     return $this->render('admin/planning/seasonPlanning.html.twig', [
+         'saison' => $saison,
+         'planning' => $planning,
+         'seances' => $seances,
+     ]);
+    
+} 
+
+
+
+
+}
 
 
 ?>
