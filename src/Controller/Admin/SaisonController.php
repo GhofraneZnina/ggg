@@ -30,6 +30,7 @@ class SaisonController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('login') ;
          }
+         
 
          //  TODO : create new saison : START
          $saison = new Saison() ;
@@ -60,6 +61,7 @@ class SaisonController extends AbstractController
          return $this->render('admin/saison/index.html.twig', [
             'form' => $form->createView(),
              'saison' => $saison,
+             
          ]);
      } 
 

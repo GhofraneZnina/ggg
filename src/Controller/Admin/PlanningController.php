@@ -30,7 +30,7 @@ class PlanningController extends AbstractController
     public function index(Request $request, int $saisonId): Response
     {
        
-    $plannings = $this->em->getRepository(Planning::class)->findBy(['saison' => $saisonId]);;
+  
     //create 
     $plannings = new Planning() ;
     $form = $this->createForm(PlanningType::class, $plannings);
@@ -54,11 +54,13 @@ class PlanningController extends AbstractController
         $this->addFlash('error','check your data');
      }
      //  TODO : create new cotisation : END 
-     
-    $plannings = $this->em->getRepository(Planning::class)->findAll() ;
+     $saison = $this->em->getRepository(Saison::class)->find($saisonId);
+     $plannings = $this->em->getRepository(Planning::class)->findBy(['saison' => $saisonId]); 
+    
      return $this->render('admin/planning/index.html.twig', [
         'form' => $form->createView(),
         'planning' => $plannings,
+        'saison'=>$saison,
      ]);
 
     }
@@ -132,9 +134,9 @@ class PlanningController extends AbstractController
     
          public function planning(int $id,Request $request): Response
          {  
-            
+             $Planning = $this->em->getRepository(Planning::class)->findAll();
              $seances = $this->em->getRepository(Seance::class)->findAll();
-             $saison = $this->em->getRepository(Saison::class)->findAll();
+             $saison = $this->em->getRepository(Saison::class)->find($id);
             $jours = [];
 
              foreach ($seances as $seance) {
