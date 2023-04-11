@@ -90,7 +90,7 @@ class Planning
         return $this->seance;
     }
 
-    public function addSeance(seance $seance): self
+    public function addSeance(Seance $seance): self
     {
         if (!$this->seance->contains($seance)) {
             $this->seance->add($seance);
@@ -100,7 +100,7 @@ class Planning
         return $this;
     }
 
-    public function removeSeance(seance $seance): self
+    public function removeSeance(Seance $seance): self
     {
         if ($this->seance->removeElement($seance)) {
             // set the owning side to null (unless already changed)
@@ -116,7 +116,7 @@ class Planning
     {
         return $this->LieuEntrainement;
     }
-
+   
     public function setLieuEntrainement(?LieuEntrainement $LieuEntrainement): self
     {
         $this->LieuEntrainement = $LieuEntrainement;
@@ -135,4 +135,5 @@ class Planning
 
         return $this;
     }
+    
 }

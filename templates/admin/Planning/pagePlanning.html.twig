@@ -4,9 +4,10 @@
 {% endblock %}
 {% block levelOne %}
 	<li class="breadcrumb-item">
-		<a href="{{ path('app_admin_planning_list') }}">Plannings</a>
+		<a href="{{ url('app_admin_planning_page',{'id': planning.id}) }}">Plannings</a>
 	</li>
-{% endblock %}
+	</li>
+{% endblock %} 
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block title %}Planning{% endblock %}

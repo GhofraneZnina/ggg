@@ -108,6 +108,7 @@ class Seance
     {
         return $this->planning;
     }
+   
 
     public function setPlanning(?Planning $planning): self
     {

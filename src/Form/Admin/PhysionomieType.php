@@ -28,7 +28,6 @@ class PhysionomieType extends AbstractType
      
         ->add('taille')
         ->add('poids')
-        ->add('nageur')
             
         ->add('submit', SubmitType::class,
             [

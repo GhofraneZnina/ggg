@@ -39,7 +39,8 @@ class LieuEntrainementController extends AbstractController
         $this->addFlash('success','lieu successfully created' );
 
         return $this->redirectToRoute('app_admin_lieu_list') ;
-    } else if ($form->isSubmitted() && !$form->isValid()) {
+    } 
+    else if ($form->isSubmitted() && !$form->isValid()) {
 
        //dd($form->getData());
         $this->addFlash('error','check your data');

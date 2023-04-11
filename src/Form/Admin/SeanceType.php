@@ -26,6 +26,7 @@ class SeanceType extends AbstractType
             'required'=> false,'mapped'=>false,
 
         ])
+            ->add('Planning')
             ->add('groupe')
             ->add('submit', SubmitType::class,
             [

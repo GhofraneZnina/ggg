@@ -3,11 +3,7 @@
 {% endblock %}
 {% block pageTitle %}Liste des plannings
 {% endblock %}
-{% block levelOne %}
-	<li class="breadcrumb-item">
-		<a href="{{ path('app_admin_planning_list') }}">plannings</a>
-	</li>
-{% endblock %}
+
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
@@ -161,6 +157,8 @@
 									<th>Date</th>
 									<th>Horaire Debut</th>
 									<th>horaire Fin</th>
+									<th>Lieu d'entrainement</th>
+									<th>Saison</th>
 									<th>Action</th>
 
 									
@@ -175,11 +173,18 @@
 										<td>{{ planning.date |date('Y-m-d') }}</td></td>
 										<td>{{ planning.horaireDebut }}</td>
 										<td>{{ planning.horaireFin}}</td>
+										<td>{{ planning.LieuEntrainement.intitule}}</td>
+										<td>{{ planning.saison.intitule}}</td>
+
+										
 										<td>
 										
 										<a href="{{ path('app_admin_planning_delete',{'id': planning.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
 										</td>
+										 <td>
+                                        <a href="{{ path('app_admin_planning_page',{'id': planning.id}) }}"><i class="material-icons">remove_red_eye</i></a>
 										
+                                    	</td>
 
 										
 									</tr>

@@ -254,6 +254,7 @@ class NageurController extends AbstractController
         //adding physionomie
 
         $physionomie = new Physionomie();
+        $physionomie->setNageur($nageur);
         $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
         $formPhysionomie->handleRequest($request);
         if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
@@ -276,7 +277,7 @@ class NageurController extends AbstractController
 
                 $this->addFlash('success', 'physionime successfully created');
 
-                return $this->redirectToRoute('app_admin_nageur_page');
+                return $this->redirectToRoute('app_admin_nageur_page',['id'=>$nageur->getId()]);
         } 
         else if ($formPhysionomie->isSubmitted() && !$formPhysionomie->isValid()) {
             dd($form->getData());
