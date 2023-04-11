@@ -84,7 +84,7 @@
 
 {% block body %}
   <div class="container-fluid">
-  {% set days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+  {% set days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
 <table>
   <thead>
     <tr>
@@ -116,7 +116,7 @@
     {% for seance in seances %}
   <tr>
     <td>{{ seance.horaireDebut }} - {{ seance.horaireFin }}</td>
-    {% for days in jours %}
+    {% for days in days %}
       <td>
         {% if seance.jour == days %}
           {% for groupe in seance.groupe %}
