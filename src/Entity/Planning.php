@@ -25,7 +25,7 @@ class Planning
     #[ORM\Column(length: 255)]
     private ?string $horairefin = null;
 
-    #[ORM\OneToMany(mappedBy: 'planning', targetEntity: seance::class)]
+    #[ORM\OneToMany(mappedBy: 'planning', targetEntity: Seance::class)]
     private Collection $seance;
 
     public function __construct()
