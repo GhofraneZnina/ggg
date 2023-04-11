@@ -91,6 +91,8 @@
     <br>
     <br>
     <br>
+    
+    <br>
       <th></th>
       {% for days in days %}
         <th>{{ days }}</th>
@@ -98,15 +100,34 @@
     </tr>
   </thead>
   <tbody>
+   
+    {# {% for jour in jours %}
+    {% for days in days %}
+            <td>
+              {% for seance in seances %}
+                {% if seance.jour == days %}
+                  {{ seance.groupe|join(', ') }}<br>
+                {% endif %}
+              {% endfor %}
+            </td>
+          {% endfor %}
+          {% endfor %} #}
     <tr>
-     
-      {% for seance in seances %}
-        <tr>
-          <td>{{ seance.horaireDebut }} - {{ seance.horaireFin }}</td>
-          
-        </tr>
-      {% endfor %}
-    </tr>
+    {% for seance in seances %}
+  <tr>
+    <td>{{ seance.horaireDebut }} - {{ seance.horaireFin }}</td>
+    {% for days in jours %}
+      <td>
+        {% if seance.jour == days %}
+          {% for groupe in seance.groupe %}
+            {{ groupe.intitule }}<br>
+          {% endfor %}
+        {% endif %}
+      </td>
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </tr>
   </tbody>
 </table>
   </div>
