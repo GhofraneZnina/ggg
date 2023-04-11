@@ -132,13 +132,13 @@ class PlanningController extends AbstractController
     
          public function planning(int $id,Request $request): Response
          {  
-           
+            
              $seances = $this->em->getRepository(Seance::class)->findAll();
              $saison = $this->em->getRepository(Saison::class)->findAll();
             $jours = [];
 
              foreach ($seances as $seance) {
-                $jours[] = $seance->getJour()->format('Y-m-d');
+                $jours[] = $seance->getJour();
              }
 
             $jours = array_unique($jours);
@@ -146,17 +146,14 @@ class PlanningController extends AbstractController
             sort($jours);
              //create 
          $seance = new Seance() ;
-          //$planning=new Planning();
+          $planning=new Planning();
         // $seance->setPlanning($planning);
          $form = $this->createForm(SeanceType::class, $seance);
            $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
              $data = $request->request->all() ;
 
-             $jour = str_replace('/','-',$data['seance']['jour']) ;
-            $dataTimeJour = new \DateTime($jour);
-             $seance->setJour($dataTimeJour);
-
+            
     
              $this->em->persist($seance);
              $this->em->flush();
@@ -175,7 +172,7 @@ class PlanningController extends AbstractController
          return $this->render('admin/Planning/pagePlanning.html.twig', [
                 'seances' => $seances,
                 'jours' => $jours,
-                
+                'planning'=>$planning,
                 'saison' => $saison,
                 'form' => $form->createView(),
              ]);

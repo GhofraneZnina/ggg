@@ -84,31 +84,47 @@
 
 {% block body %}
   <div class="container-fluid">
-  {% set days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
-<table>
-  <thead>
-    <tr>
-    <br>
-    <br>
-    <br>
-      <th></th>
-      {% for days in days %}
-        <th>{{ days }}</th>
-      {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-     
-      {% for seance in seances %}
+    <table class="table table-bordered">
+      <thead>
+         <tr>
+          <th></th>
+          <br>
+          <br>
+        </tr> 
         <tr>
-          <td>{{ seance.horaireDebut }} - {{ seance.horaireFin }}</td>
-          
+          <th></th>
+          {% for jour in jours %}
+            <th>{{ jour|date('l') }}<br>{{ jour|date('d/m/Y') }}</th>
+          {% endfor %}
         </tr>
-      {% endfor %}
-    </tr>
-  </tbody>
-</table>
+        <tr>
+          <th>Horaires</th>
+          {% for jour in jours %}
+            <th>
+              {% for seance in seances %}
+                {% if seance.jour|date('Y-m-d') == jour|date('Y-m-d') %}
+                  {{ seance.horaireDebut }} - {{ seance.horaireFin }}<br>
+                {% endif %}
+              {% endfor %}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Groupes</th>
+          {% for jour in jours %}
+            <td>
+              {% for seance in seances %}
+                {% if seance.jour|date('Y-m-d') == jour|date('Y-m-d') %}
+                  {{ seance.groupe|join(', ') }}<br>
+                {% endif %}
+              {% endfor %}
+            </td>
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     

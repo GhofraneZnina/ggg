@@ -19,15 +19,16 @@ class SeanceType extends AbstractType
         $builder
             ->add('horaireDebut')
             ->add('horaireFin')
-            ->add('jour', TextType::class,
-        [
-            'invalid_message'=> 'please check your information',
-            'label'=>false,
-            'required'=> false,'mapped'=>false,
-
-        ])
+            
             ->add('Planning')
             ->add('groupe')
+            ->add('jour', ChoiceType::class, [
+                'choices'  => [
+                    Seance::LUNDI => Seance::LUNDI ,
+                Seance::MARDI => Seance::MARDI, Seance::MERCREDI => Seance::MERCREDI, Seance::JEUDI => Seance::JEUDI,
+                Seance::SAMEDI => Seance::SAMEDI, Seance::DIMANCHE => Seance::DIMANCHE,
+                
+            ]])
             ->add('submit', SubmitType::class,
             [
                 'label'=> 'Create',
