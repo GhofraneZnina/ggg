@@ -20,7 +20,7 @@ class SeanceType extends AbstractType
             ->add('horaireDebut')
             ->add('horaireFin')
             
-            ->add('Planning')
+            
             ->add('groupe')
             ->add('jour', ChoiceType::class, [
                 'choices'  => [

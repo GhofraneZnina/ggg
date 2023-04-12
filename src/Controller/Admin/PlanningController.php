@@ -136,8 +136,13 @@ class PlanningController extends AbstractController
     
          public function planning(int $id,Request $request): Response
          {  
-             $Planning = $this->em->getRepository(Planning::class)->findAll();
-             $seances = $this->em->getRepository(Seance::class)->findAll();
+             $planning = $this->em->getRepository(Planning::class)->findOneBy(['id'=>$id]);
+             if (!$planning){
+                return $this->redirectToRoute('app_admin_planning_list');
+             }
+             //dd($planning,$id);
+            
+             $seances = $this->em->getRepository(Seance::class)->findBy(['planning'=>$planning]);
              $saison = $this->em->getRepository(Saison::class)->find($id);
             $jours = [];
 
@@ -150,8 +155,8 @@ class PlanningController extends AbstractController
             sort($jours);
              //create 
          $seance = new Seance() ;
-          $planning=new Planning();
-        // $seance->setPlanning($planning);
+          //$planning=new Planning();
+        $seance->setPlanning($planning);
          $form = $this->createForm(SeanceType::class, $seance);
            $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
