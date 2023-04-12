@@ -31,7 +31,7 @@ class PlanningType extends AbstractType
         ->add('label')
         ->add('LieuEntrainement')
 
-        ->add('saison')
+        
        
         ->add('submit', SubmitType::class,
             [

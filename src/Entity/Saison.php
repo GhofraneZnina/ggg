@@ -131,6 +131,16 @@ class Saison
 
         return $this;
     }
+    public function setPlanning(Saison $saison): void
+    {
+        $this->plannings->clear();
+        
+        $this->plannings = new ArrayCollection($saison->getPlannings()->toArray());
+    
+        foreach ($this->plannings as $planning) {
+            $planning->setSaison($saison);
+        }
+    }
 
     public function removePlanning(Planning $planning): self
     {

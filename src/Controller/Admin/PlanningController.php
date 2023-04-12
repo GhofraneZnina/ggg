@@ -30,10 +30,10 @@ class PlanningController extends AbstractController
     public function index(Request $request, int $saisonId): Response
     {
        
-  
+    $saison = $this->em->getRepository(Saison::class)->find($saisonId);
     //create 
     $plannings = new Planning() ;
-   
+    $plannings->setSaison($saison);
     $form = $this->createForm(PlanningType::class, $plannings);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -47,7 +47,7 @@ class PlanningController extends AbstractController
          $this->em->flush();
 
         $this->addFlash('success','planning successfully created' );
-
+        
         return $this->redirectToRoute('app_admin_planning_list', ['saisonId' => $saisonId]) ;
     } else if ($form->isSubmitted() && !$form->isValid()) {
 
@@ -55,7 +55,7 @@ class PlanningController extends AbstractController
         $this->addFlash('error','check your data');
      }
      //  TODO : create new cotisation : END 
-     $saison = $this->em->getRepository(Saison::class)->find($saisonId);
+    
      
      $plannings = $this->em->getRepository(Planning::class)->findBy(['saison' => $saisonId]); 
     
