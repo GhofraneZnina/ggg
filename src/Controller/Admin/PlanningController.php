@@ -135,27 +135,31 @@ class PlanningController extends AbstractController
      #[Route('/admin/planning/pagePlanning/{id}', name: 'app_admin_planning_page')]
     
          public function planning(int $id,Request $request): Response
-         {  
-             $planning = $this->em->getRepository(Planning::class)->findOneBy(['id'=>$id]);
-             if (!$planning){
-                return $this->redirectToRoute('app_admin_planning_list');
-             }
-             //dd($planning,$id);
+         {   
+            $planning = $this->em->getRepository(Planning::class)->findOneBy(['id'=>$id]);
+            $seances = $this->em->getRepository(Seance::class)->findBy(['planning' => $planning]);
+
+            // Define a custom comparison function to sort the seances by dateDebut and dateFin
+            usort($seances, function($a, $b) {
+                if ($a->getHoraireDebut() === $b->getHoraireFin()) {
+                    return $a->getHoraireFin() <=> $b->getHoraireFin();
+                }
+                return $a->getHoraireDebut() <=> $b->getHoraireDebut();
+            });
             
-             $seances = $this->em->getRepository(Seance::class)->findBy(['planning'=>$planning]);
-             $saison = $this->em->getRepository(Saison::class)->find($id);
-            $jours = [];
-
-             foreach ($seances as $seance) {
-                $jours[] = $seance->getJour();
-             }
-
-            $jours = array_unique($jours);
-
+            // Retrieve the Saison entity associated with the given planning ID
+            $saison = $this->em->getRepository(Saison::class)->find($id);
+            
+            // Extract unique jours from the seances and sort them
+            $jours = array_unique(array_map(function($seance) {
+                return $seance->getJour();
+            }, $seances));
             sort($jours);
+            
+            // Create a new Seance entity and form
              //create 
          $seance = new Seance() ;
-          //$planning=new Planning();
+         
         $seance->setPlanning($planning);
          $form = $this->createForm(SeanceType::class, $seance);
            $form->handleRequest($request);
@@ -173,7 +177,6 @@ class PlanningController extends AbstractController
             
      } else if ($form->isSubmitted() && !$form->isValid()) {
 
-        //dd($form->getData());
         $this->addFlash('error','check your data');
   }
     //  //  TODO : create new seance : END 
