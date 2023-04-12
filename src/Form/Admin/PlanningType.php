@@ -28,7 +28,9 @@ class PlanningType extends AbstractType
      
         ->add('horaireDebut')
         ->add('horaireFin')
+        ->add('label')
         ->add('LieuEntrainement')
+
         ->add('saison')
        
         ->add('submit', SubmitType::class,

@@ -33,6 +33,7 @@ class PlanningController extends AbstractController
   
     //create 
     $plannings = new Planning() ;
+   
     $form = $this->createForm(PlanningType::class, $plannings);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -55,6 +56,7 @@ class PlanningController extends AbstractController
      }
      //  TODO : create new cotisation : END 
      $saison = $this->em->getRepository(Saison::class)->find($saisonId);
+     
      $plannings = $this->em->getRepository(Planning::class)->findBy(['saison' => $saisonId]); 
     
      return $this->render('admin/planning/index.html.twig', [

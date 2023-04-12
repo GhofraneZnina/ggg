@@ -28,7 +28,11 @@
 							<div class="row">
 								<div class="col s12 ">
 									<div class="row">
-
+										<div class="col s12 input-field">
+										{{ form_widget(form.label, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+										    <label class="active">Intitule</label>
+										    <small class="errorTxt3"></small>
+									</div>
 										<div
 										class="col s12 m6 input-field" id="view-date-picker-2">
 										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}

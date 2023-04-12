@@ -34,6 +34,9 @@ class Planning
     #[ORM\ManyToOne(inversedBy: 'plannings')]
     private ?Saison $saison = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $label = null;
+
     public function __construct()
     {
         $this->seance = new ArrayCollection();
@@ -132,6 +135,22 @@ class Planning
     public function setSaison(?Saison $saison): self
     {
         $this->saison = $saison;
+
+        return $this;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+    public function __toString(): string
+    {
+        return $this->getLabel();
+    }
+
+    public function setLabel(?string $label): self
+    {
+        $this->label = $label;
 
         return $this;
     }

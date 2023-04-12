@@ -120,6 +120,7 @@ class Saison
     {
         return $this->plannings;
     }
+    
 
     public function addPlanning(Planning $planning): self
     {
