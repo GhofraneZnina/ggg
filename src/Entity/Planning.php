@@ -147,7 +147,10 @@ class Planning
     {
         return $this->getLabel();
     }
-
+    public function getSaisonId(): ?int
+    {
+        return $this->saison ? $this->saison->getId() : null;
+    }
     public function setLabel(?string $label): self
     {
         $this->label = $label;

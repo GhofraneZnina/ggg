@@ -111,16 +111,17 @@ class PlanningController extends AbstractController
     }
     #[Route('/admin/planning/{id}/delete', name: 'app_admin_planning_delete')]
     public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
+
     {
         
-        $user = $this->getUser();
+        //$user = $this->getUser();
 
         
         $planningRepository = $this->em->getRepository(Planning::class);
        
         $planning =$planningRepository->find(['id'=>$id]);
         if (!$planning) {
-            return $this->redirectToRoute('app_admin_planning_list');
+            return $this->redirectToRoute('app_admin_planning_list', ['saisonId' => $planning->getSaisonId()]);
         }
 
       
@@ -129,7 +130,8 @@ class PlanningController extends AbstractController
         
         
         $this->addFlash('success','planning successfully deleted ' );
-        return $this->redirectToRoute('app_admin_planning_list');
+       // return $this->redirectToRoute('app_admin_planning_list');
+       return $this->redirectToRoute('app_admin_planning_list', ['saisonId' => $planning->getSaisonId()]);
     }
      //////////////
      #[Route('/admin/planning/pagePlanning/{id}', name: 'app_admin_planning_page')]
