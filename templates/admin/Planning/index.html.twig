@@ -37,21 +37,18 @@
 										<div
 										class="col s12 m6 input-field" id="view-date-picker-2">
 										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
-										<label for="planning_date">date </label>
+										<label for="planning_date">date debut </label>
 										{{ form_widget(form.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
 									</div>
-								
-									<div class="col s12 input-field">
-										{{ form_widget(form.horaireDebut, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-										<label class="active">Horaire Debut</label>
-										<small class="errorTxt3"></small>
+									<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="planning_date">date Fin </label>
+										{{ form_widget(form.dateFin,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
 									</div>
-                                    <div class="col s12 input-field">
-										{{ form_widget(form.horaireFin, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-										    <label class="active">Horaire Fin</label>
-										    <small class="errorTxt3"></small>
-									</div>
+									
 
 
 									</div>
@@ -159,8 +156,8 @@
 								<tr>
 									<th></th>
 									<th>id</th>
-									<th>Date</th>
-									
+									<th>Date Debut</th>
+									<th>Date Fin</th>
 									<th>Lieu d'entrainement</th>
 									<th>Saison</th>
 									<th>Action</th>
@@ -175,7 +172,7 @@
 										<td></td>
 										<td>{{ planning.id }}</td>
 										<td>{{ planning.date |date('Y-m-d') }}</td></td>
-										
+										<td>{{ planning.dateFin |date('Y-m-d') }}</td></td>
 										<td>{{ planning.LieuEntrainement.intitule}}</td>
 										<td>{{ planning.saison.intitule}}</td>
 

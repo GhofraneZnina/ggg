@@ -19,11 +19,7 @@ class Planning
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $horairedebut = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $horairefin = null;
+   
 
     #[ORM\OneToMany(mappedBy: 'planning', targetEntity: Seance::class)]
     private Collection $seance;
@@ -36,6 +32,9 @@ class Planning
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $label = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateFin = null;
 
     public function __construct()
     {
@@ -61,29 +60,9 @@ class Planning
         return $this;
     }
 
-    public function getHorairedebut(): ?string
-    {
-        return $this->horairedebut;
-    }
+    
 
-    public function setHorairedebut(string $horairedebut): self
-    {
-        $this->horairedebut = $horairedebut;
-
-        return $this;
-    }
-
-    public function getHorairefin(): ?string
-    {
-        return $this->horairefin;
-    }
-
-    public function setHorairefin(string $horairefin): self
-    {
-        $this->horairefin = $horairefin;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, seance>
@@ -154,6 +133,18 @@ class Planning
     public function setLabel(?string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
 
         return $this;
     }

@@ -25,9 +25,15 @@ class PlanningType extends AbstractType
             'required'=> false,'mapped'=>false,
 
         ])
+        ->add('dateFin', TextType::class,
+        [
+            'invalid_message'=> 'please check your information',
+            'label'=>false,
+            'required'=> false,'mapped'=>false,
+
+        ])
      
-        ->add('horaireDebut')
-        ->add('horaireFin')
+       
         ->add('label')
         ->add('LieuEntrainement')
 
