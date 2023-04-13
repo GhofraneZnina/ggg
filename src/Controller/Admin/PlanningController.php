@@ -41,8 +41,11 @@ class PlanningController extends AbstractController
         $data = $request->request->all() ;
         $date = str_replace('/','-',$data['planning']['date']) ;
         $dataTimeDate = new \DateTime($date);
+        $dateFin = str_replace('/','-',$data['planning']['dateFin']) ;
+        $dataTimeDateFin = new \DateTime($dateFin);
+
         $plannings->setDate($dataTimeDate);
-        
+        $plannings->setDateFin($dataTimeDateFin);
          $this->em->persist($plannings);
          $this->em->flush();
 
