@@ -325,35 +325,37 @@
 								<div class="container-fluid">
 									{% set seancesByDay = nageurs.getSeancesByDayOfWeek() %}
 
-<table>
-  <thead>
-    <tr>
-      
-      <th>{{ 'lundi'|capitalize }}</th>
-      <th>{{ 'mardi'|capitalize }}</th>
-      <th>{{ 'mercredi'|capitalize }}</th>
-      <th>{{ 'jeudi'|capitalize }}</th>
-      <th>{{ 'vendredi'|capitalize }}</th>
-      <th>{{ 'samedi'|capitalize }}</th>
-      <th>{{ 'dimanche'|capitalize }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in 0..4 %}
-      <tr>
-        
-        {% for day in ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
-          <td>
-            {% if seancesByDay[day] is defined and seancesByDay[day][i] is defined %}
-              {{ seancesByDay[day][i].getHoraireDebut()}} - {{ seancesByDay[day][i].getHoraireFin() }}
-            {% endif %}
-          </td>
-        {% endfor %}
-      </tr>
-      
-    {% endfor %}
-  </tbody>
-</table>
+									<table>
+										<thead>
+											<tr>
+
+												<th>{{ 'lundi'|capitalize }}</th>
+												<th>{{ 'mardi'|capitalize }}</th>
+												<th>{{ 'mercredi'|capitalize }}</th>
+												<th>{{ 'jeudi'|capitalize }}</th>
+												<th>{{ 'vendredi'|capitalize }}</th>
+												<th>{{ 'samedi'|capitalize }}</th>
+												<th>{{ 'dimanche'|capitalize }}</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for i in 0..4 %}
+												<tr>
+
+													{% for day in ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
+														<td>
+															{% if seancesByDay[day] is defined and seancesByDay[day][i] is defined %}
+																{{ seancesByDay[day][i].getHoraireDebut()}}
+																-
+																{{ seancesByDay[day][i].getHoraireFin() }}
+															{% endif %}
+														</td>
+													{% endfor %}
+												</tr>
+
+											{% endfor %}
+										</tbody>
+									</table>
 
 								</div>
 							</div>
