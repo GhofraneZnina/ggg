@@ -160,6 +160,7 @@
 									<th>Date Fin</th>
 									<th>Lieu d'entrainement</th>
 									<th>Saison</th>
+									<th>Status</th>
 									<th>Action</th>
 
 									
@@ -175,7 +176,11 @@
 										<td>{{ planning.dateFin |date('Y-m-d') }}</td></td>
 										<td>{{ planning.LieuEntrainement.intitule}}</td>
 										<td>{{ planning.saison.intitule}}</td>
-
+										{% if planning.status == 1 %}
+										<td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+										{% else %}
+											<td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
+										{% endif %}
 										
 										<td>
 										
