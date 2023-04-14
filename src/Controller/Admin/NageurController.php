@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Nageur;
+use App\Entity\Groupe;
+use App\Entity\Seance;
 use App\Form\Admin\NageurType;
 use App\Form\Admin\NageurTypee;
 use App\Entity\Physionomie;
@@ -292,13 +294,29 @@ class NageurController extends AbstractController
         if (!$nageurs) {
             return $this->redirectToRoute('app_admin_nageur_page');
          }
+         //nageur seance
+         $seancesByDay = [];
 
+         // Check if the Nageur is assigned to a Groupe
+         if ($nageurs->getGroupe() !== null) {
+             // Get the Seances for the Groupe
+             foreach ($nageurs->getGroupe()->getSeances() as $seance) {
+                 $dayOfWeek = $seance->getJour();
+                 if (!isset($seancesByDay[$dayOfWeek])) {
+                     $seancesByDay[$dayOfWeek] = [];
+                 }
+                 $seancesByDay[$dayOfWeek][] = $seance;
+             }
+         }
+         //
 
         return $this->render('admin/nageur/pageNageur.html.twig', [
         'nageurs' => $nageurs,
         'form' => $form->createView(),
         'formEdit' => $formEdit->createView(),
         'formPhysionomie' => $formPhysionomie->createView(),
+        'seanceByDay'=>$seancesByDay,
+        
 
         ]);
 

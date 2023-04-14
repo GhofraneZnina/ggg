@@ -14,67 +14,63 @@
 
 
 	<!-- Modal Trigger -->
-{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+	{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+		<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    "> ajouter physionomie</a>
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal modal-fixed-footer">
+		<div class="modal-content">
 
-<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">ajouter physionomie</a>
-<!-- Modal Structure -->
-<div id="modal1" class="modal modal-fixed-footer">
-  <div class="modal-content">
-   
-		<div class="card">
-			<div class="card-content">
-				<div class="divider mb-3"></div>
-				<div class="row">
-					<div
-						class="col s12" id="account">
-						<!-- users edit media object ends -->
-						{{ form_start(formPhysionomie) }}
-						<div class="row">
-							<div class="col s12 ">
-								<div class="row">
-									<div
-										class="col s12 m6 input-field" id="view-date-pickerr">
-										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
-										<label for="physionomie_date">date</label>
-										{{ form_widget(formPhysionomie.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+			<div class="card">
+				<div class="card-content">
+					<div class="divider mb-3"></div>
+					<div class="row">
+						<div
+							class="col s12" id="account">
+							<!-- users edit media object ends -->
+							{{ form_start(formPhysionomie) }}
+							<div class="row">
+								<div class="col s12 ">
+									<div class="row">
+										<div
+											class="col s12 m6 input-field" id="view-date-pickerr">
+											{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+											<label for="physionomie_date">date</label>
+											{{ form_widget(formPhysionomie.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+										</div>
+										<div class="col s12 m6 input-field">
+											{{ form_widget(formPhysionomie.taille, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+											<label class="active">taille</label>
+											<small class="errorTxt2"></small>
+										</div>
+										<div class="col s12 input-field">
+											{{ form_widget(formPhysionomie.poids, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+											<label class="active">poids</label>
+											<small class="errorTxt3"></small>
+										</div>
+
 
 									</div>
-									<div class="col s12 m6 input-field">
-										{{ form_widget(formPhysionomie.taille, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
-										<label class="active">taille</label>
-										<small class="errorTxt2"></small>
-									</div>
-									<div class="col s12 input-field">
-										{{ form_widget(formPhysionomie.poids, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-										<label class="active">poids</label>
-										<small class="errorTxt3"></small>
-									</div>
-									 
-									
-									
+								</div>
+								<div class="col s12 display-flex justify-content-end mt-3">
+									{{ form_widget(formPhysionomie.submit) }}
+									<button type="button" class="btn btn-light">Cancel</button>
 								</div>
 							</div>
-							<div class="col s12 display-flex justify-content-end mt-3">
-								{{ form_widget(formPhysionomie.submit) }}
-								<button type="button" class="btn btn-light">Cancel</button>
-							</div>
+							{{ form_end(formPhysionomie) }}
+							<!-- users edit account form ends -->
 						</div>
-						{{ form_end(formPhysionomie) }}
-						<!-- users edit account form ends -->
 					</div>
 				</div>
-			</div>	<!-- </div> -->
-			
+				<!-- </div> -->
+
+			</div>
+
 		</div>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-  </div>
-</div>
-
-
-
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+		</div>
+	</div>
 
 
 {% endblock %}
@@ -146,7 +142,7 @@
 								</a>
 								<a href="{{ path('app_admin_nageur_page',{'id': nageurs.id}) }}" class="btn-small btn-light-indigo">Profile</a>
 								<a href="{{ path('app_admin_nageur_edit',{'id': nageurs.id}) }}" class="btn-small indigo">Edit</a>
-								
+
 							</div>
 						</div>
 					</div>
@@ -174,11 +170,17 @@
 											Physionomie</span>
 									</a>
 								</li>
-								
+
 								<li class="tab">
 									<a href="#connections">
 										<i class="material-icons">link</i>
 										<span>Cotisations Annuelles</span>
+									</a>
+								</li>
+								<li class="tab">
+									<a href="#tableau">
+										<i class="material-icons">link</i>
+										<span>Mes seances</span>
 									</a>
 								</li>
 
@@ -259,7 +261,7 @@
 						<div id="info">
 
 							<div class="card-panel">
-								
+
 								<div class="responsive-table">
 									<table id="users-list-datatable" class="table">
 										<thead>
@@ -287,9 +289,9 @@
 							</div>
 						</div>
 
-						<div id="connections">	
+						<div id="connections">
 							<div class="card-panel">
-								
+
 								<div class="responsive-table">
 									<table id="users-list-datatable" class="table">
 										<thead>
@@ -314,19 +316,54 @@
 										</tbody>
 									</table>
 								</div>
+
 							</div>
-					</div>
+						</div>
+						<div id="tableau">
+							<div class="card-panel">
+
+								<div class="container-fluid">
+									{% set seancesByDay = nageurs.getSeancesByDayOfWeek() %}
+
+<table>
+  <thead>
+    <tr>
+      
+      <th>{{ 'lundi'|capitalize }}</th>
+      <th>{{ 'mardi'|capitalize }}</th>
+      <th>{{ 'mercredi'|capitalize }}</th>
+      <th>{{ 'jeudi'|capitalize }}</th>
+      <th>{{ 'vendredi'|capitalize }}</th>
+      <th>{{ 'samedi'|capitalize }}</th>
+      <th>{{ 'dimanche'|capitalize }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in 0..4 %}
+      <tr>
+        
+        {% for day in ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
+          <td>
+            {% if seancesByDay[day] is defined and seancesByDay[day][i] is defined %}
+              {{ seancesByDay[day][i].getHoraireDebut()}} - {{ seancesByDay[day][i].getHoraireFin() }}
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+      
+    {% endfor %}
+  </tbody>
+</table>
+
+								</div>
+							</div>
+						</head>
+					</html>
 				</head>
-			</html>
+			</head>
 		</head>
 	</html>
-</section>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-
-	{# <script src="../../../app-assets/js/scripts/advance-ui-modals.js"></script> #}
-	<script src="{{asset('assets/app-assets/js/scripts/advance-ui-modals.js')}}"></script>
-	<script type="text/javascript">
-		jQuery('.modal').modal({
+</head></html></head></html></section><script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>{# <script src="../../../app-assets/js/scripts/advance-ui-modals.js"></script> #}<script src="{{asset('assets/app-assets/js/scripts/advance-ui-modals.js')}}"></script><script type="text/javascript">jQuery('.modal').modal({
 dismissible: true, // Modal can be dismissed by clicking outside of the modal
 opacity: .5, // Opacity of modal background
 inDuration: 300, // Transition in duration
@@ -340,7 +377,4 @@ console.log(modal, trigger);
 complete: function () {
 alert('Closed');
 } // Callback for Modal close
-})
-	</script>
-{% endblock %}
-
+})</script>{% endblock %}

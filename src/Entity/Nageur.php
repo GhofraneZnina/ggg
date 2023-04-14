@@ -194,7 +194,25 @@ class Nageur extends User
     {
         return $this->physionomies;
     }
-    
+    public function getSeancesByDayOfWeek(): array
+    {
+        $seancesByDay = [];
+
+        // Check if the Nageur is assigned to a Groupe
+        if ($this->getGroupe() !== null) {
+            // Get the Seances for the Groupe
+            foreach ($this->getGroupe()->getSeances() as $seance) {
+                $dayOfWeek = $seance->getJour();
+                if (!isset($seancesByDay[$dayOfWeek])) {
+                    $seancesByDay[$dayOfWeek] = [];
+                }
+                $seancesByDay[$dayOfWeek][] = $seance;
+            }
+        }
+
+        return $seancesByDay;
+    }
+
 
    
 
