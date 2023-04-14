@@ -24,9 +24,9 @@ class LieuType extends AbstractType
         ->add('description')
 
         ->add('typepicine', ChoiceType::class, [
-            'choices'  => [ 'PICINE_1'=>'P50',
-            'P50' => 'PICINE_1'  ,
-            'P25M' => 'PICINE_2' ,
+            'choices'  => [ 
+            'P50' => 'p50'  ,
+            'P25m' => 'p25m' ,
             'AUTRE'=>'autre']
             
         ])
