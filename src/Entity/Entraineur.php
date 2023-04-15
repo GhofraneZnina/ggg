@@ -98,6 +98,35 @@ class Entraineur extends User
 
         return $this;
     }
+    public function getSeancesByDayOfWeek(): array
+    {
+        $seancesByDay = [];
+    
+        // Check if the Entraineur is assigned to a Groupe
+        if ($this->getGroupes() !== null) {
+    
+            // Get the Seances for each Groupe assigned to the Entraineur
+            foreach ($this->getGroupes() as $groupe) {
+                foreach ($groupe->getSeances() as $seance) {
+    
+                    // Check if the seance has a planning and the planning status is 1
+                    if ($seance->getPlanning() !== null && $seance->getPlanning()->getStatus() == 1) {
+    
+                        // Get the day of the week for the seance
+                        $dayOfWeek = $seance->getJour();
+    
+                        // Add the seance to the appropriate day of the week in the seancesByDay array
+                        if (!isset($seancesByDay[$dayOfWeek])) {
+                            $seancesByDay[$dayOfWeek] = [];
+                        }
+                        $seancesByDay[$dayOfWeek][] = $seance;
+                    }
+                }
+            }
+        }
+    
+        return $seancesByDay;
+    }
 
 }
 ?>

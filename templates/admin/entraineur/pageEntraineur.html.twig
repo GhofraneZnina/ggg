@@ -484,6 +484,12 @@
 										<span>Performances</span>
 									</a>
 								</li>
+								<li class="tab">
+									<a href="#tableau">
+										<i class="material-icons">link</i>
+										<span>Mes seances</span>
+									</a>
+								</li>
 
 							</ul>
 						</div>
@@ -654,6 +660,48 @@
 										<button type="button" class="btn btn-light-pink waves-effect waves-light">Cancel</button>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div id="tableau">
+							<div class="card-panel">
+								<div class="container-fluid">
+									{% set seancesByDay = entraineurs.getSeancesByDayOfWeek() %}
+
+									<table>
+										<thead>
+											<tr>
+
+												<th>{{ 'lundi'|capitalize }}</th>
+												<th>{{ 'mardi'|capitalize }}</th>
+												<th>{{ 'mercredi'|capitalize }}</th>
+												<th>{{ 'jeudi'|capitalize }}</th>
+												<th>{{ 'vendredi'|capitalize }}</th>
+												<th>{{ 'samedi'|capitalize }}</th>
+												<th>{{ 'dimanche'|capitalize }}</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for i in 0..4 %}
+												<tr>
+
+													{% for day in ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
+														<td>
+															{% if seancesByDay[day] is defined and seancesByDay[day][i] is defined and seancesByDay[day][i].getPlanning() is defined %}
+																{{ seancesByDay[day][i].getHoraireDebut() }}
+																-
+																{{ seancesByDay[day][i].getHoraireFin() }}
+																<br>
+																{{ seancesByDay[day][i].getPlanning().getLieuEntrainement() }}
+															{% endif %}
+														</td>
+													{% endfor %}
+												</tr>
+
+											{% endfor %}
+										</tbody>
+									</table>
+
+								</div>	
 							</div>
 						</div>
 

@@ -267,12 +267,39 @@ $this->addFlash('error','check your data');
             return $this->redirectToRoute('app_admin_entraineur_page');
          }
 
+         //nageur seance
+         $seancesByDay = [];
+
+    // Check if the Entraineur is assigned to a Groupe
+    if ($entraineurs->getGroupes() !== null) {
+
+        // Get the Seances for each Groupe assigned to the Entraineur
+        foreach ($entraineurs->getGroupes() as $groupe) {
+            foreach ($groupe->getSeances() as $seance) {
+
+                // Check if the seance has a planning and the planning status is 1
+                if ($seance->getPlanning() !== null && $seance->getPlanning()->getStatus() == 1) {
+
+                    // Get the day of the week for the seance
+                    $dayOfWeek = $seance->getJour();
+
+                    // Add the seance to the appropriate day of the week in the seancesByDay array
+                    if (!isset($seancesByDay[$dayOfWeek])) {
+                        $seancesByDay[$dayOfWeek] = [];
+                    }
+                    $seancesByDay[$dayOfWeek][] = $seance;
+                }
+            }
+        }
+    }
+
 
         return $this->render('admin/entraineur/pageEntraineur.html.twig', [
         'entraineurs' => $entraineurs,
         'form' => $form->createView(),
         'formEdit' => $formEdit->createView(),
         'formPhysionomie' => $formPhysionomie->createView(),
+        'seanceByDay'=>$seancesByDay,
 
         ]);
 
