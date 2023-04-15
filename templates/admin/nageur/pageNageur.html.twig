@@ -344,10 +344,12 @@
 
 													{% for day in ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
 														<td>
-															{% if seancesByDay[day] is defined and seancesByDay[day][i] is defined %}
-																{{ seancesByDay[day][i].getHoraireDebut()}}
+															{% if seancesByDay[day] is defined and seancesByDay[day][i] is defined and seancesByDay[day][i].getPlanning() is defined %}
+																{{ seancesByDay[day][i].getHoraireDebut() }}
 																-
 																{{ seancesByDay[day][i].getHoraireFin() }}
+																<br>
+																{{ seancesByDay[day][i].getPlanning().getLieuEntrainement() }}
 															{% endif %}
 														</td>
 													{% endfor %}

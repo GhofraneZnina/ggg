@@ -197,19 +197,22 @@ class Nageur extends User
     public function getSeancesByDayOfWeek(): array
     {
         $seancesByDay = [];
-
+    
         // Check if the Nageur is assigned to a Groupe
         if ($this->getGroupe() !== null) {
             // Get the Seances for the Groupe
             foreach ($this->getGroupe()->getSeances() as $seance) {
-                $dayOfWeek = $seance->getJour();
-                if (!isset($seancesByDay[$dayOfWeek])) {
-                    $seancesByDay[$dayOfWeek] = [];
+                // Check if the seance has a planning and the planning status is 1
+                if ($seance->getPlanning() !== null && $seance->getPlanning()->getStatus() == 1) {
+                    $dayOfWeek = $seance->getJour();
+                    if (!isset($seancesByDay[$dayOfWeek])) {
+                        $seancesByDay[$dayOfWeek] = [];
+                    }
+                    $seancesByDay[$dayOfWeek][] = $seance;
                 }
-                $seancesByDay[$dayOfWeek][] = $seance;
             }
         }
-
+    
         return $seancesByDay;
     }
 
