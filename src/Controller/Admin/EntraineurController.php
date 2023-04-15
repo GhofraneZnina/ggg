@@ -7,6 +7,7 @@ use App\Form\Admin\EntraineurType;
 use App\Form\Admin\EntraineurTypee;
 use App\Entity\Physionomie;
 use App\Form\Admin\PhysionomieType;
+use App\Form\Admin\PhysionomieTypee;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -229,7 +230,7 @@ $this->addFlash('error','check your data');
         //adding physionomie
 
         $physionomie = new Physionomie();
-        $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
+        $formPhysionomie = $this->createForm(PhysionomieTypee::class, $physionomie);
         $formPhysionomie->handleRequest($request);
         if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
 
