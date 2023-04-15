@@ -2,7 +2,7 @@
 {% block title %}Liste des groupes{% endblock %}
 {% block pageTitle %}Liste des groupes{% endblock %}
 {% block levelOne %}
-    <li class="breadcrumb-item"><a href="{{ path('app_admin_groupe_list') }}">groupe</a></li>{% endblock %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_groupe_list') }}">Groupes</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
@@ -13,7 +13,7 @@
 
 <!-- Modal Trigger -->
 {# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
-<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">groupe</a>
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">Ajouter Groupe</a>
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer">
   <div class="modal-content">
@@ -106,7 +106,8 @@
                                     <th></th>
                                     <th>id</th>
                                     
-                                    <th>intitule</th>
+                                    <th>Intitule</th>
+                                    <th>Entraineur</th>
                                     <th>Action</th> 
                                     
                                 </tr>   
@@ -118,6 +119,7 @@
                                         <td> {{ groupe.id }}</td>
                                         
                                         <td>{{ groupe.intitule }}</td> 
+                                        <td>{{ groupe.entraineur.nom }}</td>
                                         <td> 
                                             <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"> <i  class="btn-small btn-light-pink">supprimer</i> </a>
                                         </td>

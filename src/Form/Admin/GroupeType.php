@@ -13,7 +13,7 @@ class GroupeType extends AbstractType
     {
         $builder
             ->add('intitule')
-            
+            ->add('entraineur')
         
         ->add('submit', SubmitType::class,
             [

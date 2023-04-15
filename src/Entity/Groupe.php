@@ -24,6 +24,9 @@ class Groupe
     #[ORM\ManyToMany(targetEntity: Seance::class, mappedBy: 'groupe')]
     private Collection $seances;
 
+    #[ORM\ManyToOne(inversedBy: 'groupes')]
+    private ?Entraineur $entraineur = null;
+
     public function __construct()
     {
         $this->nageur = new ArrayCollection();
@@ -105,6 +108,18 @@ class Groupe
         if ($this->seances->removeElement($seance)) {
             $seance->removeGroupe($this);
         }
+
+        return $this;
+    }
+
+    public function getEntraineur(): ?Entraineur
+    {
+        return $this->entraineur;
+    }
+
+    public function setEntraineur(?Entraineur $entraineur): self
+    {
+        $this->entraineur = $entraineur;
 
         return $this;
     }
