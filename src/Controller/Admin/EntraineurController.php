@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Entraineur;
+use App\Entity\Seance;
 use App\Form\Admin\EntraineurType;
 use App\Form\Admin\EntraineurTypee;
 use App\Entity\Physionomie;
@@ -264,6 +265,18 @@ $this->addFlash('error','check your data');
 
             //listing entraineur
         $entraineurs = $this->em->getRepository(Entraineur::class)->findOneBy(['id' => $id]);
+        $seance = $this->em->createQueryBuilder()
+        ->select('s')
+        ->from('App\Entity\Seance', 's')
+        ->join('s.groupe', 'g')
+        ->join('g.entraineur', 'e')
+        ->where('e.id = :entraineurId')
+        ->andWhere('s.planning IS NOT NULL')
+        
+        ->setParameter('entraineurId', $entraineurs->getId())
+       
+        ->getQuery()
+        ->getResult();
         if (!$entraineurs) {
             return $this->redirectToRoute('app_admin_entraineur_page');
          }
@@ -292,6 +305,7 @@ $this->addFlash('error','check your data');
                 }
             }
         }
+        
     }
 
 
@@ -301,6 +315,7 @@ $this->addFlash('error','check your data');
         'formEdit' => $formEdit->createView(),
         'formPhysionomie' => $formPhysionomie->createView(),
         'seanceByDay'=>$seancesByDay,
+        'seance'=>$seance,
 
         ]);
 
