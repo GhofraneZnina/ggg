@@ -27,6 +27,9 @@ class Categorie
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Nageur::class)]
     private Collection $nageur;
 
+    #[ORM\ManyToOne(inversedBy: 'categorie')]
+    private ?Minimas $minimas = null;
+
     public function __construct()
     {
         $this->nageur = new ArrayCollection();
@@ -104,6 +107,18 @@ class Categorie
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getMinimas(): ?Minimas
+    {
+        return $this->minimas;
+    }
+
+    public function setMinimas(?Minimas $minimas): self
+    {
+        $this->minimas = $minimas;
 
         return $this;
     }
