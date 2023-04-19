@@ -324,40 +324,45 @@
 
 								<div class="container-fluid">
 									{% set seancesByDay = nageurs.getSeancesByDayOfWeek() %}
-
+									{% set days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
 									<table>
 										<thead>
 											<tr>
+												<br>
+												<br>
+												<br>
 
-												<th>{{ 'lundi'|capitalize }}</th>
-												<th>{{ 'mardi'|capitalize }}</th>
-												<th>{{ 'mercredi'|capitalize }}</th>
-												<th>{{ 'jeudi'|capitalize }}</th>
-												<th>{{ 'vendredi'|capitalize }}</th>
-												<th>{{ 'samedi'|capitalize }}</th>
-												<th>{{ 'dimanche'|capitalize }}</th>
-											</tr>
-										</thead>
-										<tbody>
-											{% for i in 0..4 %}
+												<br>
+													<th></th>
+													{% for days in days %}
+														<th>{{ days }}</th>
+													{% endfor %}
+												</tr>
+											</thead>
+											<tbody>
+												<tr></tr>
 												<tr>
-
-													{% for day in ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
+												{% if seance is defined and seance is not null %}
+													<td>{{ seance.horaireDebut }}
+														-
+														{{ seance.horaireFin }}</td>
+												{% endif %}
+													{% for days in days %}
 														<td>
-															{% if seancesByDay[day] is defined and seancesByDay[day][i] is defined and seancesByDay[day][i].getPlanning() is defined %}
-																{{ seancesByDay[day][i].getHoraireDebut() }}
-																-
-																{{ seancesByDay[day][i].getHoraireFin() }}
-																<br>
-																{{ seancesByDay[day][i].getPlanning().getLieuEntrainement() }}
+															{% if seance.Jour == days %}
+															
+																
+																<div>{{ seance.getPlanning().getLieuEntrainement() }}</div>
+															
 															{% endif %}
 														</td>
 													{% endfor %}
 												</tr>
-
-											{% endfor %}
-										</tbody>
-									</table>
+											</tbody>
+										</tr>
+									</tr>
+								</tbody>
+							</table>
 
 								</div>
 							</div>

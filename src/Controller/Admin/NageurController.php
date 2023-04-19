@@ -291,6 +291,19 @@ class NageurController extends AbstractController
 
             //listing nageur
         $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id' => $id]);
+        $seance = $this->em->createQueryBuilder()
+        ->select('s')
+        ->from('App\Entity\Seance', 's')
+        ->join('s.groupe', 'g')
+        ->join('g.nageur', 'e')
+        ->where('e.id = :nageurId')
+        ->andWhere('s.planning IS NOT NULL')
+        
+        ->setParameter('nageurId', $nageurs->getId())
+       
+        ->getQuery()
+        ->getResult();
+        
         if (!$nageurs) {
             return $this->redirectToRoute('app_admin_nageur_page');
          }
@@ -316,7 +329,7 @@ class NageurController extends AbstractController
         'formEdit' => $formEdit->createView(),
         'formPhysionomie' => $formPhysionomie->createView(),
         'seanceByDay'=>$seancesByDay,
-        
+        'seance'=>$seance,
 
         ]);
 
