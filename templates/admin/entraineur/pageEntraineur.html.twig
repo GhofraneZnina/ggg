@@ -663,51 +663,37 @@
 							</div>
 						</div>
 						<div id="tableau">
-							<div class="card-panel">
-								<div class="container-fluid">
-									{% set seancesByDay = entraineurs.getSeancesByDayOfWeek() %}
-									{% set days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
-									<table>
-										<thead>
-											<tr>
-												<br>
-												<br>
-												<br>
-
-												<br>
-													<th></th>
-													{% for days in days %}
-														<th>{{ days }}</th>
-													{% endfor %}
-												</tr>
-											</thead>
-											<tbody>
-												<tr></tr>
-												<tr>
-												{% if seance is defined and seance is not null %}
-													<td>{{ seance.horaireDebut }}
-														-
-														{{ seance.horaireFin }}</td>
-												{% endif %}
-													{% for days in days %}
-														<td>
-															{% if seance.Jour == days %}
-															
-																
-																<div>{{ seance.getPlanning().getLieuEntrainement() }}</div>
-															
-															{% endif %}
-														</td>
-													{% endfor %}
-												</tr>
-											</tbody>
-										</tr>
-									</tr>
-								</tbody>
-							</table>
-
-
-						</div>
+    <div class="card-panel">
+        <div class="container-fluid">
+            {% set seancesByDay = entraineurs.getSeancesByDayOfWeek() %}
+            {% set days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] %}
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for day in days %}
+                            <th>{{ day }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seance in seancesByDay %}
+                        <tr>
+                            <td>{{ seance[0].horaireDebut }} - {{ seance[0].horaireFin }}</td>
+                            {% for day in days %}
+                                <td>
+                                    {% for s in seance %}
+                                        {% if s.jour == day %}
+                                            <div>{{ s.getPlanning().getLieuEntrainement() }}</div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 					</div>
 				</div>
 			</head>

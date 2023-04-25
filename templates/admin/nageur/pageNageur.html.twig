@@ -333,22 +333,27 @@
                         {% endfor %}
                     </tr>
                 </thead>
-                <tbody>
-                    {% for seance in seancesByDay %}
-                        <tr>
-                            <td>{{ seance[0].horaireDebut }} - {{ seance[0].horaireFin }}</td>
-                            {% for day in days %}
-                                <td>
-                                    {% for s in seance %}
-                                        {% if s.jour == day %}
-                                            <div>{{ s.getPlanning().getLieuEntrainement() }}</div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
+					<tbody>
+		<tr></tr>
+		<tr>
+		{% if seance is defined and seance is not null %}
+			<td>{{ seance.horaireDebut }}
+				-
+				{{ seance.horaireFin }}</td>
+		{% endif %}
+			{% for day in days %}
+    <td>
+        {% for seance in seancesByDay[day] %}
+            {% if seance %}
+                {% if seance.Jour == day %}
+                    <div>{{ seance.groupe.intitule }} - {{ seance.getPlanning().getLieuEntrainement() }}</div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </td>
+{% endfor %}
+		</tr>
+	</tbody>
             </table>
         </div>
     </div>
