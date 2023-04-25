@@ -684,7 +684,10 @@
                                 <td>
                                     {% for s in seance %}
                                         {% if s.jour == day %}
-                                            <div>{{ s.getPlanning().getLieuEntrainement() }}</div>
+                                            <div style="color: green">{{ s.getPlanning().getLieuEntrainement() }}</div>
+                                            {% for g in s.getGroupe() %}
+                                                <div>{{ g.intitule }}</div>
+                                            {% endfor %}
                                         {% endif %}
                                     {% endfor %}
                                 </td>
@@ -694,8 +697,16 @@
                 </tbody>
             </table>
         </div>
-					</div>
-				</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 			</head>
 		</html>
 	</div>
