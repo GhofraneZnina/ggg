@@ -95,55 +95,43 @@
             </div>
         </div>
         <div class="users-list-table">
-            <div class="card">
-                <div class="card-content">
-                    <!-- datatable start -->
-                    <div class="responsive-table">
-                        <table id="users-list-datatable" class="table">
-                            <thead>
+    <div class="card">
+        <div class="card-content">
+            <!-- datatable start -->
+            <div class="users-list-table">
+    <div class="card">
+        <div class="card-content">
+            <!-- datatable start -->
+            <div class="responsive-table">
+                <table id="users-list-datatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Genre</th>
+                            <th>Chrono</th>
+                            <th>Type Minimas</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for minimas in minimas %}
                             <tr>
-                                <th></th>
-                                <th>id</th>
-                                <th>Genre</th>
-                                <th>Chrono</th>
-                                <th>Type Minimas</th>  
-                                <th>Categerie</th> 
-                                <th>Type Nage</th> 
-                                <th>Action</th> 
-                                <th></th>
+                                <td>{{ minimas.id }}</td>
+                                <td>{{ minimas.genre }}</td>
+                                <td>{{ minimas.chrono }}</td>
+                                <td>{{ minimas.typeMinimas }}</td>
+                                <td>
+                                    <a href="{{ path('app_admin_minimas_delete', {'id': minimas.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
+                                    <a href="{{ path('app_admin_minimas_edit', {'id': minimas.id}) }}"><i class="material-icons">edit</i></a> 
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for minimas in minimas %}
-                                <tr>
-                                    <td></td>
-                                    <td>{{ minimas.id }}</td>
-                                    <td>{{ minimas.genre }}</td>
-                                    <td>{{ minimas.chrono }}</td>
-                                    <td>{{ minimas.typeMinimas }}</td>
-                                     <td>
-                                        {% for categorie in minimas.categorie %}
-                                            {{ categorie.intitule}}
-                                        {% endfor %}
-                                     </td>
-                                     <td>
-                                        {% for nage in minimas.nage %}
-                                            {{ nage.label}}
-                                        {% endfor %}
-                                     </td>
-                                    <td>
-                                      <a href="{{ path('app_admin_minimas_delete',{'id': minimas.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
-                                         
-                                    </td>
-                                     <td>
-                                      
-                                         <a href="{{ path('app_admin_minimas_edit',{'id': minimas.id}) }}"><i class="material-icons">edit</i></a> 
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
                     <!-- datatable ends -->
                 </div>
             </div>
