@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\admin;
+namespace App\Controller\Admin;
 use App\Entity\Competition;
 use App\Form\Admin\CompetitionType;
 use Doctrine\ORM\EntityManagerInterface;
