@@ -22,6 +22,9 @@ class Nage
      */
     private $position;
 
+    #[ORM\ManyToOne(inversedBy: 'nage')]
+    private ?Minimas $minimas = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,10 +56,26 @@ class Nage
     {
         return $this->position;
     }
+    public function __toString(): string
+    {
+        return $this->getLabel();
+    }
 
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getMinimas(): ?Minimas
+    {
+        return $this->minimas;
+    }
+
+    public function setMinimas(?Minimas $minimas): self
+    {
+        $this->minimas = $minimas;
 
         return $this;
     }

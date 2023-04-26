@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 class PlanningType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -79,7 +80,12 @@ class PlanningType extends AbstractType
        
         ->add('label')
         ->add('LieuEntrainement')
-
+        
+        ->add('status', IntegerType::class, [
+            'invalid_message' => 'Please check your information',
+            'label' => 'Status',
+            'required' => true,
+        ])
         
        
         ->add('submit', SubmitType::class,

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Seance;
+use App\Entity\Nageur;
 use App\Entity\Saison;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,6 +39,22 @@ class SeanceRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    public function getSeance( Nageur $nageur ){
+
+         return $this->createQueryBuilder('s')
+        
+        ->join('s.groupe', 'g')
+        ->join('g.nageur', 'e')
+        ->join('s.planning', 'p')
+        ->where('e.id = :nageurId')
+        ->andWhere('s.planning IS NOT NULL')
+        ->andWhere('p.status = 1')
+        ->andWhere('g.id = :groupeId')
+        ->setParameter('nageurId', $nageur->getId())
+        ->setParameter('groupeId', $nageur->getGroupe()->getId())
+        ->getQuery()
+        ->getResult();
     }
     // public function findByCurrent($current)
     // {

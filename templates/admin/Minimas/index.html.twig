@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des groupes{% endblock %}
-{% block pageTitle %}Liste des groupes{% endblock %}
+{% block title %}Les minimas{% endblock %}
+{% block pageTitle %}Les Minimas{% endblock %}
 {% block levelOne %}
-    <li class="breadcrumb-item"><a href="{{ path('app_admin_groupe_list') }}">Groupes</a></li>{% endblock %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_minimas_list') }}">Minimas</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
@@ -13,7 +13,7 @@
 
 <!-- Modal Trigger -->
 {# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
-<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">Ajouter Groupe</a>
+<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    ">Ajouter Minimas</a>
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer">
   <div class="modal-content">
@@ -28,10 +28,9 @@
 
 {% endblock %}
 
-
 {% block body %}
     {#  Show alert : START #}
-  {% for message in app.flashes('success') %}
+    {% for message in app.flashes('success') %}
         <div class="card-alert card green">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -40,8 +39,8 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %} 
-   {% for message in app.flashes('error') %}
+    {% endfor %}
+    {% for message in app.flashes('error') %}
         <div class="card-alert card red">
             <div class="card-content white-text">
                 <p>  {{ message }}</p>
@@ -50,14 +49,14 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    {% endfor %} 
+    {% endfor %}
     {#  Show alert : END  #}
     <section class="users-list-wrapper section">
         <div class="users-list-filter">
             <div class="card-panel">
                 <div class="row">
                     <form>
-                          <div class="col s12 m6 l3">
+                        <div class="col s12 m6 l3">
                             <label for="users-list-verified">Verified</label>
                             <div class="input-field">
                                 <select class="form-control" id="users-list-verified">
@@ -72,7 +71,7 @@
                             <div class="input-field">
                                 <select class="form-control" id="users-list-role">
                                     <option value="">Any</option>
-                                    <option value="User">groupe</option>
+                                    <option value="User">User</option>
                                     <option value="Staff">Staff</option>
                                 </select>
                             </div>
@@ -87,7 +86,7 @@
                                     <option value="Banned">Banned</option>
                                 </select>
                             </div>
-                        </div>  
+                        </div>
                         <div class="col s12 m6 l3 display-flex align-items-center show-btn">
                             <button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
                         </div>
@@ -96,38 +95,43 @@
             </div>
         </div>
         <div class="users-list-table">
-            <div class="card">
-                <div class="card-content">
-                    <!-- datatable start -->
-                    <div class="responsive-table">
-                        <table id="users-list-datatable" class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>id</th>
-                                    
-                                    <th>Intitule</th>
-                                    <th>Entraineur</th>
-                                    <th>Action</th> 
-                                    
-                                </tr>   
-                            </thead>
-                            <tbody>
-                                {% for groupe in groupes %}
-                                    <tr>
-                                        <td></td>
-                                        <td> {{ groupe.id }}</td>
-                                        
-                                        <td>{{ groupe.intitule }}</td> 
-                                        <td>{{ groupe.entraineur.nom }}</td>
-                                        <td> 
-                                            <a href="{{ path('app_admin_groupe_delete',{'id': groupe.id}) }}"> <i  class="btn-small btn-light-pink">supprimer</i> </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="card">
+        <div class="card-content">
+            <!-- datatable start -->
+            <div class="users-list-table">
+    <div class="card">
+        <div class="card-content">
+            <!-- datatable start -->
+            <div class="responsive-table">
+                <table id="users-list-datatable" class="table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Genre</th>
+                            <th>Chrono</th>
+                            <th>Type Minimas</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for minimas in minimas %}
+                            <tr>
+                                <td>{{ minimas.id }}</td>
+                                <td>{{ minimas.genre }}</td>
+                                <td>{{ minimas.chrono }}</td>
+                                <td>{{ minimas.typeMinimas }}</td>
+                                <td>
+                                    <a href="{{ path('app_admin_minimas_delete', {'id': minimas.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
+                                    <a href="{{ path('app_admin_minimas_edit', {'id': minimas.id}) }}"><i class="material-icons">edit</i></a> 
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
                     <!-- datatable ends -->
                 </div>
             </div>

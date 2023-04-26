@@ -46,6 +46,7 @@ class EntraineurType extends AbstractType
                 'required'=> false,'mapped'=>false,
 
             ])
+            
             ->add('description')
             ->add('photo' , FileType::class, [
                 'label' => 'photo',

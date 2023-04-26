@@ -3,10 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Entraineur;
+use App\Entity\Seance;
 use App\Form\Admin\EntraineurType;
 use App\Form\Admin\EntraineurTypee;
 use App\Entity\Physionomie;
 use App\Form\Admin\PhysionomieType;
+use App\Form\Admin\PhysionomieTypee;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -229,7 +231,7 @@ $this->addFlash('error','check your data');
         //adding physionomie
 
         $physionomie = new Physionomie();
-        $formPhysionomie = $this->createForm(PhysionomieType::class, $physionomie);
+        $formPhysionomie = $this->createForm(PhysionomieTypee::class, $physionomie);
         $formPhysionomie->handleRequest($request);
         if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
 
@@ -262,10 +264,34 @@ $this->addFlash('error','check your data');
 
 
             //listing entraineur
-        $entraineurs = $this->em->getRepository(Entraineur::class)->findOneBy(['id' => $id]);
-        if (!$entraineurs) {
-            return $this->redirectToRoute('app_admin_entraineur_page');
-         }
+           
+                $seance = $this->em->createQueryBuilder()
+                    ->select('s')
+                    ->from('App\Entity\Seance', 's')
+                    ->join('s.groupe', 'g')
+                    ->join('g.entraineur', 'e')
+                    ->where('e.id = :entraineurId')
+                    ->andWhere('s.planning IS NOT NULL')
+                    ->setParameter('entraineurId', $entraineurs->getId())
+                    ->getQuery()
+                    ->getResult();
+            
+                $seancesByDay = [];
+            
+                foreach ($seance as $s) {
+                    $dayOfWeek = $s->getJour();
+                    if (!isset($seancesByDay[$dayOfWeek])) {
+                        $seancesByDay[$dayOfWeek] = [];
+                    }
+                    $seancesByDay[$dayOfWeek][] = $s;
+                }
+            
+               
+            
+            
+        
+        
+    
 
 
         return $this->render('admin/entraineur/pageEntraineur.html.twig', [
@@ -273,6 +299,8 @@ $this->addFlash('error','check your data');
         'form' => $form->createView(),
         'formEdit' => $formEdit->createView(),
         'formPhysionomie' => $formPhysionomie->createView(),
+        'seanceByDay'=>$seancesByDay,
+        'seance'=>$seance,
 
         ]);
 

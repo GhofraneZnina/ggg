@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Nageur;
+use App\Entity\Groupe;
+use App\Entity\Seance;
 use App\Form\Admin\NageurType;
 use App\Form\Admin\NageurTypee;
 use App\Entity\Physionomie;
@@ -288,22 +290,46 @@ class NageurController extends AbstractController
 
 
             //listing nageur
-        $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id' => $id]);
-        if (!$nageurs) {
-            return $this->redirectToRoute('app_admin_nageur_page');
-         }
-
-
-        return $this->render('admin/nageur/pageNageur.html.twig', [
-        'nageurs' => $nageurs,
-        'form' => $form->createView(),
-        'formEdit' => $formEdit->createView(),
-        'formPhysionomie' => $formPhysionomie->createView(),
-
-        ]);
-
-              
-    }
+            $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id' => $id]);
+    
+            // Retrieve all the Seance entities associated with the given Nageur entity
+            $seances = $this->em->createQueryBuilder()
+                ->select('s')
+                ->from('App\Entity\Seance', 's')
+                ->join('s.groupe', 'g')
+                ->join('g.nageur', 'e')
+                ->join('s.planning', 'p')
+                ->where('e.id = :nageurId')
+                ->andWhere('s.planning IS NOT NULL')
+                ->andWhere('p.status = 1')
+                ->andWhere('g.id = :groupeId')
+                ->setParameter('nageurId', $nageurs->getId())
+                ->setParameter('groupeId', $nageurs->getGroupe()->getId())
+                ->getQuery()
+                ->getResult();
+        
+            // Check if the Nageur is assigned to a Groupe
+            $seancesByDay = [];
+            if ($nageurs->getGroupe() !== null) {
+                // Get the Seances for the Groupe
+                foreach ($nageurs->getGroupe()->getSeances() as $seance) {
+                    $dayOfWeek = $seance->getJour();
+                    if (!isset($seancesByDay[$dayOfWeek])) {
+                        $seancesByDay[$dayOfWeek] = [];
+                    }
+                    $seancesByDay[$dayOfWeek][] = $seance;
+                }
+            }
+        
+            return $this->render('admin/nageur/pageNageur.html.twig', [
+                'nageurs' => $nageurs,
+                'form' => $form->createView(),
+                'formEdit' => $formEdit->createView(),
+                'formPhysionomie' => $formPhysionomie->createView(),
+                'seanceByDay' => $seancesByDay,
+                'seance' => $seances,
+            ]);
+        }
 
 
     
