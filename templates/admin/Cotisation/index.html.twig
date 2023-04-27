@@ -28,17 +28,18 @@
 						<div
 							class="col s12" id="account">
 							<!-- users edit media object ends -->
+						
 							{{ form_start(form) }}
 							<div class="row">
 								<div class="col s12 ">
 									<div class="row">
 
-										<div class="col-12 m6 input-field">
+										<div class="col s12 m6 input-field">
 											{{ form_widget(form.montant, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
 											<label class="active">Montant</label>
 											<small class="errorTxt2"></small>
 										</div>
-										<div class="col s12 m6 input-field" id="view-switches">
+										<div class="col -12 m6 input-field" id="view-switches">
 											{{ form_widget(form.statutPaiement, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
 											<label class="active">Statut Paiement</label>
 											<div class="switch mb-1">
@@ -58,14 +59,29 @@
 											<label class="active">Remarque</label>
 											<small class="errorTxt3"></small>
 										</div>
-										<div class="col-12 display-flex justify-content-end mt-3">
-										{{ form_widget(form.submit) }}
-										<button type="button" class="btn btn-light">annuler</button>
-									</div>
+                                        
+										<div class="col s12 input-field">
+										<label class="active">Nageur</label>
+											{{ form_widget(form.nageur, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+											
+											<small class="errorTxt3"></small>
+										</div>
+										
+										
+										<div class="col s12 input-field">
+										<label class="active">Saison</label>
+											{{ form_widget(form.saison, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+											
+											<small class="errorTxt3"></small>
+										</div> 
+
 
 									</div>
 								</div>
-								
+								<div class="col s12 display-flex justify-content-end mt-3">
+									{{ form_widget(form.submit) }}
+									<button type="button" class="btn btn-light">Cancel</button>
+								</div>
 							</div>
 							{{ form_end(form) }}
 							<!-- users edit account form ends -->
