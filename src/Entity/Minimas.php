@@ -100,6 +100,11 @@ class Minimas
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getTypeMinimas();
+    }
+
 
     public function removeCategorie(categorie $categorie): self
     {

@@ -23,11 +23,12 @@ class Competition
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateFin = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typeMinimas = null;
+    
 
-    #[ORM\Column(length: 255)]
-    private ?string $statut = null;
+   
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Minimas $minimas = null;
 
     public function getId(): ?int
     {
@@ -70,26 +71,17 @@ class Competition
         return $this;
     }
 
-    public function getTypeMinimas(): ?string
+   
+    
+
+    public function getMinimas(): ?Minimas
     {
-        return $this->typeMinimas;
+        return $this->minimas;
     }
 
-    public function setTypeMinimas(string $typeMinimas): self
+    public function setMinimas(?Minimas $minimas): self
     {
-        $this->typeMinimas = $typeMinimas;
-
-        return $this;
-    }
-
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(string $statut): self
-    {
-        $this->statut = $statut;
+        $this->minimas = $minimas;
 
         return $this;
     }
