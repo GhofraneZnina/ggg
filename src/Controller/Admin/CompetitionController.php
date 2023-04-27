@@ -28,7 +28,15 @@ class CompetitionController extends AbstractController
     $form = $this->createForm(CompetitionType::class, $competition);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+        $data = $request->request->all();
 
+        $dateDebut = str_replace('/', '-', $data['competition']['dateDebut']);
+        $dataTimeDebut = new \DateTime($dateDebut);
+        $competition->setDateDebut($dataTimeDebut);
+        
+        $dateFin = str_replace('/', '-', $data['competition']['dateFin']);
+        $dataTimeFin = new \DateTime($dateFin);
+        $competition->setDateFin($dataTimeFin);
  
          $this->em->persist($competition);
          $this->em->flush();
@@ -43,10 +51,32 @@ class CompetitionController extends AbstractController
      }
      //  TODO : create new competition : END 
      
-    $competition = $this->em->getRepository(competition::class)->findAll() ;
+    $competition = $this->em->getRepository(Competition::class)->findAll() ;
      return $this->render('admin/competition/index.html.twig', [
         'form' => $form->createView(),
         'competition' => $competition,
      ]);
+    }
+    #[Route('/admin/competition/{id}/delete', name: 'app_admin_competition_delete')]
+    public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
+    {
+        
+        $user = $this->getUser();
+
+        
+        $competitionRepository = $this->em->getRepository(CotisationAnnuelle::class);
+       
+        $competiton =$competitionRepository->find(['id'=>$id]);;
+        if (!$competiton) {
+            return $this->redirectToRoute('app_admin_competition_list');
+        }
+
+      
+        $this->em->remove($competiton);
+        $this->em->flush();
+        
+        
+        $this->addFlash('success','competition successfully deleted ' );
+        return $this->redirectToRoute('app_admin_competition_list');
     }
 }

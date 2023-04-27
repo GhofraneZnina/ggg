@@ -5,7 +5,7 @@ use App\Entity\Competition;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CompetitionType extends AbstractType
@@ -14,9 +14,21 @@ class CompetitionType extends AbstractType
     {
         $builder
             ->add('intitule')
-             ->add('dateDebut')
-             ->add('dateFin')
-             ->add('typeMinimas')
+            ->add('dateDebut', TextType::class,
+            [
+                'invalid_message'=> 'please check your information',
+                'label'=>false,
+                'required'=> false,'mapped'=>false,
+
+            ])
+            ->add('dateFin', TextType::class,
+            [
+                'invalid_message'=> 'please check your information',
+                'label'=>false,
+                'required'=> false,'mapped'=>false,
+
+            ])
+             ->add('minimas')
         
             
             ->add('submit', SubmitType::class,
