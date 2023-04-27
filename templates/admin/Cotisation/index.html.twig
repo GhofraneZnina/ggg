@@ -33,7 +33,7 @@
 								<div class="col s12 ">
 									<div class="row">
 
-										<div class="col s12 m6 input-field">
+										<div class="col-12 m6 input-field">
 											{{ form_widget(form.montant, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
 											<label class="active">Montant</label>
 											<small class="errorTxt2"></small>
@@ -58,14 +58,15 @@
 											<label class="active">Remarque</label>
 											<small class="errorTxt3"></small>
 										</div>
-
+										<div class="col-12 display-flex justify-content-end mt-3">
+										{{ form_widget(form.submit) }}
+										<button type="button" class="btn btn-light">annuler</button>
+									</div>
 
 									</div>
 								</div>
-								<div class="col s12 display-flex justify-content-end mt-3">
-									{{ form_widget(form.submit) }}
-									<button type="button" class="btn btn-light">Cancel</button>
-								</div>
+								
+								
 							</div>
 							{{ form_end(form) }}
 							<!-- users edit account form ends -->
