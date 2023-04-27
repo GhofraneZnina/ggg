@@ -16,7 +16,7 @@ class CompetitionController extends AbstractController
         ;
     }
 
-    #[Route('/admin/competition', name: 'app_admin_comeptition')]
+    #[Route('/admin/competition', name: 'app_admin_competition')]
     public function index(Request $request): Response
     {
         if (!$this->getUser()) {
@@ -43,7 +43,7 @@ class CompetitionController extends AbstractController
 
         $this->addFlash('success','competition successfully created' );
 
-        return $this->redirectToRoute('app_admin_competition_list') ;
+        return $this->redirectToRoute('app_admin_competition') ;
     } else if ($form->isSubmitted() && !$form->isValid()) {
 
        //dd($form->getData());
@@ -64,11 +64,11 @@ class CompetitionController extends AbstractController
         $user = $this->getUser();
 
         
-        $competitionRepository = $this->em->getRepository(CotisationAnnuelle::class);
+        $competitionRepository = $this->em->getRepository(Competition::class);
        
         $competiton =$competitionRepository->find(['id'=>$id]);;
         if (!$competiton) {
-            return $this->redirectToRoute('app_admin_competition_list');
+            return $this->redirectToRoute('app_admin_competition');
         }
 
       
@@ -77,6 +77,6 @@ class CompetitionController extends AbstractController
         
         
         $this->addFlash('success','competition successfully deleted ' );
-        return $this->redirectToRoute('app_admin_competition_list');
+        return $this->redirectToRoute('app_admin_competition');
     }
 }
