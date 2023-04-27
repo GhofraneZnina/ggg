@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Form\Admin;
-use App\Entity\competition;
+use App\Entity\Competition;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CompetitionType extends AbstractType
 {
@@ -30,7 +32,7 @@ class CompetitionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-             'data_class' => competition::class,
+             'data_class' => Competition::class,
         ]);
     }
 }
