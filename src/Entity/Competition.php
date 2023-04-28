@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompetitionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,6 +31,14 @@ class Competition
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Minimas $minimas = null;
+
+    #[ORM\OneToMany(mappedBy: 'competition', targetEntity: ProgrammeCompetition::class)]
+    private Collection $programmeCompetitions;
+
+    public function __construct()
+    {
+        $this->programmeCompetitions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,6 +92,36 @@ class Competition
     public function setMinimas(?Minimas $minimas): self
     {
         $this->minimas = $minimas;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProgrammeCompetition>
+     */
+    public function getProgrammeCompetitions(): Collection
+    {
+        return $this->programmeCompetitions;
+    }
+
+    public function addProgrammeCompetition(ProgrammeCompetition $programmeCompetition): self
+    {
+        if (!$this->programmeCompetitions->contains($programmeCompetition)) {
+            $this->programmeCompetitions->add($programmeCompetition);
+            $programmeCompetition->setCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgrammeCompetition(ProgrammeCompetition $programmeCompetition): self
+    {
+        if ($this->programmeCompetitions->removeElement($programmeCompetition)) {
+            // set the owning side to null (unless already changed)
+            if ($programmeCompetition->getCompetition() === $this) {
+                $programmeCompetition->setCompetition(null);
+            }
+        }
 
         return $this;
     }

@@ -25,6 +25,9 @@ class Nage
     #[ORM\ManyToOne(inversedBy: 'nage')]
     private ?Minimas $minimas = null;
 
+    #[ORM\ManyToOne(inversedBy: 'nage')]
+    private ?ProgrammeCompetition $programmeCompetition = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Nage
     public function setMinimas(?Minimas $minimas): self
     {
         $this->minimas = $minimas;
+
+        return $this;
+    }
+
+    public function getProgrammeCompetition(): ?ProgrammeCompetition
+    {
+        return $this->programmeCompetition;
+    }
+
+    public function setProgrammeCompetition(?ProgrammeCompetition $programmeCompetition): self
+    {
+        $this->programmeCompetition = $programmeCompetition;
 
         return $this;
     }

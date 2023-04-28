@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProgrammeCompetitionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,8 +22,24 @@ class ProgrammeCompetition
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $horaire = null;
 
+   
+
     #[ORM\Column(length: 255)]
-    private ?string $typeNage = null;
+    private ?string $horaireDebut = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $horaireFin = null;
+
+    #[ORM\ManyToOne(inversedBy: 'programmeCompetitions')]
+    private ?Competition $competition = null;
+
+    #[ORM\OneToMany(mappedBy: 'programmeCompetition', targetEntity: Nage::class)]
+    private Collection $nage;
+
+    public function __construct()
+    {
+        $this->nage = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -40,26 +58,71 @@ class ProgrammeCompetition
         return $this;
     }
 
-    public function getHoraire(): ?\DateTimeInterface
+    
+
+   
+    public function getHoraireDebut(): ?string
     {
-        return $this->horaire;
+        return $this->horaireDebut;
     }
 
-    public function setHoraire(\DateTimeInterface $horaire): self
+    public function setHoraireDebut(string $horaireDebut): self
     {
-        $this->horaire = $horaire;
+        $this->horaireDebut = $horaireDebut;
 
         return $this;
     }
 
-    public function getTypeNage(): ?string
+    public function getHoraireFin(): ?string
     {
-        return $this->typeNage;
+        return $this->horaireFin;
     }
 
-    public function setTypeNage(string $typeNage): self
+    public function setHoraireFin(string $horaireFin): self
     {
-        $this->typeNage = $typeNage;
+        $this->horaireFin = $horaireFin;
+
+        return $this;
+    }
+
+    public function getCompetition(): ?competition
+    {
+        return $this->competition;
+    }
+
+    public function setCompetition(?competition $competition): self
+    {
+        $this->competition = $competition;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, nage>
+     */
+    public function getNage(): Collection
+    {
+        return $this->nage;
+    }
+
+    public function addNage(nage $nage): self
+    {
+        if (!$this->nage->contains($nage)) {
+            $this->nage->add($nage);
+            $nage->setProgrammeCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNage(nage $nage): self
+    {
+        if ($this->nage->removeElement($nage)) {
+            // set the owning side to null (unless already changed)
+            if ($nage->getProgrammeCompetition() === $this) {
+                $nage->setProgrammeCompetition(null);
+            }
+        }
 
         return $this;
     }
