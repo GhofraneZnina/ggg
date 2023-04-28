@@ -300,6 +300,7 @@
 												<th>id</th>
 												<th>Montant</th>
 												<th>Saison</th>
+												<th>Status paiement</th>
 												<th>Remarque</th>
 											</tr>
 										</thead>
@@ -311,6 +312,8 @@
 													<td>{{ cotisationAnnuelle.montant }}</td>
 													<td>{{cotisationAnnuelle.saison }}</td>
 													<td>{{ cotisationAnnuelle.remarque }}</td>
+													<td>{{ cotisationAnnuelle.statutPaiement}}</td>
+											
 												</tr>
 											{% endfor %}
 										</tbody>
