@@ -69,12 +69,16 @@ class Nageur extends User
 
     #[ORM\ManyToOne(inversedBy: 'nageur')]
     private ?Categorie $categorie = null;
+
+    #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: Performance::class)]
+    private Collection $performances;
  
 
     public function __construct()
     {
         $this->physionomies = new ArrayCollection();
         $this->cotisationAnnuelles = new ArrayCollection();
+        $this->performances = new ArrayCollection();
     }
 
 
@@ -302,6 +306,36 @@ class Nageur extends User
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Performance>
+     */
+    public function getPerformances(): Collection
+    {
+        return $this->performances;
+    }
+
+    public function addPerformance(Performance $performance): self
+    {
+        if (!$this->performances->contains($performance)) {
+            $this->performances->add($performance);
+            $performance->setNageur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerformance(Performance $performance): self
+    {
+        if ($this->performances->removeElement($performance)) {
+            // set the owning side to null (unless already changed)
+            if ($performance->getNageur() === $this) {
+                $performance->setNageur(null);
+            }
+        }
 
         return $this;
     }
