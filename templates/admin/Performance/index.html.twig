@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
-{% block title %}Les performance{% endblock %}
-{% block pageTitle %}Les performance{% endblock %}
+{% block title %}Les performances{% endblock %}
+{% block pageTitle %}Les performances{% endblock %}
 {% block levelOne %}
     <li class="breadcrumb-item"><a href="{{ path('app_admin_minimas_list') }}">Minimas</a></li>{% endblock %}
 {% block levelTwo %}{% endblock %}
@@ -158,6 +158,7 @@
                             <th>Chrono</th>
                             <th>date</th>
                             <th>Type </th>
+                            <th>Nageur </th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -169,6 +170,7 @@
                                 <td>{{ performance.chrono }}</td>
                                 <td>{{ performance.date|date('Y-m-d') }}</td>
                                 <td>{{ performance.type }}</td>
+                                <td>{{ performance.nageur.nom }}</td>
                                 <td>
                                     <a href="{{ path('app_admin_performance_delete', {'id': performance.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
                                    
