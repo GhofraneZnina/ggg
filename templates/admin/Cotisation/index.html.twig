@@ -28,7 +28,7 @@
 						<div
 							class="col s12" id="account">
 							<!-- users edit media object ends -->
-						
+						 
 							{{ form_start(form) }}
 							<div class="row">
 								<div class="col s12 ">
@@ -39,15 +39,16 @@
 											<label class="active">Montant</label>
 											<small class="errorTxt2"></small>
 										</div>
-										<div class="col -12 m6 input-field" id="view-switches">
-											{{ form_widget(form.statutPaiement, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
-											<label class="active">Statut Paiement</label>
+										<div class="col s12 m6 input-field" id="view-switches">
+										<label class="active">Statut Paiement</label>
+											
+											
 											<div class="switch mb-1">
 												<label>
-													payé
-													<input checked type="checkbox">
+													nonpayé
+													{{ form_widget(form.statutPaiement, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
 													<span class="lever"></span>
-													non
+													 payé
 												</label>
 											</div>
 											<small class="errorTxt2"></small>
@@ -189,7 +190,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
+							<tbody> 
 								{% for cotisation in cotisation %}
 									<tr>
 										<td></td>
@@ -197,7 +198,7 @@
 										<td>{{ cotisation.montant}}</td>
 										<td>{{ cotisation.nageur.prenom ~ ' ' ~ cotisation.nageur.nom }}</td>
 										<td>{{ cotisation.saison.intitule }}</td>
-										<td>{{ cotisation.statutPaiement }}</td>
+										<td>{{ cotisation.statutPaiement ? "payé" : " non payé" }} </td>
 										<td>{{ cotisation.remarque }}</td>
 
 										<td>
