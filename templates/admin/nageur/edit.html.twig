@@ -138,13 +138,31 @@
 										<label class="active">genre</label>
 										<small class="errorTxt8"></small>
 									</div>
+									<div class="col s12 m6 input-field">
+									{{ form_widget(form.parent, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+									<label class="active">parent</label>
+									<small class="errorTxt8"></small>
+								</div>
+
+								<div class="col s12 m6 input-field">
+								{{ form_widget(form.categorie, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+								<label class="active">categorie</label>
+								<small class="errorTxt8"></small>
+							</div>
+
+							<div class="col s12 m6 input-field">
+										{{ form_widget(form.groupe, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt8'}}) }}
+										<label class="active">groupe</label>
+										<small class="errorTxt8"></small>
+									</div>
+
 
                                     
 								</div>
 							</div>
 							<div class="col s12 display-flex justify-content-end mt-3">
 								{{ form_widget(form.submit, {'label': 'Modidier'}) }}
-								<button type="button" class="btn btn-light">Cancel</button>
+								<button type="button" class="btn btn-light">annuler</button>
 							</div>
 						</div>
 						{{ form_end(form) }}
