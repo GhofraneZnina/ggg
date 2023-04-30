@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des programme des competitions
+{% block title %}Liste des programmes des competitions
 {% endblock %}
-{% block pageTitle %}Liste des programme des competitions
+{% block pageTitle %}Liste des programmes des competitions
 {% endblock %}
 {% block levelOne %}
 	<li class="breadcrumb-item">
@@ -51,14 +51,18 @@
 										<label class="active">Horaire Fin</label>
 										<small class="errorTxt2"></small>
                                         </div>
+
+										<div class="col s12 m6 input-field">
+										{{ form_widget(form.nage, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+										<label class="active">Nage</label>
+										<small class="errorTxt2"></small>
+                                        </div>
+
+										<div class="col s12 display-flex justify-content-end mt-3">
+											{{ form_widget(form.submit) }}
+											<button type="button" class="btn btn-light">Cancel</button>
+										</div>
 									</div>
-										
-                                        
-									</div>
-								</div>
-								<div class="col s12 display-flex justify-content-end mt-3">
-									{{ form_widget(form.submit) }}
-									<button type="button" class="btn btn-light">Cancel</button>
 								</div>
 							</div>
 							{{ form_end(form) }}
@@ -72,7 +76,7 @@
 
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"></a>
 		</div>
 	</div>
 
