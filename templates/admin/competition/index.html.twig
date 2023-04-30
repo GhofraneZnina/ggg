@@ -53,12 +53,12 @@
 										{{ form_widget(form.dateFin,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
 									    </div>
-                                        
+
+										<div class="col s12 display-flex justify-content-end mt-3">
+											{{ form_widget(form.submit) }}
+											<button type="button" class="btn btn-light">Cancel</button>
+										</div>
 									</div>
-								</div>
-								<div class="col s12 display-flex justify-content-end mt-3">
-									{{ form_widget(form.submit) }}
-									<button type="button" class="btn btn-light">Cancel</button>
 								</div>
 							</div>
 							{{ form_end(form) }}
