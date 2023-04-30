@@ -14,13 +14,13 @@ class ProgrammeCompetitionType extends AbstractType
     {
         $builder
            
-            ->add('date', TextType::class,
-            [
-                'invalid_message'=> 'please check your information',
-                'label'=>false,
-                'required'=> false,'mapped'=>false,
+        ->add('date', TextType::class,
+        [
+            'invalid_message'=> 'please check your information',
+            'label'=>false,
+            'required'=> false,'mapped'=>false,
 
-            ])
+        ])
            
              ->add('horaireDebut')
              ->add('horaireFin')

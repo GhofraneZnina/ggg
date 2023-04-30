@@ -17,6 +17,7 @@ class ProgrammeCompetitionController extends AbstractController
     }
 
     #[Route('/admin/Programmecompetition', name: 'app_admin_programmeCompetition')]
+    
     public function index(Request $request): Response
     {
         if (!$this->getUser()) {
@@ -24,33 +25,36 @@ class ProgrammeCompetitionController extends AbstractController
      }
 
     //create 
-    $programme = new ProgrammeCompetition() ;
+    $programme = new programmeCompetition() ;
     $form = $this->createForm(ProgrammeCompetitionType::class, $programme);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
         $data = $request->request->all();
-
-        $date = str_replace('/', '-', $data['programmeCompetition']['date']);
-        $dataTime = new \DateTime($date);
-        $programme->setDate($dataTime);
-        
+    
        
- 
-         $this->em->persist($programme);
-         $this->em->flush();
+            $date = str_replace('/', '-', $data['programme_competition']['date']);
+            $dataTime = new \DateTime($date);
+            $programme->setDate($dataTime);
+    
+            $this->em->persist($programme);
+            $this->em->flush();
+    
+            $this->addFlash('success','programme successfully created');
+    
+            return $this->redirectToRoute('app_admin_programmeCompetition');
+        } 
+   
 
-        $this->addFlash('success',' programme competition successfully created' );
-
-        return $this->redirectToRoute('app_admin_programme competition') ;
-    } else if ($form->isSubmitted() && !$form->isValid()) {
+       
+     else if ($form->isSubmitted() && !$form->isValid()) {
 
        //dd($form->getData());
         $this->addFlash('error','check your data');
      }
      //  TODO : create new competition : END 
      
-    $pprogramme= $this->em->getRepository(ProgrammeCompetition::class)->findAll() ;
-     return $this->render('admin/programmeCompetition/index.html.twig', [
+    $programme = $this->em->getRepository(ProgrammeCompetition::class)->findAll() ;
+     return $this->render('admin/ProgrammeCompetition/index.html.twig', [
         'form' => $form->createView(),
         'programme' => $programme,
      ]);

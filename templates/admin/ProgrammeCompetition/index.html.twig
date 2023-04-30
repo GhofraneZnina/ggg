@@ -15,7 +15,7 @@
 
 	<!-- Modal Trigger -->
 	{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
-		<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    "> ajouter competitions</a>
+		<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    "> Ajouter Programme</a>
 	<!-- Modal Structure -->
 	<div id="modal1" class="modal modal-fixed-footer">
 		<div class="modal-content">
@@ -37,7 +37,7 @@
 										<div
 										class="col s12 m6 input-field" id="view-date-picker-2">
 										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
-										<label for="nageur_dateLicence">date  </label>
+										<label for="programme_date">date</label>
 										{{ form_widget(form.date,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
 									    </div>
@@ -185,7 +185,7 @@
 										<td>
 
 
-											<a href="{{ path('app_admin_prorammeCompetition_delete',{'id': programme.id}) }}">
+											<a href="{{ path('app_admin_programmeCompetition_delete',{'id': programme.id}) }}">
 												<i class="btn-small btn-light-pink">supprimer</i>
 											</a>
 
