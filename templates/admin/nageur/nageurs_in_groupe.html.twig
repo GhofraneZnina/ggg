@@ -91,6 +91,9 @@
                 <td>{{ nageur.nom }}</td>
                 <td>{{ nageur.prenom }}</td>
                 <td>
+                <a href="{{ path('app_admin_presence_list',{'id': nageur.id}) }}"><i class="material-icons">remove_red_eye</i></a>
+                </td>
+                <td>
                     <!-- Modal Trigger -->
                     <a data-target="modal{{ nageur.id }}" class="btn modal-trigger waves-effect waves-light breadcrumbs-btn right">Ajouter Presence</a>
                     <!-- Modal Structure -->
@@ -135,6 +138,8 @@
                         </div>
                     </div>
                 </td>
+                
+                
             </tr>
         {% endfor %}
     </tbody>

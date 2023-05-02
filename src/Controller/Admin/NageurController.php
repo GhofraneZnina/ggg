@@ -74,7 +74,8 @@ class NageurController extends AbstractController
           //dd($form->getData());
              $this->addFlash('error','check your data');
           }
-
+         // listing presence
+         
         return $this->render('admin/nageur/nageurs_in_groupe.html.twig', [
             'groupe' => $groupe,
             'nageurs' => $nageurs,
@@ -83,6 +84,17 @@ class NageurController extends AbstractController
     }
    
 ////
+        #[Route('/admin/presence/{id}', name: 'app_admin_presence_list')]
+        public function list(Nageur $nageur): Response
+        {
+            $presence = $nageur->getPresences();
+
+            return $this->render('admin/presence/index.html.twig', [
+                'presence' => $presence,
+                'nageur' => $nageur
+            ]);
+        }
+///
     #[Route('/admin/nageur/create', name: 'app_admin_nageur_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): response
     {

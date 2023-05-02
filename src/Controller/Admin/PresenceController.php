@@ -21,7 +21,7 @@ class PresenceController extends AbstractController
 
    
 
-    #[Route('/admin/presence', name: 'app_admin_presence_list')]
+    #[Route('/admin/presence', name: 'app_admin_presence_liste')]
     public function index(): Response
     {
         
