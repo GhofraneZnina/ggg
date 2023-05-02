@@ -5,8 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Nageur;
 use App\Entity\Groupe;
 use App\Entity\Seance;
+use App\Entity\Presence;
 use App\Form\Admin\NageurType;
 use App\Form\Admin\NageurTypee;
+use App\Form\Admin\PresenceType;
 use App\Entity\Physionomie;
 use App\Form\Admin\PhysionomieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +43,46 @@ class NageurController extends AbstractController
             'nageurs' => $nageurs,
         ]);
     }
+    ////
+    #[Route('admin/groupe/{id}/nageurs', name: 'app_admin_nageur_liste')]
+    public function nageursInGroupe($id): Response
+    {
+        $groupe =  $this->em->getRepository(Groupe::class)->find($id);
 
+        if (!$groupe) {
+            throw $this->createNotFoundException('Groupe non trouvé pour id '.$id);
+        }
+
+        $nageurs = $groupe->getNageur();
+        $nageurs = $this->em->getRepository(Nageur::class)->findOneBy(['id' => $id]);
+        //create presence
+        $presence = new Presence() ;
+        $presence->setNageur($nageurs);
+         $form = $this->createForm(PresenceType::class, $presence);
+         
+         if ($form->isSubmitted() && $form->isValid()) {
+
+              $this->em->persist($presence);
+              $this->em->flush();
+
+           $this->addFlash('success','presence successfully created' );
+
+             return $this->redirectToRoute('app_admin_presence_create') ;
+         }
+          else if ($form->isSubmitted() && !$form->isValid()) {
+
+          //dd($form->getData());
+             $this->addFlash('error','check your data');
+          }
+
+        return $this->render('admin/nageur/nageurs_in_groupe.html.twig', [
+            'groupe' => $groupe,
+            'nageurs' => $nageurs,
+            'form' => $form->createView(),
+        ]);
+    }
+   
+////
     #[Route('/admin/nageur/create', name: 'app_admin_nageur_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): response
     {
@@ -165,6 +206,7 @@ class NageurController extends AbstractController
 
         return $this->render('admin/Nageur/edit.html.twig', [
             'form' => $form->createView(),
+           
         ]);
     }
 
