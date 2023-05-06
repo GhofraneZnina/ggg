@@ -8636,8 +8636,9 @@ textarea.materialize-textarea
     position: absolute;
 
     pointer-events: none;
-
-    opacity: 0;
+    opacity: 1 !important;
+/*Kaouther mejri*/
+  /*  opacity: 0;*/
 }
 
 [type='checkbox']

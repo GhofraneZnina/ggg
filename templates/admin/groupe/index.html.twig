@@ -1,4 +1,7 @@
 {% extends "base.html.twig" %}
+ {% block stylesheets %}
+     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/data-tables.css') }}"> 
+      {% endblock %}
 {% block title %}Liste des groupes{% endblock %}
 {% block pageTitle %}Liste des groupes{% endblock %}
 {% block levelOne %}
@@ -53,59 +56,19 @@
     {% endfor %} 
     {#  Show alert : END  #}
     <section class="users-list-wrapper section">
-        <div class="users-list-filter">
-            <div class="card-panel">
-                <div class="row">
-                    <form>
-                          <div class="col s12 m6 l3">
-                            <label for="users-list-verified">Verified</label>
-                            <div class="input-field">
-                                <select class="form-control" id="users-list-verified">
-                                    <option value="">Any</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col s12 m6 l3">
-                            <label for="users-list-role">Role</label>
-                            <div class="input-field">
-                                <select class="form-control" id="users-list-role">
-                                    <option value="">Any</option>
-                                    <option value="User">groupe</option>
-                                    <option value="Staff">Staff</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col s12 m6 l3">
-                            <label for="users-list-status">Status</label>
-                            <div class="input-field">
-                                <select class="form-control" id="users-list-status">
-                                    <option value="">Any</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Close">Close</option>
-                                    <option value="Banned">Banned</option>
-                                </select>
-                            </div>
-                        </div>  
-                        <div class="col s12 m6 l3 display-flex align-items-center show-btn">
-                            <button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <div class="users-list-table">
             <div class="card">
                 <div class="card-content">
                     <!-- datatable start -->
-                    <div class="responsive-table">
-                        <table id="users-list-datatable" class="table">
+                    {# <div class="responsive-table"> #}
+                  <div class="row">
+            <div class="col s12">
+                        {# <table id="users-list-datatable" class="table"> #}
+<table id="page-length-option" class="display">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th>id</th>
-                                    
                                     <th>Intitule</th>
                                     <th>Entraineur</th>
                                     <th>Action</th> 
@@ -127,6 +90,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     <!-- datatable ends -->
                 </div>

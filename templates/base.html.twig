@@ -12,26 +12,63 @@
     <meta name="author" content="ThemeSelect">
     <title> {% block title %}{% endblock %} | Mon Club</title>
     <link rel="apple-touch-icon" href="{{ asset('assets/app-assets/images/favicon/apple-touch-icon-152x152.png') }}">
-    <link rel="shortcut icon" type="image/x-icon"
-          href="{{ asset('assets/app-assets/images/favicon/favicon-32x32.png') }}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- BEGIN: VENDOR CSS-->
+    {% block stylesheets %} {% endblock %}
+        <!-- BEGIN: VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/vendors.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/flag-icon/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
+
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/flag-icon/css/flag-icon.min.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/data-tables/css/jquery.dataTables.min.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css"> #}
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/data-tables/css/select.dataTables.min.css">
     <!-- END: VENDOR CSS-->
     <!-- BEGIN: Page Level CSS-->
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/app-assets/css/themes/vertical-modern-menu-template/materialize.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/app-assets/css/themes/vertical-modern-menu-template/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/page-users.css') }}">
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/vertical-modern-menu-template/materialize.css"> 
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/vertical-modern-menu-template/style.css">
+#}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/themes/vertical-modern-menu-template/materialize.css') }}">
+     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/themes/vertical-modern-menu-template/style.css') }}">
+
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/data-tables.css"> #}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/data-tables.css') }}">
+
     <!-- END: Page Level CSS-->
     <!-- BEGIN: Custom CSS-->
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/css/custom/custom.css"> #}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/custom/custom.css') }}">
+
     <!-- END: Custom CSS-->
+
+    <!-- BEGIN: VENDOR CSS-->
+    {# <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}"> #}
+    <!-- END: VENDOR CSS-->
+    <!-- BEGIN: Page Level CSS-->
+    {# <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/themes/vertical-modern-menu-template/materialize.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/themes/vertical-modern-menu-template/style.css') }}"> #}
+    {# <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/page-users.css') }}"> #}
+    <!-- ***** -->
+    <!-- END: Page Level CSS-->
+    <!-- BEGIN: Custom CSS-->
+    {# <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/custom/custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/data-tables.css') }}"> #}
+        {# <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/data-tables.css"> #}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/flag-icon/css/flag-icon.min.css') }}">
+
+    {# <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/data-tables/css/select.dataTables.min.css') }}"> #}
+        {# <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/data-tables.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/vendors.min.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/flag-icon/css/flag-icon.min.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/data-tables/css/jquery.dataTables.min.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css"> #}
+    {# <link rel="stylesheet" type="text/css" href="../app-assets/vendors/data-tables/css/select.dataTables.min.css"> #}
+    <!-- END: Custom CSS-->
+      {# {% endblock %} #}
+   
 </head>
 <!-- END: Head-->
 <body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu preload-transitions 2-columns   "
@@ -42,11 +79,11 @@
     <div class="navbar navbar-fixed">
         <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
             <div class="nav-wrapper">
-                <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
+                {# <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
                     <input class="header-search-input z-depth-2" type="text" name="Search"
                            placeholder="Explore Materialize" data-search="template-list">
                     <ul class="search-list collection display-none"></ul>
-                </div>
+                </div> #}
                 <ul class="navbar-list right">
               
               
@@ -281,7 +318,9 @@
         <div class="col s12">
             <div class="container">
                 <!-- users list start -->
-                {% block body %}    Hello Walid  {% endblock %}
+                {% block body %}  
+                  <br/><br/><br/><br/><br/>
+                {% endblock %}
                 <!-- users list ends --><!-- START RIGHT SIDEBAR NAV -->
                 <aside id="right-sidebar-nav">
                     <div id="slide-out-right" class="slide-out-right-sidenav sidenav rightside-navigation">
@@ -1117,12 +1156,17 @@
 </footer>
 
 <!-- END: Footer-->
+<!-- Begin JS -->
+		{% block javascripts %} {% endblock %}
+
 <!-- BEGIN VENDOR JS-->
 <script src="{{ asset('assets/app-assets/js/vendors.min.js') }}"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
 <script src="{{ asset('assets/app-assets/vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/app-assets/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('assets/app-assets/vendors/data-tables/js/scripts/data-tables.js') }}"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN THEME  JS-->
 <script src="{{ asset('assets/app-assets/js/plugins.js') }}"></script>
@@ -1138,6 +1182,8 @@
 <script src="{{ asset('assets/app-assets/js/scripts/form-elements.js') }}"></script> 
 <!-- END PAGE LEVEL JS-->
 
-<script src="{{asset('assets/app-assets/js/scripts/page-account-settings.js')}}"></script
+<script src="{{asset('assets/app-assets/js/scripts/page-account-settings.js')}}"></script>
+{# {% endblock %} #}
+<!-- Begin JS -->
 </body>
 </html>

@@ -1,0 +1,66 @@
+
+{% extends 'themeLogin.html.twig' %} 
+{# {% extends 'base.html.twig' %} #}
+{% block body %} 
+     <h5 class="ml-4"> Register</h5>
+  
+         <!-- users edit media object ends -->
+                            {{ form_start(registrationForm) }}
+
+                            <div class="row">
+                                <div class="col s12 ">
+                                    <div class="row">
+                                        <div class="col s12 input-field">
+                                            {{ form_widget(registrationForm.email, {'attr': {'class': 'registrationForm-control', 'data-error' :'.errorTxt3'}}) }}
+                                            <label class="active">Email</label>
+                                            <small class="errorTxt3"></small>
+                                        </div>
+                                        <div class="col s12 input-field">
+                                            {{ form_widget(registrationForm.login, {'required' : true  ,'attr': {'class': 'registrationForm-control', 'data-error' :'.errorTxt6'}}) }}
+                                            <label class="active">Login</label>
+                                            <small class="errorTxt6"></small>
+                                        </div>
+
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(registrationForm.password.first, {'required' : true  ,'attr': {'class': 'registrationForm-control', 'data-error' :'.errorTxt7'}}) }}
+                                            <label class="active">Password</label>
+                                            <small class="errorTxt7"></small>
+                                        </div>
+
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(registrationForm.password.second, {'attr': {'class': 'registrationForm-control', 'data-error' :'.errorTxt8'}}) }}
+                                            <label class="active">Confirm password</label>
+                                            <small class="errorTxt8"></small>
+                                        </div>
+                                         <div class="col s12 input-field">
+                                         {{ form_row(registrationForm.agreeTerms) }}
+                                        </div> 
+                                {# <div class="col s12 display-flex justify-content-end ">
+                                    {{ form_widget(registrationForm.submit) }}
+                                </div> #}
+
+                                 <div class="col s12 m6 input-field">
+ {# <a href="{{ path('login') }}"  
+ class="btn indigo" 
+ role="button"> login</a> #}
+
+                                        </div>
+
+                                        <div class="col s12 m6 input-field">
+                                            {{ form_widget(registrationForm.submit) }}
+                                        </div>
+
+                            </div>
+
+  <div class="col s12 input-field">
+                           {# <label class="active">agreeTerms</label> #}
+                           {{ form_end(registrationForm) }}
+                            </div>
+                        
+
+                        <!-- users edit account registrationForm ends -->
+<br/><br/><br/><br/>
+ <br/><br/><br/><br/><br/>
+       
+{# {% endblock %} #}
+{% endblock %}
