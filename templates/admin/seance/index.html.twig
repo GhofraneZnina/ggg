@@ -163,6 +163,8 @@
                                     <th>Horaire Fin</th> 
                                     <th>Jour</th> 
                                     <th>Groupe</th> 
+                                    <th>Action</th>
+                                    
                                     
                                 </tr>   
                             </thead>
@@ -170,28 +172,25 @@
                                 {% for seance in seance %}
                                     <tr>
                                         <td></td>
-                                        <td> {{ seance.id }}</td>
-                                        
+                                        <td> {{ seance.id }}</td>                                       
                                         <td>{{ seance.horaireDebut }}</td> 
                                         <td>{{ seance.horaireFin }}</td>
                                         <td>{{ seance.jour}}</td>
-                                        <td>
-                                            {% for groupe in seance.groupe %}
-                                                {{ groupe.intitule}}
-                                            {% endfor %}
-                                        </td>
-                                        <td>
-											
-										
-										
-											<a href="{{ path('app_admin_seance_delete',{'id': seance.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
-
-										</td>
-
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                         <td>
+                                    {% if seance.groupe|length > 0 %}
+                                        {{ seance.groupe[0].intitule }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_admin_seance_delete',{'id': seance.id}) }}"><i class="btn-small btn-light-pink">supprimer</i></a>
+                                    {% if seance.groupe|length > 0 %}
+                                        <a href="{{ path('app_admin_nageur_liste', {'id': seance.groupe[0].id}) }}"><i class="material-icons">remove_red_eye</i></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
                     </div>
                     <!-- datatable ends -->
                 </div>

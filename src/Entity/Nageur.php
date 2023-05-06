@@ -72,6 +72,9 @@ class Nageur extends User
 
     #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: Performance::class)]
     private Collection $performances;
+
+    #[ORM\OneToMany(mappedBy: 'nageur', targetEntity: Presence::class)]
+    private Collection $presences;
  
 
     public function __construct()
@@ -79,6 +82,7 @@ class Nageur extends User
         $this->physionomies = new ArrayCollection();
         $this->cotisationAnnuelles = new ArrayCollection();
         $this->performances = new ArrayCollection();
+        $this->presences = new ArrayCollection();
     }
 
 
@@ -334,6 +338,36 @@ class Nageur extends User
             // set the owning side to null (unless already changed)
             if ($performance->getNageur() === $this) {
                 $performance->setNageur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Presence>
+     */
+    public function getPresences(): Collection
+    {
+        return $this->presences;
+    }
+
+    public function addPresence(Presence $presence): self
+    {
+        if (!$this->presences->contains($presence)) {
+            $this->presences->add($presence);
+            $presence->setNageur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresence(Presence $presence): self
+    {
+        if ($this->presences->removeElement($presence)) {
+            // set the owning side to null (unless already changed)
+            if ($presence->getNageur() === $this) {
+                $presence->setNageur(null);
             }
         }
 

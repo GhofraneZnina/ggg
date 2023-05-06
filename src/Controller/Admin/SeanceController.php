@@ -46,11 +46,14 @@ class SeanceController extends AbstractController
         $this->addFlash('error','check your data');
      }
      //  TODO : create new seance : END 
-     
+    
     $seance = $this->em->getRepository(Seance::class)->findAll() ;
      return $this->render('admin/seance/index.html.twig', [
         'form' => $form->createView(),
         'seance' => $seance,
+        
+        
+
      ]);
 
 

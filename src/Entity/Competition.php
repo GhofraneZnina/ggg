@@ -35,9 +35,13 @@ class Competition
     #[ORM\OneToMany(mappedBy: 'competition', targetEntity: ProgrammeCompetition::class)]
     private Collection $programmeCompetitions;
 
+    
+
     public function __construct()
     {
         $this->programmeCompetitions = new ArrayCollection();
+        
+        
     }
 
     public function getId(): ?int
@@ -125,4 +129,8 @@ class Competition
 
         return $this;
     }
+
+    
+    
+    
 }

@@ -21,31 +21,37 @@
     
             
 		<div class="card">
-			<div class="card-content">
-				<div class="divider mb-3"></div>
-				<div class="row">
-					<div
-						class="col s12" id="account">
-						<!-- users edit media object ends -->
-						{{ form_start(form) }}
-						<div class="row">
-							<div class="col s12 ">
-								<div class="row">
-									
-									<div class="col s12 m6 input-field">
-										{{ form_widget(form.horaireDebut, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
-										<label class="active">Horaire Debut</label>
-										<small class="errorTxt2"></small>
-									</div>
-									<div class="col s12 input-field">
-										{{ form_widget(form.horaireFin, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-										<label class="active">Horaire Fin</label>
-										<small class="errorTxt3"></small>
-									</div>
-                                   <div
+				<div class="card-content">
+					<div class="divider mb-3"></div>
+					<div class="row">
+						<div
+							class="col s12" id="account">
+							<!-- users edit media object ends -->
+						 
+							{{ form_start(form) }}
+							<div class="row">
+								<div class="col s12 ">
+									<div class="row">
+
+										<div class="col s12 m6 input-field">
+											{{ form_widget(form.horaireDebut, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+											<label class="active">Horaire Debut</label>
+											<small class="errorTxt2"></small>
+										</div>
+										
+										<div class="col s12 input-field">
+											{{ form_widget(form.horaireFin, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+											<label class="active">Horaire Fin</label>
+											<small class="errorTxt3"></small>
+										</div>
+                                        
+										
+										
+										
+										<div
 										class="col s12 m6 input-field" id="view-date-picker-2">
 										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
-										<label for="saison_dateDebut">Jour</label>
+										<label for="seance_dateDebut">Jour</label>
 										{{ form_widget(form.jour,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
 									</div>
@@ -58,21 +64,24 @@
                                     
 									 
 									
+								
+										<div class="col s12 display-flex justify-content-end mt-3">
+											{{ form_widget(form.submit) }}
+											<button type="button" class="btn btn-light">Cancel</button>
+										</div>
 									
+									</div>
 								</div>
 							</div>
-							<div class="col s12 display-flex justify-content-end mt-3">
-								{{ form_widget(form.submit) }}
-								<button type="button" class="btn btn-light">Cancel</button>
-							</div>
+							{{ form_end(form) }}
+							<!-- users edit account form ends -->
 						</div>
-						{{ form_end(form) }}
-						<!-- users edit account form ends -->
 					</div>
 				</div>
-			</div>	<!-- </div> -->
-			
-		</div>
+				<!-- </div> -->
+
+			</div>
+
 
   </div>
   <div class="modal-footer">

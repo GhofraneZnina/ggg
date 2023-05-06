@@ -26,6 +26,8 @@ class Entraineur extends User
     #[ORM\OneToMany(mappedBy: 'entraineur', targetEntity: Groupe::class)]
     private Collection $groupes;
 
+    
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
@@ -127,6 +129,10 @@ class Entraineur extends User
     
         return $seancesByDay;
     }
+
+    
+
+    
 
 }
 ?>
