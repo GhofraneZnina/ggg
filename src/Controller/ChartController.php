@@ -26,6 +26,9 @@ use Symfony\UX\Chartjs\Model\Chart;
 
 class ChartController extends AbstractController
 {
+    public function __construct(private EntityManagerInterface $em) {
+        ;
+    }
     #[Route('/chart', name: 'app_chart')]
     public function statistiques(
         UserRepository $userRepo, EntraineurRepository $entraineurRepo,
@@ -36,7 +39,7 @@ class ChartController extends AbstractController
             $repository = $entityManager->getRepository(Groupe::class);
             $groupes = $repository->findAll();
        
-      $users = $this->em->getRepository(User::class)->findAll();
+      $users =$this->em->getRepository(User::class)->findAll();
 
         $categNom = [];
         $categColor = [];
