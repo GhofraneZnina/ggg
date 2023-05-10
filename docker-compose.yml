@@ -1,21 +1,36 @@
-version: '3'
-
+version : '3'
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-15}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+  db-natation:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    hostname: db-natation
+    ports:
+      - 3308:3306
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
-
-volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+      - ./data/data-mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: club
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: project_phpmyadmin
+      depends_on:
+        - db-natation
+      environment:
+        PMA_HOST: db-natation
+        PMA_PORT: 3306
+        PMA_ARBITRARY: 1
+      ports:
+        - "81:80"
+  app_natation:
+    
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '88:80'
+    depends_on:
+      - db-natation
+    environment:
+      APP_ENV: dev

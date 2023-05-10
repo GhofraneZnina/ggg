@@ -1,3 +1,6 @@
-php bin/console d:m:m --no-interaction
-php bin/console app:create-user demo@demo.com password
-exec apache2-foreground
+#!/bin/bash
+
+php bin/console doctrine:database:create --if-not-exists
+
+php bin/console d:s:u --dump-sql --force
+php bin/console c:c
