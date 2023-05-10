@@ -45,7 +45,7 @@ RUN chmod +x ./script.sh
 #CMD ["apache2-foreground"]
 #CMD ["./script.sh"]
 #CMD ["apache2-foreground"]
-CMD ["./script.sh"]
+#CMD ["./script.sh"]
 RUN chown www-data:www-data ./script.sh
 EXPOSE 82
 #EXPOSE 82
