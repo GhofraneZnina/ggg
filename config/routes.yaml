@@ -5,3 +5,25 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+#entraineurprofile    
+entraineur_entraineurprofile:
+    path: /admin/entraineur/entraineurprofile
+    controller: App\Controller\Admin\EntraineurController::entraineurprofile
+#nageurprofile
+nageur_nageurprofile:
+    path: /admin/nageur/nageurprofile
+    controller: App\Controller\Admin\NageurController::nageurprofile
+
+parent_parentprofile:
+    path: /admin/parent/parentprofile
+    controller: App\Controller\Admin\ParentController::parentprofile
+
+#entraineur
+# entraineur_entraineur:
+#     path: /base/entraineur/entraineur
+#     controller: App\Controller\Base\EntraineurController::entraineur
+
+
+# blog_list:
+#     path: /blog
+#     controller: App\Controller\BlogController::list

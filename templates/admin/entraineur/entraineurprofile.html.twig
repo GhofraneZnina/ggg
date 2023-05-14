@@ -1,0 +1,80 @@
+{# entraineurprofile 								
+<span class="users-view-username">{{ entraineurs.prenom ~ ' ' ~ entraineurs.nom }}
+ #}
+{# {% extends "base.html.twig" %} #}
+{# {% extends "base/entraineur.html.twig" %}  #}
+{# {% extends "entraineur.html.twig" %} #}
+{% extends 'base/entraineur.html.twig' %}
+{% block title %} Profile Entraineur
+{% endblock %}
+{% block pageTitle %} Profile Entraineur
+{% endblock %}
+{% block levelOne %}
+	{# <li class="breadcrumb-item">
+		<a href="{{ path('app_admin_nageur_list') }}">Users</a>
+	</li> #}
+{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+	<div class="col s2 m6 l6">
+		{# <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_create') }}">
+			Create entraineur</a> 
+        #}
+	</div>
+{% endblock %}
+
+{% block body %}
+ <!-- BEGIN: SideNav-->
+			{#  
+<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">																																						              </li>
+<li><a class="collapsible-header waves-effect waves-cyan" href="JavaScript:void(0)">
+<i class="material-icons">radio_button_unchecked</i>
+<span data-i18n="Second level child">Second level child</span></a>																															    </aside> #}
+			<!-- END: SideNav-->
+			<!-- BEGIN: Page Main-->
+			{# <div id="main">																								        <div class="col s12">
+																																													          <div class="container"> #}
+			<!-- Account settings -->
+				<section class="tabs-vertical mt-1 section"> 
+                <div class="row">
+					<div class="card-panel">
+						<div class="row">
+							<div class="col s12 m7">
+                            <div align="center" style="margin-left: 50%;">
+                              <a href="#" class="avatar">
+										<img src="{{asset('assets/app-assets/images/avatar/avatar-15.png')}}" 
+                                        class="z-depth-4 circle" height="100" width="100">
+									</a>
+                                    </div>
+
+								<div class="display-flex media">
+
+									<div class="media-body">
+                                            Nom : {{ app.user.nom }} <br/>
+                                            Prenom : {{ app.user.prenom }} <br/>
+                                            Email : {{ app.user.email }} <br/>
+                                            Telephone : {{ app.user.telephone }} <br/>
+
+									
+										{# <span>ID:</span>
+										<span class="users-view-ID">
+                                        </span> #}
+									</div>
+								</div>
+							</div>
+
+							<div class="col s12 m5 quick-action-btns display-flex justify-content-end align-items-center pt-2">
+							</div>
+
+						</div>
+					</div>
+					
+			</head>
+		</html>
+	</div>
+</div></head></head></html></head></head></html></head></html>
+</section>
+<!-- START RIGHT SIDEBAR NAV -->
+</body></html>
+{% endblock %}

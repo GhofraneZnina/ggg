@@ -1,5 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    # paths:
+    #    'email/default/templates': ~
+    #    'backend/templates': ~
+    #    'email/default/templates': 'email'
+    #    'backend/templates': 'admin'
 
 when@test:
     twig:

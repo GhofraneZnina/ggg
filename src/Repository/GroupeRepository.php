@@ -20,7 +20,12 @@ class GroupeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Groupe::class);
     }
-
+    public function findAll()
+    {
+       // return $this->findBy(array(), array('username' => 'ASC'));
+       //getIntitule
+        return $this->findBy(array(), array('intitule' => 'ASC'));
+    }
     public function save(Groupe $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

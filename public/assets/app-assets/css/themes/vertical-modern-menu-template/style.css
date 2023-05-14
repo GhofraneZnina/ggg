@@ -7314,8 +7314,10 @@ li.home:before
 .gradient-45deg-indigo-purple
 {
     background: #303f9f;
-    background: -webkit-linear-gradient(45deg, #303f9f, #7b1fa2) !important;
-    background:         linear-gradient(45deg, #303f9f, #7b1fa2) !important;
+    /* background: -webkit-linear-gradient(45deg, #303f9f, #7b1fa2) !important;*/
+    /* background:         linear-gradient(45deg, #303f9f, #7b1fa2) !important; */
+    background: linear-gradient(45deg, #303f9f, #3949ab) !important;
+
 }
 
 .gradient-45deg-indigo-purple.gradient-shadow
@@ -9234,8 +9236,12 @@ nav.display-none.search-sm .nav-wrapper form .input-field i
 
     color: #fff;
     background: -webkit-linear-gradient(45deg, #303f9f, #7b1fa2);
-    background:         linear-gradient(45deg, #303f9f, #7b1fa2);
-    box-shadow: 3px 3px 20px 0 rgba(123, 31, 162, .5);
+    /* background:         linear-gradient(45deg, #303f9f, #7b1fa2); */
+
+    background: linear-gradient(45deg, #303f9f, #3f51b5);
+    box-shadow: 3px 3px 20px 0 #3949ab;
+
+    /* box-shadow: 3px 3px 20px 0 rgba(123, 31, 162, .5); */
 }
 
 .sidenav li a.active i

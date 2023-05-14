@@ -2,6 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
+use App\Form\Admin\UserType;
+use Doctrine\ORM\EntityManagerInterface;
+
 use App\Entity\Nageur;
 use App\Entity\Groupe;
 use App\Entity\Seance;
@@ -9,7 +13,6 @@ use App\Form\Admin\NageurType;
 use App\Form\Admin\NageurTypee;
 use App\Entity\Physionomie;
 use App\Form\Admin\PhysionomieType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -330,6 +333,22 @@ class NageurController extends AbstractController
                 'seance' => $seances,
             ]);
         }
+
+        #[Route('/admin/nageur/nageurprofile', name: 'app_admin_nageur_nageurprofile')]
+        public function nageurprofile(): Response
+        {
+        //     if (!$this->getUser()) {
+        //         return $this->redirectToRoute('login') ;
+        //  }
+        $users = $this->em->getRepository(User::class)->findAll();
+    
+        $nageurs = $this->em->getRepository(Nageur::class)->findAll() ;
+    
+             return $this->render('admin/nageur/nageurprofile.html.twig', [
+                'users' => $users,
+                'nageurs' => $nageurs,
+            ]);
+         } 
 
 
     

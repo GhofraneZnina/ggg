@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Controller\Admin;
+use App\Entity\User;
+use App\Form\Admin\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entity\Parents;
 use App\Form\Admin\ParentsType;
 use App\Form\Admin\ParentssType;
-use Doctrine\ORM\EntityManagerInterface;
+//use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -174,11 +177,26 @@ class ParentController extends AbstractController
         
             
          }
+         #[Route('/admin/parent/parentprofile', name: 'app_admin_parent_parentprofile')]
+         public function parentprofile(): Response
+         {
+         //     if (!$this->getUser()) {
+         //         return $this->redirectToRoute('login') ;
+         //  }
+         $users = $this->em->getRepository(User::class)->findAll();
+     
+      //   $parents = $this->em->getRepository(Parent::class)->findAll() ;
+     
+              return $this->render('admin/parent/parentprofile.html.twig', [
+                 'users' => $users,
+               //  'parents' => $parents,
+             ]);
+          }  
          
         } 
           // TODO : edit parent : END
                 
-           
+        
         
         
         

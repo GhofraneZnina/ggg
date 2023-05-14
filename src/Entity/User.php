@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr_type', type: 'string')]
 #[ORM\DiscriminatorMap(['user' => User::class, 'parent' => Parents::class, 'nageur' => Nageur::class, 'entraineur' => Entraineur::class])]
+#[UniqueEntity(fields: ['login'], message: 'There is already an account with this login')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     const STATUT_ACTIF = 1;
@@ -46,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -70,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Minimum 2 character',
         maxMessage: 'Maximum 255 character',
     )]
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $prenom = null;
 
 

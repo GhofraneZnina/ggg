@@ -2,6 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
+use App\Form\Admin\UserType;
+use Doctrine\ORM\EntityManagerInterface;
+
 use App\Entity\Entraineur;
 use App\Entity\Seance;
 use App\Form\Admin\EntraineurType;
@@ -9,7 +13,7 @@ use App\Form\Admin\EntraineurTypee;
 use App\Entity\Physionomie;
 use App\Form\Admin\PhysionomieType;
 use App\Form\Admin\PhysionomieTypee;
-use Doctrine\ORM\EntityManagerInterface;
+//use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +27,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class EntraineurController extends AbstractController
 {
 
-    public function __construct(private EntityManagerInterface $em) {
+    public function __construct(
+        private EntityManagerInterface $em
+        ) {
         ;
     }
 
@@ -43,7 +49,10 @@ class EntraineurController extends AbstractController
      } 
 
     #[Route('/admin/entraineur/create', name: 'app_admin_entraineur_create')]
-    public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher,SluggerInterface $slugger): Response
+    public function create(
+    Request $request, 
+    UserPasswordHasherInterface $userPasswordHasher,
+    SluggerInterface $slugger): Response
     {
         if (!$this->getUser()) {
           return $this->redirectToRoute('login') ;
@@ -285,15 +294,6 @@ $this->addFlash('error','check your data');
                     }
                     $seancesByDay[$dayOfWeek][] = $s;
                 }
-            
-               
-            
-            
-        
-        
-    
-
-
         return $this->render('admin/entraineur/pageEntraineur.html.twig', [
         'entraineurs' => $entraineurs,
         'form' => $form->createView(),
@@ -303,10 +303,25 @@ $this->addFlash('error','check your data');
         'seance'=>$seance,
 
         ]);
-
-              
+///admin/entraineur/create
     }
+    
+    #[Route('/admin/entraineur/entraineurprofile', name: 'app_admin_entraineur_entraineurprofile')]
+    public function entraineurprofile(): Response
+    {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('login') ;
+    //  }
+    $users = $this->em->getRepository(User::class)->findAll();
 
+    $entraineurs = $this->em->getRepository(Entraineur::class)->findAll() ;
+
+         return $this->render('admin/entraineur/entraineurprofile.html.twig', [
+            'users' => $users,
+            'entraineurs' => $entraineurs,
+        ]);
+     } 
+          
 
 
 

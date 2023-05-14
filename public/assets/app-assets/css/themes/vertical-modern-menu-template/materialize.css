@@ -8628,11 +8628,12 @@ textarea.materialize-textarea
 [type='checkbox']:not(:checked),
 [type='checkbox']:checked
 {
-    position: absolute;
+    /* Kaouther Mejri */
+   /* position: absolute;*/
 
     pointer-events: none;
 
-    opacity: 0;
+   /* opacity: 0;*/
 }
 
 [type='checkbox']
