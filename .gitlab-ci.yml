@@ -36,7 +36,7 @@ deploy_club_natation:
     - cat ~/.ssh/id_rsa
 
     #- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    #- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config testtest
+    #- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config testtestttt
 
   script:
     - ssh -o StrictHostKeyChecking=no  -i id_rsa root@node8703-club-natation.oxa.cloud
