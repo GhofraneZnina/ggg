@@ -1,0 +1,45 @@
+image: docker:20.10.17
+services:
+  - docker:20.10.17-dind
+variables:
+
+  # DOCKER_HOST: tcp://127.0.0.1:2375
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - build
+  - deploy
+build_image_club_natation:
+
+  stage: build
+  before_script:
+    - docker login -u testuser -p testpassword docker.tn.oxa.cloud
+  script:
+    - docker build -t docker.tn.oxa.cloud/club_natation:latest .
+    - docker images
+    - docker push docker.tn.oxa.cloud/club_natation:latest
+  dependencies: []
+
+deploy_club_natation:
+  stage: deploy
+  before_script:
+    #    - C:\Users\Web Developer\.ssh
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa node8703-club-natation.oxa.cloud > ~/.ssh/known_hosts
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - chmod 644 ~/.ssh/known_hosts
+    - cat ~/.ssh/id_rsa
+
+    #- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    #- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config test
+
+  script:
+    - ssh -o StrictHostKeyChecking=no  -i id_rsa root@node8703-club-natation.oxa.cloud
+    - ssh -o StrictHostKeyChecking=no root@node8703-club-natation.oxa.cloud "mkdir -p /root/club_natation/docker/cache"
+    - cd ./club_natation && scp docker-compose.yml root@node8703-club-natation.oxa.cloud:/root/club_natation
+    - ssh -o StrictHostKeyChecking=no root@node8703-club-natation.oxa.cloud "cd /root/club_natation;docker-compose rm -svf ${containerNameproducts}; docker system prune -a --volumes -f; docker login https://docker.tn.oxa.cloud -u testuser -p testpassword; docker pull docker.tn.oxa.cloud/${imageNameproducts}:latest; docker-compose up -d "
