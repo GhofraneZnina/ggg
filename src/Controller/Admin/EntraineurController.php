@@ -307,6 +307,110 @@ $this->addFlash('error','check your data');
               
     }
 
+///// profile entraineur 
+#[Route('/admin/entraineur/{id}/entraineurprofile', name: 'app_admin_entraineur_profile')]
+    public function pageProfile($id, Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger ): Response
+    {
+
+
+        // TODO : edit entraineur : START
+
+        $entraineurs = $this->em->getRepository(Entraineur::class)->findOneBy(['id' => $id]);
+        $formEdit = $this->createForm(EntraineurTypee::class, $entraineurs);
+        $formEdit->handleRequest($request);
+        if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+                $entraineurs = $formEdit->getData();
+                $password = $formEdit->get('password')->getData();
+                if (isset($password)) {
+                    $password = $userPasswordHasher->hashPassword($entraineurs, $password);
+                    $entraineurs->setPassword($password);
+                }
+
+                $this->em->persist($entraineurs);
+                $this->em->flush();
+
+                $this->addFlash('success', 'password modifié avec succees');
+
+                
+                return $this->redirectToRoute('app_admin_entraineur_page', ['id' => $id]);
+        }
+        else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
+                $this->addFlash('error', $entraineurs->getLogin() . ' : Login existe deja ! ');
+
+        }
+
+        // TODO : edit entraineur : END
+        //adding physionomie
+
+        $physionomie = new Physionomie();
+        $formPhysionomie = $this->createForm(PhysionomieTypee::class, $physionomie);
+        $formPhysionomie->handleRequest($request);
+        if ($formPhysionomie->isSubmitted() && $formPhysionomie->isValid()) {
+
+                $data = $request->request->all();
+
+                $date = str_replace('/', '-', $data['physionomie']['date']);
+                $dataTimeDate = new \DateTime($date);
+
+
+
+                //dump($dataTimeDate);
+                //dd($$formPhysionomie->getData());
+                $physionomie->setDate($dataTimeDate);
+
+
+
+                $this->em->persist($physionomie);
+                $this->em->flush();
+
+                $this->addFlash('success', 'physionime crée avec succees');
+
+                return $this->redirectToRoute('app_admin_nageur_page');
+        } 
+        else if ($formPhysionomie->isSubmitted() && !$formPhysionomie->isValid()) {
+            
+            $this->addFlash('error', 'check your data');
+        }
+
+            //end addind physionomie
+
+
+            //listing entraineur
+           
+                $seance = $this->em->createQueryBuilder()
+                    ->select('s')
+                    ->from('App\Entity\Seance', 's')
+                    ->join('s.groupe', 'g')
+                    ->join('g.entraineur', 'e')
+                    ->where('e.id = :entraineurId')
+                    ->andWhere('s.planning IS NOT NULL')
+                    ->setParameter('entraineurId', $entraineurs->getId())
+                    ->getQuery()
+                    ->getResult();
+            
+                $seancesByDay = [];
+            
+                foreach ($seance as $s) {
+                    $dayOfWeek = $s->getJour();
+                    if (!isset($seancesByDay[$dayOfWeek])) {
+                        $seancesByDay[$dayOfWeek] = [];
+                    }
+                    $seancesByDay[$dayOfWeek][] = $s;
+                }
+         
+
+        return $this->render('admin/entraineur/profilEntraineur.html.twig', [
+        'entraineurs' => $entraineurs,
+        'formEdit' => $formEdit->createView(),
+        'formPhysionomie' => $formPhysionomie->createView(),
+        'seanceByDay'=>$seancesByDay,
+        'seance'=>$seance,
+
+        ]);
+
+              
+    }
+
 
 
 
@@ -331,4 +435,19 @@ $this->addFlash('error','check your data');
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
 ?>

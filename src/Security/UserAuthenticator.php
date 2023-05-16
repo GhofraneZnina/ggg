@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -28,7 +29,14 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         $this->urlGenerator = $urlGenerator;
         $this->security = $security;
     }
-
+    private function isEntraineur(UserInterface $user): bool
+    {
+        // Implement your own logic to determine if the user has the ROLE_ENTRAINEUR role
+        // You may check the user's roles, database records, or any other criteria
+        
+        // Example implementation: Check if the user has the ROLE_ENTRAINEUR role
+        return in_array('ROLE_ENTRAINEUR', $user->getRoles());
+    }
 
     public function authenticate(Request $request): Passport
     {
@@ -53,16 +61,19 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         
         if ($this->security->isGranted("ROLE_ADMIN")) {
             return new RedirectResponse($this->urlGenerator->generate('app_chart'));
-          }
-        if ($this->security->isGranted("ROLE_ENTRAINEUR")) {
-         return new RedirectResponse($this->urlGenerator->generate('app_admin_entraineur_list'));
-       }
-       else if ($this->security->isGranted("ROLE_NAGEUR")) {
-        return new RedirectResponse($this->urlGenerator->generate('app_admin_nageur_list'));
-           }
-        else if ($this->security->isGranted("ROLE_PARENTS")) {
+        } elseif ($token->getUser() instanceof UserInterface && $this->isEntraineur($token->getUser())) {
+            // Retrieve the entraineur's ID from the logged-in user's data
+            $entraineurId = $token->getUser()->getId();
+        
+            // Generate the URL for the entraineur's profile page with the "id" parameter
+            $url = $this->urlGenerator->generate('app_admin_entraineur_profile', ['id' => $entraineurId]);
+        
+            return new RedirectResponse($url);
+        } elseif ($this->security->isGranted("ROLE_NAGEUR")) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin_nageur_list'));
+        } elseif ($this->security->isGranted("ROLE_PARENTS")) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin_parent_list'));
-               }
+        }
         // For example:
         //  return new RedirectResponse($this->urlGenerator->generate('login'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
