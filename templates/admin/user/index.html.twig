@@ -51,90 +51,47 @@
           {# <h4 class="card-title">Page Length Options</h4> #}
           <div class="row">
             <div class="col s12">
-              <table id="page-length-option" class="display">
-                <thead>
-                  <tr>
-                    <th>id</th>
-                    <th>Login</th>
-                    <th>Email</th>
-                    <th>status</th>
-                    {# <th>Telephone</th> #}
-                    {# <th>Email</th> #}
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 {% for user in users %}
-                  <tr>
-                   <td>{{ user.id }}</td>
-                      <td>{{ user.login }}</td>
-                    <td>{{ user.email }}</td>    
+              <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Login</th>
+                                <th>nom</th>
+                                <th>prenom</th>
+                                <th>telephone</th>
+                                <th>Email</th>  
+                                <th>profileFacebook</th>       
+                                <th>Status</th>
+                                <th>Action</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for users in users %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ users.id }}</td>
+                                    <td>{{ users.login }}</td>
+                                    <td>{{ users.nom }}</td>
+                                    <td>{{ users.prenom }}</td>
+                                    <td>{{ users.telephone }}</td>
+                                    <td>{{ users.email }}</td>
+                                    <td>{{ users.profileFacebook }}</td>
+                                    {% if users.status == 1 %}
+                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+                                    {% else %}
+                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
+                                    {% endif %}
 
                                     <td>
-                    {% if user.status == 1 %}
-                    <span class="chip green lighten-5">
-                                    <span class="green-text">Active</span>
-                    </span>
-                       {% else %}
-                                           <span class="chip green lighten-5">
-
-                                    <span class="green-text">Disable</span>
-                                     </span>
-                      {% endif %}
-                                     </td>
-                                                                        
-                                  
-                                    <td>
-                                    
-                                        <a href="page-users-view.html"><i class="material-icons">remove_red_eye</i></a>
-                                        <a href="{{ path('app_admin_user_edit',{'id': user.id}) }}"><i class="material-icons">edit</i></a>
+                                        
+                                        <a href="{{ path('app_admin_user_edit',{'id': users.id}) }}"><i class="material-icons">edit</i></a>
                                     </td>
-                  </tr>
-                   {% endfor %}
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    {# <td>2011/04/25</td> #}
-                    <td>$320,800</td>
-                  </tr>
-                   <tr>
-                    <td>Shad Decker</td>
-                    <td>Regional Director</td>
-                    <td>Edinburgh</td>
-                    <td>51</td>
-                    {# <td>2008/11/13</td> #}
-                    <td>$183,000</td>
-                  </tr>
-                  {# <tr>
-                    <td>Michael Bruce</td>
-                    <td>Javascript Developer</td>
-                    <td>Singapore</td>
-                    <td>29</td>
-                    <td>2011/06/27</td>
-                    <td>$183,000</td>
-                  </tr>
-                  <tr>
-                    <td>Donna Snider</td>
-                    <td>Customer Support</td>
-                    <td>New York</td>
-                    <td>27</td>
-                    <td>2011/01/25</td>
-                    <td>$112,000</td>
-                  </tr> #}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                  </tr>
-                </tfoot>
-              </table>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
             </div>
           </div>
         </div>
