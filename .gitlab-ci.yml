@@ -13,7 +13,7 @@ build_image_club_natation:
 
   stage: build
   before_script:
-    - docker login -u testuser -p testpassword docker.tn.oxa.cloud
+ #   - docker login -u testuser -p testpassword docker.tn.oxa.cloud
   script:
     - docker build -t docker.tn.oxa.cloud/club_natation:latest .
     - docker images
