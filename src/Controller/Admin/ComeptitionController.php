@@ -16,7 +16,7 @@ class ComeptitionController extends AbstractController
         ;
     }
 
-    #[Route('/admin/comeptition', name: 'app_admin_comeptition')]
+    #[Route('/admin/competition', name: 'app_admin_comeptition_list')]
     public function index(Request $request): Response
     {
         if (!$this->getUser()) {
@@ -28,14 +28,27 @@ class ComeptitionController extends AbstractController
     $form = $this->createForm(CompetitionType::class, $competition);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+        $data = $request->request->all() ;
 
+        $dateDebut = str_replace('/','-',$data['competition']['dateDebut']) ;
+        $dataTimeDateDebut = new \DateTime($dateDebut);
+        $competition->setDateDebut($dataTimeDateDebut );
+        
+        $dateFin = str_replace('/','-',$data['competition']['dateFin']) ;
+        $dataTimeDateFin = new \DateTime($dateFin);
+        $competition->setDateFin($dataTimeDateFin );
+
+
+       //dump($dataTimeDate);
+        //dd($form->getData());
+        
  
          $this->em->persist($competition);
          $this->em->flush();
 
         $this->addFlash('success','competition successfully created' );
 
-        return $this->redirectToRoute('app_admin_competition_list') ;
+        return $this->redirectToRoute('app_admin_comeptition_list') ;
     } else if ($form->isSubmitted() && !$form->isValid()) {
 
        //dd($form->getData());
@@ -44,9 +57,31 @@ class ComeptitionController extends AbstractController
      //  TODO : create new competition : END 
      
     $competition = $this->em->getRepository(competition::class)->findAll() ;
-     return $this->render('admin/comeptition/index.html.twig', [
+     return $this->render('admin/competition/index.html.twig', [
         'form' => $form->createView(),
         'competition' => $competition,
      ]);
+    }
+    #[Route('/admin/competition/{id}/delete', name: 'app_admin_competition_delete')]
+    public function delete(Request $request, UserPasswordHasherInterface $userPasswordHasher,$id): Response
+    {
+        
+        $user = $this->getUser();
+
+        
+        $competitionRepository = $this->em->getRepository(Competition::class);
+       
+        $competition =$competitionRepository->find(['id'=>$id]);;
+        if (!$competition) {
+            return $this->redirectToRoute('app_admin_comeptition_list');
+        }
+
+      
+        $this->em->remove($competition);
+        $this->em->flush();
+        
+        
+        $this->addFlash('success','competition supprimée avec succés ' );
+        return $this->redirectToRoute('app_admin_comeptition_list');
     }
 }

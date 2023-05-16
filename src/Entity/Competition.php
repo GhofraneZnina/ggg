@@ -26,8 +26,8 @@ class Competition
     #[ORM\Column(length: 255)]
     private ?string $typeMinimas = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $statut = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $statut = null;
 
     public function getId(): ?int
     {
@@ -82,15 +82,15 @@ class Competition
         return $this;
     }
 
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
+    // public function getStatut(): ?string
+    // {
+    //     return $this->statut;
+    // }
 
-    public function setStatut(string $statut): self
-    {
-        $this->statut = $statut;
+    // public function setStatut(string $statut): self
+    // {
+    //     $this->statut = $statut;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

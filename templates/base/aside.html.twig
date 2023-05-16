@@ -86,6 +86,7 @@
               </span>
             </a>
           </li>
+        
           <li>
             <a {% if( currentPath == path('app_admin_minimas_list') )  %} class="active" {%endif%} href="{{ path('app_admin_minimas_list') }}">
               <i class="material-icons">
@@ -93,6 +94,16 @@
               </i>
               <span data-i18n="Edit">
                 Minimas
+              </span>
+            </a>
+          </li>
+          <li>
+            <a {% if( currentPath == path('app_admin_comeptition_list') )  %} class="active" {%endif%} href="{{ path('app_admin_comeptition_list') }}">
+              <i class="material-icons">
+                radio_button_unchecked
+              </i>
+              <span data-i18n="Edit">
+                competitions
               </span>
             </a>
           </li>

@@ -5,7 +5,7 @@
 {% endblock %}
 {% block levelOne %}
 	<li class="breadcrumb-item">
-		<a href="{{ path('app_admin_competition_list') }}">competitions</a>
+		<a href="{{ path('app_admin_comeptition_list') }}">competitions</a>
 	</li>
 {% endblock %}
 {% block levelTwo %}{% endblock %}
@@ -38,26 +38,22 @@
 											<label class="active">intitule</label>
 											<small class="errorTxt2"></small>
 										</div>
-										<div class="col s12 m6 input-field" id="view-switches">
-											{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
-											<label class="active">dateDebut</label>
-											<div class="switch mb-1">
-												<label>
-													payé
-													<input checked type="checkbox">
-													<span class="lever"></span>
-													non
-												</label>
-											</div>
-											<small class="errorTxt2"></small>
-										</div>
+										<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="planning_date">date debut </label>
+										{{ form_widget(form.dateDebut,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
+									</div>
+									<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="planning_date">date Fin </label>
+										{{ form_widget(form.dateFin,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
 
-										<div class="col s12 input-field">
-											{{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
-											<label class="active">dateFin</label>
-											<small class="errorTxt3"></small>
-										</div>
+									</div>
+											
+									
                                         <div class="col s12 input-field">
                                         {{ form_widget(form.typeMinimas, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
                                         <label class="active">typeMinimas</label>
@@ -183,8 +179,8 @@
 										<td></td>
 										<td>{{ competition.id }}</td>
 										<td>{{ competition.intitule}}</td>
-										<td>{{ competition.dateDebut }}</td>
-										<td>{{ competition.dateFin }}</td>
+										<td>{{ competition.dateDebut|date('Y-m-d') }}</td>
+										<td>{{ competition.dateFin|date('Y-m-d') }}</td>
 										<td>{{ competition.typeMinimas}}</td>
 										
 
