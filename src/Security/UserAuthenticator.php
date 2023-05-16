@@ -64,10 +64,10 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         } elseif ($token->getUser() instanceof UserInterface && $this->isEntraineur($token->getUser())) {
             // Retrieve the entraineur's ID from the logged-in user's data
             $entraineurId = $token->getUser()->getId();
-        
+            
             // Generate the URL for the entraineur's profile page with the "id" parameter
             $url = $this->urlGenerator->generate('app_admin_entraineur_profile', ['id' => $entraineurId]);
-        
+            
             return new RedirectResponse($url);
         } elseif ($this->security->isGranted("ROLE_NAGEUR")) {
             // Retrieve the nageur's ID from the logged-in user's data
@@ -78,7 +78,13 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             
             return new RedirectResponse($url);
         } elseif ($this->security->isGranted("ROLE_PARENTS")) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_parent_list'));
+            // Retrieve the parent's ID from the logged-in user's data
+            $parentId = $token->getUser()->getId();
+            
+            // Generate the URL for the parent's profile page with the "id" parameter
+            $url = $this->urlGenerator->generate('app_admin_parent_profile', ['id' => $parentId]);
+            
+            return new RedirectResponse($url);
         }
         
         // For example:

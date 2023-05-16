@@ -174,9 +174,48 @@ class ParentController extends AbstractController
         
             
          }
+         #[Route('/admin/parent/{id}/profile', name: 'app_admin_parent_profile')]
+        public function profileParent($id, Request $request, UserPasswordHasherInterface $userPasswordHasher , SluggerInterface $slugger): Response
+        { 
+            
+            // TODO : create new parent : START
+           $parent = $this->em->getRepository(Parents::class)->findOneBy(['id'=>$id]);  
+           $formEdit = $this->createForm(ParentssType::class, $parent);
+           $formEdit->handleRequest($request);
+            //TODO : edit parent : START
+           
+            
+            if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+                $parent = $formEdit->getData();
+                $password = $formEdit->get('password')->getData();
+                if (isset($password)) {
+                    $password = $userPasswordHasher->hashPassword($parent, $password);
+                    $parent->setPassword($password);
+                }
+
+                $this->em->persist($parent);
+                $this->em->flush();
+
+                $this->addFlash('success', 'password successfully updated');
+
+                return $this->redirectToRoute('app_admin_parent_page', ['id' => $id]);
+        }
+        else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
+                $this->addFlash('error', $parent->getLogin() . ' : Login already exists ! ');
+
+        }
+
+                
+            return $this->render('admin/parent/profilParent.html.twig', [
+                'parent' => $parent,
+                'formEdit' => $formEdit->createView(), ]);
+        
+
+        
+            
+         }
          
         } 
-          // TODO : edit parent : END
                 
            
         
