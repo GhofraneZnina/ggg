@@ -70,12 +70,19 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         
             return new RedirectResponse($url);
         } elseif ($this->security->isGranted("ROLE_NAGEUR")) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_nageur_list'));
+            // Retrieve the nageur's ID from the logged-in user's data
+            $nageurId = $token->getUser()->getId();
+            
+            // Generate the URL for the nageur's profile page with the "id" parameter
+            $url = $this->urlGenerator->generate('app_admin_nageur_profil', ['id' => $nageurId]);
+            
+            return new RedirectResponse($url);
         } elseif ($this->security->isGranted("ROLE_PARENTS")) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin_parent_list'));
         }
+        
         // For example:
-        //  return new RedirectResponse($this->urlGenerator->generate('login'));
+        // return new RedirectResponse($this->urlGenerator->generate('login'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
