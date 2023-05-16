@@ -15,31 +15,33 @@
 </div>
    <div class="row">
       <div class="col-md-12">
-         <!-- User Statistics -->
          <div class="card user-statistics-card animate fadeLeft">
             <div class="card-content">
                <h4 class="card-title mb-0">Statistiques Groupes <i class="material-icons float-right">more_vert</i></h4>
-               {# <div class="row">
-                  <div class="col s12 "> #}
                   <div class="container">
                     <canvas id="users" width="400" height="100"></canvas>
                    </div>
-                  {# </div> #}
-                  {# <div class="col s12 m6">
-                     <ul class="collection border-none mb-0">
-                        <li class="collection-item avatar">
-                           <i class="material-icons circle purple accent-4">trending_down</i>
-                           <p class="medium-small">Last year</p>
-                           <h5 class="mt-0 mb-0">40%</h5>
-                        </li>
-                     </ul>
-                  </div> #}
-               {# </div> #}
-             
             </div>
          </div>
       </div>
       </div>
+      <!--end row -->
+      <!-- Begin Chart2 -->
+  <div class="row">
+      <div class="col-md-12">
+         <div class="card user-statistics-card animate fadeLeft">
+            <div class="card-content">
+               <h4 class="card-title mb-0">Statistiques plannings <i class="material-icons float-right">more_vert</i></h4>
+                  <div class="container">
+                    <canvas id="plannings" width="400" height="100"></canvas>
+                   </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      <!-- End Chart2 -->
+
+
 {% endblock %}
 
 {% block javascripts %}
@@ -55,8 +57,26 @@
                 data: {{ categCount|raw }},
               //  backgroundColor: {{ categColor|raw }},
              //  backgroundColor: ["red","green","blue","yellow","magenta","orange","rgb(55, 9, 12)" ],
-               backgroundColor: ['rgb(255, 99, 132)','rgb(255, 9, 130)','rgb(255, 998 131)','rgb(255, 96, 147)','rgb(27, 9, 13)','rgb(25, 99, 132)','rgb(55, 9, 12)' ],
+               backgroundColor: ['rgb(252, 194, 3)','rgb(255, 9, 130)','rgb(3, 252, 119)','rgb(197, 96, 255)','rgb(255, 136, 9)','rgb(25, 99, 132)','rgb(55, 9, 12)' ],
                 borderColor: 'rgb(255, 9, 162)'
+            }]
+        }
+    })
+       let plannings = document.querySelector("#plannings")
+    let planningGraph = new Chart(plannings, {
+        type: "pie",
+        data: {
+            labels: {{ planningsNom|raw }},
+            datasets: [{
+                label: "Répartition des plannings",
+                data: {{ planningsCount|raw }},
+              //  backgroundColor: {{ categColor|raw }},
+             //  backgroundColor: ["red","green","blue","yellow","magenta","orange","rgb(55, 9, 12)" ],
+             //background: linear-gradient(45deg, #303f9f, #3949ab) !important;
+              // backgroundColor: ['rgb(255, 99, 132)','rgb(255, 9, 130)','rgb(255, 998 131)','rgb(255, 96, 147)','rgb(27, 9, 13)','rgb(25, 99, 132)','rgb(55, 9, 12)' ],
+              // backgroundColor: ['linear-gradient(45deg, #303f9f, #3949ab)','rgb(255, 9, 130)','rgb(255, 998 131)','rgb(255, 96, 147)','rgb(27, 9, 13)','rgb(25, 99, 132)','rgb(55, 9, 12)' ],
+               backgroundColor: ['rgb(252, 194, 3)','rgb(255, 9, 130)','rgb(3, 252, 119)','rgb(197, 96, 255)','rgb(255, 136, 9)','rgb(25, 99, 132)','rgb(55, 9, 12)','rgb(202, 252, 3)' ],
+                borderColor: 'rgb(252, 3, 65)'
             }]
         }
     })
@@ -82,3 +102,6 @@
     }) #}
 </script>
 {% endblock %}
+{# {% block javascripts %} 
+background: linear-gradient(45deg, #303f9f, #3949ab) !important;
+{% endblock %} #}
