@@ -1,34 +1,35 @@
-stages:
-  - build
-
-  - deploy
-
-image: docker:latest
-
+image: docker:20.10.17
 services:
-  - docker:dind
-
+- docker:20.10.17-dind
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
 
+# DOCKER_HOST: tcp://127.0.0.1:2375
+DOCKER_DRIVER: overlay2
+
+stages:
+- build
+- deploy
+build_image_club_natation:
+
+stage: build
 before_script:
-  #- docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY #login docker hub
-  - docker login -u https://gitlab.tanitweb.tn/ -p GR13489418v3TVLwqEH-w8ypsqtVf 
-build:
-  stage: build
-  before_script:
-  - docker login -u https://gitlab.tanitweb.tn/ -p GR13489418v3TVLwqEH-w8ypsqtVf #login docker hub
-  
-  script:
-    - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
-    - docker push  #image name (composer)
+- docker login -u testuser -p testpassword docker.tn.oxa.cloud
+script:
+- docker build -t docker.tn.oxa.cloud/club_natation:latest .
+- docker images
+- docker push docker.tn.oxa.cloud/club_natation:latest
+dependencies: []
 
-
-  deploy:
-    stage: deploy
-    before_script:
-    -  #connexion ssh pour le serveur ou je ais deployer l'image
-    script:
-      - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-      - ssh user@server "docker-compose -f /path/to/docker-compose.yml pull && docker-compose -f /path/to/docker-compose.yml up -d"
+deploy_club_natation:
+stage: deploy
+before_script:
+# - C:\Users\Web Developer\.ssh
+- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+- mkdir -p ~/.ssh
+- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+- chmod 700 ~/.ssh/id_rsa
+- eval "$(ssh-agent -s)"
+- ssh-add ~/.ssh/id_rsa
+- ssh-keyscan -t rsa node8703-club-natation.oxa.cloud > ~/.ssh/known_hosts
+- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+- chmod 644 ~/.ssh/known_hosts
