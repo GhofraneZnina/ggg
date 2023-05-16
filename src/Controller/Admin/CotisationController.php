@@ -74,7 +74,7 @@ class CotisationController extends AbstractController
         $this->em->flush();
         
         
-        $this->addFlash('success','cotisation successfully deleted ' );
+        $this->addFlash('success','cotisation supprimée avec succees ' );
         return $this->redirectToRoute('app_admin_cotisation_list');
     }
 

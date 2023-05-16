@@ -46,7 +46,7 @@ class ComeptitionController extends AbstractController
          $this->em->persist($competition);
          $this->em->flush();
 
-        $this->addFlash('success','competition successfully created' );
+        $this->addFlash('success','competition crée avec succés' );
 
         return $this->redirectToRoute('app_admin_comeptition_list') ;
     } else if ($form->isSubmitted() && !$form->isValid()) {

@@ -136,7 +136,7 @@ $this->addFlash('error','check your data');
              $entraineur = $form->getData();
              $chekUser = $this->em->getRepository(Entraineur::class)->findOneByLogin($entraineur->getLogin());
              if( $chekUser and $chekUser->getId() !== $entraineur->getId() ){
-                 $this->addFlash('error',$entraineur->getLogin().' : Login already exists ! ');
+                 $this->addFlash('error',$entraineur->getLogin().' : Login existe deja ! ');
                  return $this->redirectToRoute('app_admin_entraineur_list');
              }
              $password = $form->get('password')->getData();
@@ -191,7 +191,7 @@ $this->addFlash('error','check your data');
 
                 $this->em->persist($entraineurs);
                 $this->em->flush();
-                $this->addFlash('success', 'entraineur successfully created');
+                $this->addFlash('success', 'entraineur crée avec succees');
                 return $this->redirectToRoute('app_admin_entraineur_page');
             }
         }
@@ -216,13 +216,13 @@ $this->addFlash('error','check your data');
                 $this->em->persist($entraineurs);
                 $this->em->flush();
 
-                $this->addFlash('success', 'password successfully updated');
+                $this->addFlash('success', 'password modifié avec succees');
 
                 
                 return $this->redirectToRoute('app_admin_entraineur_page', ['id' => $id]);
         }
         else if ($formEdit->isSubmitted() && !$formEdit->isValid()) {
-                $this->addFlash('error', $entraineurs->getLogin() . ' : Login already exists ! ');
+                $this->addFlash('error', $entraineurs->getLogin() . ' : Login existe deja ! ');
 
         }
 
@@ -251,7 +251,7 @@ $this->addFlash('error','check your data');
                 $this->em->persist($physionomie);
                 $this->em->flush();
 
-                $this->addFlash('success', 'physionime successfully created');
+                $this->addFlash('success', 'physionime crée avec succees');
 
                 return $this->redirectToRoute('app_admin_nageur_page');
         } 

@@ -51,7 +51,7 @@ class CategorieController extends AbstractController
         $this->em->flush();
         
         
-        $this->addFlash('success','category successfully deleted ' );
+        $this->addFlash('success','categorie supprimée avec succees ' );
         return $this->redirectToRoute('app_admin_categorielist');
     }
 
