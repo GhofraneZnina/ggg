@@ -17,7 +17,7 @@ build_image_club_natation:
     - cat /etc/resolv.conf
     - cat /etc/hosts
     - cat /etc/os-release
-    - hostname
+    - hostname  
     - pwd
     - docker login -u testuser -p testpassword docker.tn.oxa.cloud
   script:
