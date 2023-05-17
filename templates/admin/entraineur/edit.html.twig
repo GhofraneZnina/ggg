@@ -2,7 +2,7 @@
 {% block title %}modifier entraineur{% endblock %}
 {% block pageTitle %}modifier entaineur{% endblock %}
 {% block levelOne %}<li class="breadcrumb-item"><a href="{{ path('app_admin_entraineur_list') }}">entraineurs</a></li>{% endblock %}
-{% block levelTwo %}<li class="breadcrumb-item active">Modifier nageur</li>{% endblock %}
+{% block levelTwo %}<li class="breadcrumb-item active">Modifier entaineur</li>{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
 {% endblock %}
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col s12 display-flex justify-content-end mt-3">
                                     {{ form_widget(form.submit, {'label': 'Modidier'}) }}
-                                    <button type="button" class="btn btn-light">Cancel</button>
+                                    <button type="button" class="btn btn-light">Annuler</button>
                                 </div>
                             </div>
                             {{ form_end(form) }}

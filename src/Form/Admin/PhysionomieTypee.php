@@ -32,7 +32,7 @@ class PhysionomieTypee extends AbstractType
             
         ->add('submit', SubmitType::class,
             [
-                'label'=> 'Create',
+                'label'=> 'Créer',
                 'attr' => ['class'=> 'btn indigo']
 
             ])
