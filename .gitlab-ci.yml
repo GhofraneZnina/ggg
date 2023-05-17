@@ -10,7 +10,7 @@ stages:
   - build
   - deploy
 build_image_club_natation:
-
+         
   stage: build
   before_script:
     - df
