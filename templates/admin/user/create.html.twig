@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
-{% block title %}Create user{% endblock %}
-{% block pageTitle %}Create user{% endblock %}
-{% block levelOne %}<li class="breadcrumb-item"><a href="{{ path('app_admin_user_list') }}">Users</a></li>{% endblock %}
-{% block levelTwo %}<li class="breadcrumb-item active">Create user</li>{% endblock %}
+{% block title %}Ajouter utilisateur{% endblock %}
+{% block pageTitle %}Ajouter utilisateur{% endblock %}
+{% block levelOne %}<li class="breadcrumb-item"><a href="{{ path('app_admin_user_list') }}">utilisateurs</a></li>{% endblock %}
+{% block levelTwo %}<li class="breadcrumb-item active">Ajouter utilisateur</li>{% endblock %}
 {% block levelThree %}{% endblock %}
 {% block btnLink %}
 {% endblock %}
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="col s12 display-flex justify-content-end mt-3">
                                     {{ form_widget(form.submit) }}
-                                    <button type="button" class="btn btn-light">Cancel</button>
+                                    <button type="button" class="btn btn-light">Annueler</button>
                                 </div>
                             </div>
                             {{ form_end(form) }}

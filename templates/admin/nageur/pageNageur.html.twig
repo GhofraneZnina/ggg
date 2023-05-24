@@ -5,7 +5,7 @@
 {% endblock %}
 {% block levelOne %}
 	<li class="breadcrumb-item">
-		<a href="{{ path('app_admin_nageur_list') }}">Users</a>
+		<a href="{{ path('app_admin_nageur_list') }}">utilisateurs</a>
 	</li>
 {% endblock %}
 {% block levelTwo %}{% endblock %}
@@ -54,7 +54,7 @@
 								</div>
 								<div class="col s12 display-flex justify-content-end mt-3">
 									{{ form_widget(formPhysionomie.submit) }}
-									<button type="button" class="btn btn-light">Cancel</button>
+									<button type="button" class="btn btn-light">Annuler</button>
 								</div>
 							</div>
 							{{ form_end(formPhysionomie) }}
@@ -247,7 +247,7 @@
 
 											<div class="col s12 display-flex justify-content-end mt-3">
 												{{ form_widget(formEdit.submit, {'label': 'Modidier'}) }}
-												<button type="button" class="btn btn-light">Cancel</button>
+												<button type="button" class="btn btn-light">Annuler</button>
 											</div>
 											{{ form_end(formEdit) }}
 										</div>
