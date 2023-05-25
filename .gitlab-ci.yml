@@ -9,7 +9,7 @@ stages:
   - build
   - deploy
 
-build_image_club_natation:  
+build_image_club_natation:
   stage: build
   before_script:
     - docker login -u testuser -p testpassword docker.tn.oxa.cloud
