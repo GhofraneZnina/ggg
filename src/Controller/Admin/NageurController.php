@@ -41,6 +41,7 @@ class NageurController extends AbstractController
             'nageurs' => $nageurs,
         ]);
     }
+    
 
     #[Route('/admin/nageur/create', name: 'app_admin_nageur_create')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): response

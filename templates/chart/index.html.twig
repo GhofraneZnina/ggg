@@ -5,7 +5,8 @@
 
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css-rtl/pages/dashboard.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css-rtl/custom/custom.css')}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
 {% endblock %}
 
 {% block body %}
@@ -16,20 +17,60 @@
 	</div>
 
 
-	<div class="padding-4">
+	<div id="card-stats" class="pt-0">
 		<div class="row">
-			<div class="col s7 m7">
-				<i class="material-icons background-round mt-5">attach_money</i>
-				<p>Profit</p>
+			<div class="col s12 m6 l6 xl3">
+				<div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text animate fadeLeft">
+					<div class="padding-4">
+						<div class="row">
+							<div class="col s7 m7">
+								<i class="material-icons background-round mt-5">perm_identity</i>
+								<p>Entraineurs</p>
+							</div>
+							<div class="col s5 m5 right-align">
+								<h5 class="mb-0 white-text">7</h5>
+								
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col s5 m5 right-align">
-				<h5 class="mb-0 white-text">$890</h5>
-				<p class="no-margin">Today</p>
-				<p>$25,000</p>
+			<div class="col s12 m6 l6 xl3">
+				<div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
+					<div class="padding-4">
+						<div class="row">
+							<div class="col s7 m7">
+								<i class="material-icons background-round mt-5">perm_identity</i>
+								<p>Nageurs</p>
+							</div>
+							<div class="col s5 m5 right-align">
+								<h5 class="mb-0 white-text">13</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col s12 m6 l6 xl3">
+				<div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeRight">
+					<div class="padding-4">
+						<div class="row">
+							<div class="col s7 m7">
+								<i class="material-icons background-round mt-5">attach_money</i>
+								<p>Cotisation</p>
+							</div>
+							<div class="col s5 m5 right-align">
+								<h5 class="mb-0 white-text">30000</h5>
+								<p class="no-margin">Aujourd'hui</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
 	<div class="row">
 		<div class="col s6">
 			<div class="card user-statistics-card animate fadeLeft">
@@ -60,6 +101,65 @@
 			</div>
 		</div>
 	</div>
+	<div class="col s12 m6 l8">
+		<div class="card subscriber-list-card animate fadeRight">
+			<div class="card-content pb-1">
+				<h4 class="card-title mb-0">les derniers nageurs insrits
+					<i class="material-icons float-right">more_vert</i>
+				</h4>
+			</div>
+			<table class="subscription-table responsive-table highlight">
+				<thead>
+					<tr>
+						
+						<th>id</th>
+						<th>Nom complet</th>
+						<th>Parent</th>
+						
+						<th>categorie</th>
+						<th>groupe</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>17</td>
+						<td>Fathi mounib</td>
+						<td>rafik ben taher</td>
+						<td>poussins
+						</td>
+						<td>club aquaman</td>
+						
+					</tr>
+					<tr>
+						<td>28</td>
+						<td>Yasmine younes</td>
+						<td>youmna youmna</td>
+						<td>Minimes
+						</td>
+						<td>La brasse parfaite</td>
+					</tr>
+					<tr>
+						<td>31</td>
+						<td>Rayen mohsen</td>
+						<td>rafik ben taher</td>
+						<td>cadets
+						</td>
+						<td>les champions</td>
+					</tr>
+					<tr>
+						<td>34</td>
+						<td>mohsen fekih</td>
+						<td>ehsen lamloum</td>
+						<td>cadets
+						</td>
+						<td>les petits pinngouins</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
 	<!-- End Chart2 -->
 
 
@@ -67,6 +167,9 @@
 
 {% block javascripts %}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+	<script src="{{asset('assets/app-assets/js/scripts/dashboard-ecommerce.js')}}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css-rtl/themes/vertical-modern-menu-template/style.css')}}">
 	<script>
 		let users = document.querySelector("#users")
 let categGraph = new Chart(users, {
@@ -121,7 +224,7 @@ borderColor: 'rgb(252, 3, 65)'
 }
 ]
 }
-}) 
+})
 // /
 
 // /
@@ -129,4 +232,6 @@ borderColor: 'rgb(252, 3, 65)'
 {% endblock %}
 {# {% block javascripts %} 
 background: linear-gradient(45deg, #303f9f, #3949ab) !important;
-{% endblock %} #}
+<script src="{{asset('assets/app-assets/js/scripts/dashboard-ecommerce.js')}}"></script>
+{% endblock %} 
+ #}
