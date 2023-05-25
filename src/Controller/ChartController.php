@@ -89,7 +89,7 @@ class ChartController extends AbstractController
               'categColor' => json_encode($categColor),
               'borderColor' => json_encode($borderColor),
               'categCount' => json_encode($categCount),
-
+                
               'planningsNom' => json_encode($planningsNom),
               'planningsColor' => json_encode($planningsColor),
               'borderColor1' => json_encode($borderColor),
