@@ -2,8 +2,7 @@ image: docker:20.10.17
 services:
   - docker:20.10.17-dind
 variables:
-
-  #DOCKER_HOST: tcp://127.0.0.1:2375
+  # DOCKER_HOST: tcp://127.0.0.1:2375
   DOCKER_DRIVER: overlay2
 
 stages:
@@ -23,7 +22,7 @@ build_image_club_natation:
 deploy_club_natation:
   stage: deploy
   before_script:
-  # - C:\Users\Web Developer\.ssh
+    # - C:\Users\Web Developer\.ssh
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
