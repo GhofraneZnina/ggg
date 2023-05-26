@@ -57,10 +57,10 @@ class ChartController extends AbstractController
          $categNom[] = $groupe->getIntitule();
        
         $categColor[] = [
-            'rgb(255, 99, 132)'
+            'rgb(136, 77, 167)'
         
         ];
-        $borderColor[] ='rgb(255, 99, 132)';
+        $borderColor[] ='rgb(136, 77, 167)';
        
          $categCount[] = count([0, 10, 5, 2, 20, 30, 45]);
         }
@@ -77,10 +77,10 @@ class ChartController extends AbstractController
          $planningsNom[] = $planning->getLabel();
        
         $planningsColor[] = [
-            'rgb(255, 99, 132)'
+            'rgb(136, 77, 167)'
         
         ];
-        $borderColor[] ='rgb(255, 99, 132)';
+        $borderColor[] ='rgb(136, 77, 167)';
        
          $planningsCount[] = count([0, 10, 5, 2, 20, 30, 45]);
         }
