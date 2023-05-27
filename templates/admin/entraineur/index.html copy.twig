@@ -1,0 +1,120 @@
+{% extends "base.html.twig" %}
+{% block title %}List des entraineurs{% endblock %}
+{% block pageTitle %}Liste des entraineurs{% endblock %}
+{% block levelOne %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_entraineur_list') }}">Entraineurs</a></li>{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+    <div class="col s2 m6 l6">
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_entraineur_create') }}">
+            {# Create entraineur #}
+            Nouveau
+            </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {#  Show alert : START #}
+    {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {#  Show alert : END  #}
+    <section class="users-list-wrapper section">
+       
+        <div class="users-list-table">
+            <div class="card">
+                <div class="card-content">
+                    <!-- datatable start -->
+                    <div class="responsive-table">
+                        <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                {# <th>Prenom</th>
+                                <th>Nom</th>
+                                <th>Telephone</th> #}
+                               <th>Login</th>
+                                <th>Email</th>
+                                {# <th>Facebook</th> #}
+                                <th>status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for entraineur in entraineurs %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ entraineur.id }}</td>
+                                    {# <td>{{ entraineur.prenom }}</td>
+                                    <td>{{ entraineur.nom }}</td>
+                                    <td>{{ entraineur.telephone }}</td> #}
+                                   <td>{{ entraineur.login }}</td>
+                                    <td>{{ entraineur.email }}</td>
+                                    {# <td>{{ entraineur.profileFacebook }}</td> #}
+                                    {# {% if entraineur.status == 1 %}
+                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+                                    {% else %}
+                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> 
+                                        </td>
+                                    {% endif %}
+                                    <td> #}
+                                      <td>
+                    {% if entraineur.status == 1 %}
+                    <span class="chip green lighten-5">
+                                    <span class="green-text">Active</span>
+                    </span>
+                       {% else %}
+                                           <span class="chip green lighten-5">
+
+                                    <span class="green-text">Disable</span>
+                                     </span>
+                      {% endif %}
+                                     </td>
+                                        <td>
+                                        <a href="{{ path('app_admin_entraineur_page',{'id': entraineur.id}) }}"><i class="material-icons">remove_red_eye</i></a>
+                                        <a href="{{ path('app_admin_entraineur_edit',{'id': entraineur.id}) }}"><i class="material-icons">edit</i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                              <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>$320,800</td>
+                  </tr>
+                   <tr>
+                    <td>Shad Decker</td>
+                    <td>Regional Director</td>
+                    <td>Edinburgh</td>
+                    <td>51</td>
+                    <td>$183,000</td>
+                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- datatable ends -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

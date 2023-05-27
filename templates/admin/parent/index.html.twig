@@ -1,0 +1,94 @@
+{% extends "base.html.twig" %}
+{% block title %}Liste des parents{% endblock %}
+{% block pageTitle %}Liste des parents{% endblock %}
+{% block levelOne %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_parent_list') }}">Parents</a></li>{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+    <div class="col s2 m6 l6">
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_parent_create') }}">
+            Nouveau 
+            {# Parent #}
+            </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {#  Show alert : START #}
+    {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {#  Show alert : END  #}
+    <section class="users-list-wrapper section">
+        <div class="users-list-table">
+            <div class="card">
+                <div class="card-content">
+                    <!-- datatable start -->
+                    {# <div class="responsive-table"> #}
+                      <div class="row">
+            <div class="col s12">
+                        <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Prenom</th>
+                                <th>Nom</th>
+                                <th>Telephone</th>
+                                <th>Email</th>
+                                <th>Login</th>
+                                <th>Facebook</th>
+                                <th>status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for parent in parents %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ parent.id }}</td>
+                                    <td>{{ parent.prenom }}</td>
+                                    <td>{{ parent.nom }}</td>
+                                    <td>{{ parent.telephone }}</td>
+                                    <td>{{ parent.email }}</td>
+                                    <td>{{ parent.login }}</td>
+                                    <td>{{ parent.profileFacebook }}</td>
+                                    {% if parent.status == 1 %}
+                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+                                    {% else %}
+                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ path('app_admin_parent_edit',{'id': parent.id}) }}"><i class="material-icons">edit</i></a>
+                                         <a href="{{ path('app_admin_parent_page',{'id': parent.id}) }}"><i class="material-icons">remove_red_eye</i></a> 
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>   </div>
+                    <!-- datatable ends -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

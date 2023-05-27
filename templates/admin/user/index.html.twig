@@ -1,0 +1,111 @@
+{% extends "base.html.twig" %}
+    {% block stylesheets %}
+     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/data-tables.css') }}"> 
+      {% endblock %}
+
+  {# <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/data-tables.css') }}"> #}
+{% block title %} Liste des utilisateurs {% endblock %}
+{% block pageTitle %} Liste des utilisateurs {% endblock %}
+{% block levelOne %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_user_list') }}">utilisateurs</a></li>{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+    <div class="col s2 m6 l6">
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_user_create') }}">
+            {# Create User #}
+            Nouveau
+            </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {#  Show alert : START #}
+    {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {#  Show alert : END  #}
+    <section class="users-list-wrapper section">
+        <!-- Page Length Options -->
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          {# <h4 class="card-title">Page Length Options</h4> #}
+          <div class="row">
+            <div class="col s12">
+              <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Login</th>
+                                <th>nom</th>
+                                <th>prenom</th>
+                                <th>telephone</th>
+                                <th>Email</th>  
+                                <th>profileFacebook</th>       
+                                <th>Status</th>
+                                <th>Action</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for users in users %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ users.id }}</td>
+                                    <td>{{ users.login }}</td>
+                                    <td>{{ users.nom }}</td>
+                                    <td>{{ users.prenom }}</td>
+                                    <td>{{ users.telephone }}</td>
+                                    <td>{{ users.email }}</td>
+                                    <td>{{ users.profileFacebook }}</td>
+                                    {% if users.status == 1 %}
+                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+                                    {% else %}
+                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
+                                    {% endif %}
+
+                                    <td>
+                                        
+                                        <a href="{{ path('app_admin_user_edit',{'id': users.id}) }}"><i class="material-icons">edit</i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        {# <div class="users-list-table">
+            <div class="card">
+                <div class="card-content">
+                    <!-- datatable start -->
+                    
+                    <!-- datatable ends -->
+                </div>
+            </div>
+        </div> #}
+    </section>
+{% endblock %}

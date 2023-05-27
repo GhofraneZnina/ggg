@@ -1,0 +1,226 @@
+{% extends "base.html.twig" %}
+{% block title %}Liste des competitions
+{% endblock %}
+{% block pageTitle %}Liste des competitions
+{% endblock %}
+{% block levelOne %}
+	<li class="breadcrumb-item">
+		<a href="{{ path('app_admin_comeptition_list') }}">competitions</a>
+	</li>
+{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+
+
+	<!-- Modal Trigger -->
+	{# <a class="waves-effect waves-light btn modal-trigger" href="{{ path('app_admin_groupe_list') }}">create groupe</a> #}
+		<a data-target="modal1" class="btn modal-trigger   waves-effect waves-light breadcrumbs-btn right    "> ajouter competitions</a>
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal modal-fixed-footer">
+		<div class="modal-content">
+
+
+			<div class="card">
+				<div class="card-content">
+					<div class="divider mb-3"></div>
+					<div class="row">
+						<div
+							class="col s12" id="account">
+							<!-- users edit media object ends -->
+							{{ form_start(form) }}
+							<div class="row">
+								<div class="col s12 ">
+									<div class="row">
+
+										<div class="col s12 m6 input-field">
+											{{ form_widget(form.intitule, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt2'}}) }}
+											<label class="active">intitule</label>
+											<small class="errorTxt2"></small>
+										</div>
+										<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="planning_date">date debut </label>
+										{{ form_widget(form.dateDebut,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+									<div
+										class="col s12 m6 input-field" id="view-date-picker-2">
+										{# <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below! </p> #}
+										<label for="planning_date">date Fin </label>
+										{{ form_widget(form.dateFin,{'attr': {'class': 'datepicker', 'data-error' :'.errorTxt5'}}) }}
+
+									</div>
+											
+									
+                                        <div class="col s12 input-field">
+                                        {{ form_widget(form.typeMinimas, {'attr': {'class': 'form-control', 'data-error' :'.errorTxt3'}}) }}
+                                        <label class="active">typeMinimas</label>
+                                        <small class="errorTxt3"></small>
+                                    </div>
+
+									</div>
+								</div>
+								<div class="col s12 display-flex justify-content-end mt-3">
+									{{ form_widget(form.submit) }}
+									<button type="button" class="btn btn-light">Cancel</button>
+								</div>
+							</div>
+							{{ form_end(form) }}
+							<!-- users edit account form ends -->
+						</div>
+					</div>
+				</div>
+				<!-- </div> -->
+
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+
+{% block body %}
+	{#  Show alert : START #}
+	{% for message in app.flashes('success') %}
+		<div class="card-alert card green">
+			<div class="card-content white-text">
+				<p>
+					{{ message }}</p>
+			</div>
+			<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="card-alert card red">
+			<div class="card-content white-text">
+				<p>
+					{{ message }}</p>
+			</div>
+			<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	{% endfor %}
+	{#  Show alert : END  #}
+	<section class="users-list-wrapper section">
+		<div class="users-list-filter">
+			{# <div class="card-panel">
+				<div class="row">
+					<form>
+						<div class="col s12 m6 l3">
+							<label for="users-list-verified">Verified</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-verified">
+									<option value="">Any</option>
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3">
+							<label for="users-list-role">Role</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-role">
+									<option value="">Any</option>
+									<option value="User">competition</option>
+									<option value="Staff">Staff</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3">
+							<label for="users-list-status">Status</label>
+							<div class="input-field">
+								<select class="form-control" id="users-list-status">
+									<option value="">Any</option>
+									<option value="Active">Active</option>
+									<option value="Close">Close</option>
+									<option value="Banned">Banned</option>
+								</select>
+							</div>
+						</div>
+						<div class="col s12 m6 l3 display-flex align-items-center show-btn">
+							<button type="submit" class="btn btn-block indigo waves-effect waves-light">Show</button>
+						</div>
+					</form>
+				</div>
+			</div> #}
+		</div>
+		<div class="users-list-table">
+			<div class="card">
+				<div
+					class="card-content">
+					<!-- datatable start -->
+					<div class="responsive-table">
+						<table id="users-list-datatable" class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>id</th>
+									<th>intitule</th>
+									<th>dateDebut</th>
+									<th>dateFin</th>
+									<th>typeMinimas</th>
+						
+
+								</tr>
+							</thead>
+							<tbody>
+								{% for competition in competition %}
+									<tr>
+										<td></td>
+										<td>{{ competition.id }}</td>
+										<td>{{ competition.intitule}}</td>
+										<td>{{ competition.dateDebut|date('Y-m-d') }}</td>
+										<td>{{ competition.dateFin|date('Y-m-d') }}</td>
+										<td>{{ competition.typeMinimas}}</td>
+										
+
+										<td>
+
+
+											<a href="{{ path('app_admin_competition_delete',{'id': competition.id}) }}">
+												<i class="btn-small btn-light-pink">supprimer</i>
+											</a>
+
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<!-- datatable ends -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+	{# <script src="../../../app-assets/js/scripts/advance-ui-modals.js"></script> #}
+	<script src="{{asset('assets/app-assets/js/scripts/advance-ui-modals.js')}}"></script>
+	<script type="text/javascript">
+		jQuery('.modal').modal({
+dismissible: true, // Modal can be dismissed by clicking outside of the modal
+opacity: .5, // Opacity of modal background
+inDuration: 300, // Transition in duration
+outDuration: 200, // Transition out duration
+startingTop: '4%', // Starting top style attribute
+endingTop: '10%', // Ending top style attribute
+ready: function (modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+alert("Ready");
+console.log(modal, trigger);
+},
+complete: function () {
+alert('Closed');
+} // Callback for Modal close
+})
+	</script>
+{% endblock %}

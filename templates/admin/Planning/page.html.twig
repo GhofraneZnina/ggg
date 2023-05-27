@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Planning</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>Heure de début</th>
+                    <th>Heure de fin</th>
+                    {# <th>Groupe</th> #}
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for seance in seances %}
+                <tr>
+                    <td>{{ seance.jour|date('d/m/Y') }}</td>
+                    <td>{{ seance.horaireDebut }}</td>
+                    <td>{{ seance.horaireFin }}</td>
+                    {# <td>{{ seance.groupe }}</td> #}
+                    <td>
+                        {# <a href="{{ path('edit_seance', {'id': seance.id}) }}">Modifier</a> #}
+                        {# <a href="{{ path('delete_seance', {'id': seance.id}) }}">Supprimer</a> #}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Ajouter une séance</h2>
+
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.jour) }}
+                {{ form_widget(form.jour) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.horaireDebut) }}
+                {{ form_widget(form.horaireDebut) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.horaireFin) }}
+                {{ form_widget(form.horaireFin) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.groupe) }}
+                {{ form_widget(form.groupe) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}
+/////////////////////////////////
+{% extends 'base.html.twig' %}
+{% block title %}Les Plannings
+{% endblock %}
+{% block pageTitle %}Les Plannings
+{% endblock %}
+{% block levelOne %}
+	<li class="breadcrumb-item">
+		<a href="{{ path('app_admin_planning_list') }}">Plannings</a>
+	</li>
+{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block body %}
+    <div class="container-fluid mt-5">
+        
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                    <th>Dimanche</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in 1..24 %}
+                    <tr>
+                        <th>{{ i }}:00</th>
+                        {% for j in 1..7 %}
+                            {% set seance = seances[(j-1)*24+i-1] ?? null %}
+                            <td>
+                                {% if seance %}
+                                    {{ seance.horaireDebut|date('H:i') }} - {{ seance.horaireFin|date('H:i') }}<br>
+                                    {{ seance.groupe|join(', ') }}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+///////////////////////////////////////////////////////

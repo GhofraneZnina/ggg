@@ -1,0 +1,100 @@
+{% extends "base.html.twig" %}
+{% block title %}Liste des nageurs{% endblock %}
+{% block pageTitle %}Liste des nageurs{% endblock %}
+{% block levelOne %}
+    <li class="breadcrumb-item"><a href="{{ path('app_admin_nageur_list') }}">Nageurs</a></li>{% endblock %}
+{% block levelTwo %}{% endblock %}
+{% block levelThree %}{% endblock %}
+{% block btnLink %}
+    <div class="col s2 m6 l6">
+        <a class="btn  waves-effect waves-light breadcrumbs-btn right" href="{{ path('app_admin_nageur_create') }}">
+Nouveau
+             {# nageur #}
+             </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {#  Show alert : START #}
+    {% for message in app.flashes('success') %}
+        <div class="card-alert card green">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-alert card red">
+            <div class="card-content white-text">
+                <p>  {{ message }}</p>
+            </div>
+            <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+    {#  Show alert : END  #}
+    <section class="users-list-wrapper section">
+        <div class="users-list-table">
+            <div class="card">
+                <div class="card-content">
+                    <!-- datatable start -->
+                    <div class="responsive-table">
+                        <table id="users-list-datatable" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>id</th>
+                                <th>Nom complet</th>
+                                <th>Parent</th> 
+                                <th>Telephone</th>
+                                <th>categorie</th>
+                                <th>Login</th>
+                                <th>groupe</th>
+                                <th>cotisation annuelle</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for nageur in nageurs %}
+                            
+                                <tr>
+                                    <td></td>
+                                    <td>{{ nageur.id }}</td>
+                                    <td>{{ nageur.prenom ~ ' ' ~ nageur.nom }}</td> 
+                                   <td>{{ nageur.parent.prenom ~ ' ' ~ nageur.parent.nom }}</td> 
+                                    <td>{{ nageur.telephone }}</td>
+                                    <td>{{ nageur.categorie.intitule  }}</td>
+                                    <td>{{ nageur.login }}</td>
+                                    <td>{{ nageur.groupe.intitule }}</td>
+                                    <td>
+                                        {% for cotisationAnnuelle in nageur.cotisationAnnuelles %}
+                                            {{ cotisationAnnuelle.remarque }}
+                                        {% endfor %}
+                                     </td>
+                                    {% if nageur.status == 1 %}
+                                    <td><span class="chip green lighten-5"> <span class="green-text">Active</span> </span> </td>
+                                    {% else %}
+                                        <td><span class="chip red lighten-5"> <span class="green-text">Disable</span> </span> </td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ path('app_admin_nageur_page',{'id': nageur.id}) }}"><i class="material-icons">remove_red_eye</i></a>
+                                        <a href="{{ path('app_admin_nageur_edit',{'id': nageur.id}) }}"><i class="material-icons">edit</i></a>
+                                        
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- datatable ends -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

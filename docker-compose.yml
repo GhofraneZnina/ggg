@@ -1,0 +1,36 @@
+version : '3'
+services:
+  db-natation:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    hostname: db-natation
+    ports:
+      - 3308:3306
+    volumes:
+      - ./data/data-mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: club
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: project_phpmyadmin
+      depends_on:
+        - db-natation
+      environment:
+        PMA_HOST: db-natation
+        PMA_PORT: 3306
+        PMA_ARBITRARY: 1
+      ports:
+        - "81:80"
+  app_natation:
+    
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '88:80'
+    depends_on:
+      - db-natation
+    environment:
+      APP_ENV: dev
